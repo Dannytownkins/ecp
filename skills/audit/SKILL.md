@@ -30,7 +30,7 @@ This skill is the runtime router for the ECP audit. It produces cited, element-a
 5. P0-05: Dual-device runs MUST keep each device's DOM, baton, screenshots, and audit outputs separated.
 6. P0-06: Cluster audit work MUST be dispatched to cluster specialists; the lead NEVER audits a failed cluster as fallback.
 7. P0-07: Ethics gate MUST execute before synthesis; BLOCK or ADJACENT ethics findings require real source URLs.
-8. P0-08: Cluster files MUST pass `scripts/validate-cluster-files.py` before assembly.
+8. P0-08: Every cluster + ethics emission MUST pass validation before synthesis — `scripts/test-specialist.py validate --schema cluster-emission` for v2 JSON emissions (`scripts/validate-cluster-files.py` is legacy v1 markdown only).
 9. P0-09: Priority Path synthesis MUST use the protocol and subagent path; inline lead-authored stories are FORBIDDEN.
 10. P0-10: Structural assertions in `contracts/trace-assertion-canary.md` MUST run before the audit checkpoint; assertion failure BLOCKS phase progression.
 11. P0-11: v2 JSON and state writes MUST use atomic write helpers or scripts that own their output.
@@ -83,8 +83,8 @@ Run this sequence:
 8. Preprocess DOM per device when DOM exists.
 9. Dispatch cluster specialists for each selected cluster and device.
 10. Dispatch ethics v2 after specialist emissions are present.
-11. Dispatch synthesizer v2 after ethics completes or records partial status.
-12. Validate cluster files, assemble audit markdown, and run structural plus substantive canaries.
+11. Validate every specialist + ethics emission, build the canonical f_refs manifest, and trim each device baton, then dispatch synthesizer v2 (after ethics completes or records partial status).
+12. Validate the synthesizer emission, run the cross-device drift gate, and run structural plus substantive canaries (see "Validation, Synthesis, and Rendering").
 13. Present the audit checkpoint with export options.
 14. Export the audit markdown and the annotated visual report when requested.
 15. Update `meta.json`, write `lead-reflection.md`, and clean up the team at completion.
@@ -117,23 +117,50 @@ Write audit artifacts inside `docs/ecp/{engagement-id}/`:
 
 Use the path and field names from `contracts/meta-schema.md`, `contracts/audit-state-machine.md`, and the relevant workflow. Do not invent alternate artifact names.
 
-## Validation And Recovery
+## Validation, Synthesis, and Rendering
 
-Before audit assembly:
+This skill runs the **v2 JSON-emission pipeline**: specialists, ethics, and the synthesizer emit structured JSON (`cluster-{cluster}-{device}.json`, `ethics-findings.json`, `synthesizer-emission-v1.json`) and hotspots resolve by `e_index` lookup. Run these steps in order once specialist and ethics emissions exist. Commands run from the repo root; substitute `{id}`, `{cluster}`, `{device}`, and `{plugin-root}`. The exact synthesizer dispatch wiring (canonical-f_refs file plumbing, prompt placeholders) lives in the Synthesis-phase contracts (`contracts/synthesizer-subagent.md`, `contracts/priority-path-synthesis.md`); the steps below are the orchestration spine and the commands that are stable regardless of that wiring.
 
-```powershell
-python scripts/validate-cluster-files.py --engagement docs/ecp/{engagement-id}
-```
+1. **Validate every specialist + ethics emission** (P0-08), one call per emission:
+   ```powershell
+   python scripts/test-specialist.py validate --emission-path docs/ecp/{id}/cluster-{cluster}-{device}.json --schema cluster-emission --baton-path docs/ecp/{id}/baton.json
+   ```
+   Validate the ethics emission against both batons (`--schema cluster-emission --desktop-baton-path ... --mobile-baton-path ...`). On failure, pass `--write-retry-prompt <path>` and re-dispatch the specialist; never hand-edit an emission.
 
-Then assemble using the device and priority-path arguments required by the current workflow:
+2. **Build the canonical f_refs manifest** (after all specialists + ethics validate):
+   ```powershell
+   python scripts/lead_prep.py build-canonical-frefs --engagement docs/ecp/{id}
+   ```
+   Writes `canonical-f-refs-manifest.json` + `.md`. It calls `report/v2_loader.build_canonical_view`, so the manifest is exactly the renderer's allowlist and cannot drift. These are the canonical f_refs the synthesizer must cite.
 
-```powershell
-python scripts/assemble-audit.py --engagement docs/ecp/{engagement-id} --device {device}
-```
+3. **Trim each device baton to referenced elements** before synthesizer dispatch (mandatory — prevents 1M-context overflow). Use `scripts/assembly/synth_input.trim_baton_file`, which writes a trimmed baton plus a `baton-{device}-trimmed-summary.json` sidecar. The synthesizer prompt points at the trimmed batons.
 
-Run substantive canaries with `scripts.assembly.canary_checks.run_all_canaries` as documented in `contracts/trace-assertion-canary.md`, append summaries to `audit-trace.log`, and record anomalies in `lead-reflection.md`.
+4. **Prepare and dispatch the synthesizer** (Task subagent) per `contracts/synthesizer-subagent.md`, feeding it the cluster emissions, ethics findings, the trimmed batons (step 3), and the canonical f_refs (step 2):
+   ```powershell
+   python scripts/test-specialist.py prepare-synthesizer --engagement-id {id} --cluster-emission docs/ecp/{id}/cluster-{cluster}-{device}.json --ethics-findings-path docs/ecp/{id}/ethics-findings.json --desktop-baton-path <trimmed-desktop-baton> --mobile-baton-path <trimmed-mobile-baton> --canonical-f-refs-path <canonical-f-refs> --out docs/ecp/{id}/.prompts/synthesizer.txt
+   ```
+   (`--cluster-emission` is repeated once per emission.) The synthesizer emits `synthesizer-emission-v1.json` plus `audit-desktop.md` / `audit-mobile.md`.
 
-If acquisition fails after the required dispatch and correction attempt, use the manual acquisition fallback from `workflows/acquire.md` and log the degraded path. If cluster specialists fail, write an honest SKIP marker; do not replace specialist work with lead-authored findings.
+5. **Validate the synthesizer emission** (Phase F.4) against the canonical f_refs allowlist:
+   ```powershell
+   python scripts/test-specialist.py validate --emission-path docs/ecp/{id}/synthesizer-emission-v1.json --schema synthesizer-emission --finalized-findings <canonical-f-refs>
+   ```
+
+6. **Run the cross-device drift gate** (Phase F.3):
+   ```powershell
+   python scripts/test-specialist.py drift-check --desktop-md docs/ecp/{id}/audit-desktop.md --mobile-md docs/ecp/{id}/audit-mobile.md --synthesizer-emission docs/ecp/{id}/synthesizer-emission-v1.json
+   ```
+
+7. **Run substantive canaries** with `scripts.assembly.canary_checks.run_all_canaries` as documented in `contracts/trace-assertion-canary.md`; append summaries to `audit-trace.log` and record anomalies in `lead-reflection.md`.
+
+8. **Render the visual report** (v2 is auto-detected from `synthesizer-emission-v1.json`; `--v2` forces it), one call per device:
+   ```powershell
+   python scripts/generate-report.py --v2 --engagement docs/ecp/{id} --device {device} --plugin-root {plugin-root} --audit audit-{device}.md
+   ```
+
+**Legacy v1 tools — do NOT run on a v2 engagement.** `scripts/validate-cluster-files.py`, `scripts/assemble-audit.py`, and `scripts/prep_synth_input.py` parse v1 `cluster-{cluster}-{device}.md` markdown. On a v2 JSON engagement they find zero findings or raise `FileNotFoundError`; they exist only for replaying archived v1 markdown engagements. The v1 `audit.md` template lives in `contracts/audit-assembly.md`.
+
+**Recovery.** If acquisition fails after the required dispatch and correction attempt, use the manual acquisition fallback from `workflows/acquire.md` and log the degraded path. If cluster specialists fail, write an honest SKIP marker; do not replace specialist work with lead-authored findings.
 
 ## Checkpoints
 

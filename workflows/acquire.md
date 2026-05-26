@@ -26,7 +26,22 @@ The Output Contract and Output Format sections at the end of this document are t
 > Bash: agent-browser goto "https://example.com"
 > Bash: agent-browser screenshot "/path/to/file.jpg"
 > Bash: agent-browser eval "document.title"
+> Bash: agent-browser eval -b "$(printf '%s' 'JSON.stringify({w: window.innerWidth})' | base64 -w 0)"   # non-trivial JS -> base64
 > ```
+
+## Running `eval` safely on every platform (base64)
+
+**Rule.** A bare property read may be passed inline (`agent-browser eval "document.title"`). **Any** richer JS — every `JSON.stringify((function(){ ... })())` block in this document, and anything containing quotes, parentheses, braces, `&&`, `|`, `<`, or `>` — MUST be base64-encoded and run as:
+
+```
+agent-browser {session_flag} eval -b <base64-of-the-js>
+```
+
+Encode the JS *string* (not a file) with the cross-platform fallbacks in **Base64 encoding (cross-platform)** below — e.g. `printf '%s' '<js>' | base64 -w 0`, the `python -c` fallback, or `certutil`. (`agent-browser eval --stdin` is the equivalent when you can pipe the JS in instead of passing `-b`.)
+
+**Why — do not skip this (it bit the Windows operator).** `agent-browser` resolves to a `.ps1`/`.cmd` npm shim, so a raw quoted JS arg is re-parsed by the shell before agent-browser sees it. PowerShell does **not** treat CMD-style `\"` as an escape, so the inner double-quotes terminate the string early, the JS is truncated, and the browser throws `SyntaxError: Unexpected end of input`. base64 contains no shell metacharacters, so it round-trips intact and agent-browser decodes it via `-b`/`--base64`. This is the same fix `_eval_args` applies on the Cursor path (`scripts/cursor_bootstrap_url.py`); the Bash tool's bash shim happens to dodge the mangling today, but encoding keeps this acquirer correct under any shell.
+
+**Decoding the result.** agent-browser JSON-encodes whatever `eval` returns, and the blocks here wrap their payload in `JSON.stringify(...)`, so values arrive **double-encoded** — a JSON string whose contents are themselves JSON. Parse the outer layer, then parse again (mirror `_unwrap_eval` in `cursor_bootstrap_url.py`).
 
 You capture page data for e-commerce psychology analysis. Your job is purely mechanical: navigate, screenshot, extract DOM. You do not analyze or judge — downstream auditors handle that.
 
@@ -207,7 +222,7 @@ After settle time, check for overlays that obstruct the page:
 
 5. **Viewport-clear verification (MANDATORY before proceeding to screenshots):**
 
-   After all overlay dismissal attempts, verify the viewport is actually clear:
+   After all overlay dismissal attempts, verify the viewport is actually clear. This payload has quotes, parens, and braces — base64-encode it and run it via `agent-browser eval -b <base64>` per **Running `eval` safely** above (shown unencoded here for readability):
 
    ```
    agent-browser {session_flag} eval "JSON.stringify((function() { var overlays = document.querySelectorAll('[role=\"dialog\"]:not([style*=\"display: none\"]), .modal:not([style*=\"display: none\"]), [class*=\"popup\"]:not([style*=\"display: none\"]), [class*=\"overlay\"]:not([style*=\"display: none\"]), [class*=\"newsletter\"]:not([style*=\"display: none\"]), [class*=\"subscribe\"]:not([style*=\"display: none\"]), [class*=\"omnisend\"]:not([style*=\"display: none\"]), [class*=\"klaviyo\"]:not([style*=\"display: none\"])'); var blocking = []; overlays.forEach(function(el) { var r = el.getBoundingClientRect(); var vw = window.innerWidth; var vh = window.innerHeight; var coverage = (Math.min(r.right,vw) - Math.max(r.left,0)) * (Math.min(r.bottom,vh) - Math.max(r.top,0)); if (coverage > vw * vh * 0.1) blocking.push({class: el.className.toString().slice(0,60), coverage: Math.round(coverage/(vw*vh)*100)+'%'}); }); return {clear: blocking.length === 0, blocking: blocking}; })())"
@@ -408,6 +423,8 @@ agent-browser {session_flag} wait 500
 agent-browser {session_flag} eval "window.scrollTo({top: {scrollY}, behavior: 'instant'}); window.scrollY"
 ```
 
+Base64-encode the scroll JS and run it via `agent-browser eval -b <base64>` (it contains braces and quotes), per **Running `eval` safely** above.
+
 Do NOT use `agent-browser scroll to` or `agent-browser scroll down` as the primary scroll method — they are unreliable across themes.
 
 After scrolling, wait 500ms (`agent-browser {session_flag} wait 500`) before capturing.
@@ -457,7 +474,7 @@ Extract `document.documentElement.outerHTML` from the fully rendered page.
 - Each element carries `is_above_fold`, `is_sticky`, `is_offscreen` boolean flags computed at capture time.
 - Mobile sessions ALWAYS-INCLUDE drawer-nav, tab-bar, sticky-element, off-canvas-menu, bottom-sheet selectors regardless of viewport state. These elements may be off-screen at any given scroll position but specialists need them.
 
-At each scroll position, after the screenshot is taken, run:
+At each scroll position, after the screenshot is taken, run the JS below. It is large and full of quotes/braces, so base64-encode it and run it via `agent-browser eval -b <base64>` (per **Running `eval` safely** above) — never as a raw quoted arg:
 
 ```js
 JSON.stringify((function() {
@@ -538,8 +555,10 @@ JSON.stringify((function() {
           tag: el.tagName.toLowerCase(),
           text_content: (el.textContent || '').trim().slice(0, 240),
           class: (el.className || '').toString().slice(0, 80),
-          x: Math.round(r.left),
-          y: Math.round(r.top + scrollY),
+          // Clamp x/y to >=0: off-canvas elements yield negative getBoundingClientRect
+          // coords, which schema/baton-v1.json (rect.x/y minimum: 0) rejects.
+          x: Math.max(0, Math.round(r.left)),
+          y: Math.max(0, Math.round(r.top + scrollY)),
           width: Math.round(r.width),
           height: Math.round(r.height),
           scroll_y_at_capture: scrollY,
@@ -597,7 +616,7 @@ Write the indexed and deduplicated result into the baton as `elements[]` per `sc
 
 ### Step 4a: Extract Structured page_head (v2 baton-v1.json)
 
-After DOM extraction (Step 4) but before stripping JSON-LD, extract structured `<head>` metadata for content-seo and trust-credibility specialists. Run via agent-browser eval:
+After DOM extraction (Step 4) but before stripping JSON-LD, extract structured `<head>` metadata for content-seo and trust-credibility specialists. Base64-encode the JS below and run it via `agent-browser eval -b <base64>` (per **Running `eval` safely** above):
 
 ```js
 JSON.stringify((function() {
