@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const fixtureArg = process.argv[2] || "docs/ecp/2026-05-03-awdmods-pdp";
+const fixtureArg = process.argv[2] || "tests/fixtures/2026-05-03-awdmods-pdp";
 const device = process.argv[3] || "desktop";
 const sourceEngagement = path.resolve(repoRoot, fixtureArg);
 

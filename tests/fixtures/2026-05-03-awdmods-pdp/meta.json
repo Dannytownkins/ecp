@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "engagement_id": "2026-05-03-awdmods-pdp",
+  "created_at": "2026-05-03T22:08:14.566Z",
+  "updated_at": "2026-05-03T22:08:14.566Z",
+  "url": "https://www.awdmods.com/products/ford-focus-rs-borla-atak-exhaust-system?variant=43272042840129",
+  "page_type": "Product page",
+  "source_mode": "url",
+  "devices": [
+    "desktop",
+    "mobile"
+  ],
+  "clusters_used": [
+    "visual-cta",
+    "trust-credibility",
+    "pricing",
+    "content-seo"
+  ],
+  "engagement_status": "acquired"
+}

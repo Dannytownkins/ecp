@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "engagement_id": "2026-05-02-9cd2a2ac",
+  "synthesizer_model": {
+    "family": "opus",
+    "version": "4.7",
+    "context_window": "1M"
+  },
+  "started_at": "2026-05-03T00:14:00.000Z",
+  "completed_at": "2026-05-03T00:30:00.000Z",
+  "status": "complete",
+  "dispatch_shape": "single",
+  "degraded_mode": false,
+  "audit_documents": {
+    "desktop": "docs/ecp/2026-05-02-9cd2a2ac/audit-desktop.md",
+    "mobile": "docs/ecp/2026-05-02-9cd2a2ac/audit-mobile.md"
+  },
+  "priority_path": [
+    {
+      "mode": "bundle",
+      "title": "Promote vehicle fitment to a persistent above-fold selector on desktop",
+      "severity": "HIGH",
+      "narrative": "The fitment selector is the single highest-leverage control on a four-platform parts catalog (Focus RS, Focus ST, WRX, STI), yet desktop renders it as a small SELECT YOUR VEHICLE pill in the top-right header (smaller than the cart icon) plus a low-contrast Select Make dropdown floating over the hero photo that exposes only one of the three required steps. The header search input (929px wide) dominates the same band, inverting the friction: visitors who do not yet know an exact part name type a guess, get unfiltered results, and either bounce or buy a wrong-fitment SKU. Promote a full-width Year/Make/Model strip directly under the primary header with all three dropdowns visible at rest, shrink the search to a smaller right-aligned input, and update the placeholder to template a fitment example so the catalog reads as fitment-aware from the first scan.",
+      "f_refs": ["category-navigation F-19", "category-navigation F-03", "visual-cta F-89"]
+    },
+    {
+      "mode": "bundle",
+      "title": "Rebuild the desktop hero with headline, value prop, primary CTA, and trust strip",
+      "severity": "HIGH",
+      "narrative": "The desktop hero band renders a full-bleed WRX photograph with zero overlaid copy: no headline, no subhead, no filled CTA, and no above-fold credibility marker. The five blue category buttons below the hero compete equally with one another, none promoted as the page's primary commit. Add an H1 naming the buyer and offer (Performance Parts for Subaru WRX, STI, Ford Focus RS and ST), a one-line subhead naming the differentiator, a single filled Find Parts For My Car CTA at minimum 200x55 in the existing brand blue, and a slim trust strip immediately under the header carrying aggregate review rating, Authorized Dealer call-out, and a Fitment Guaranteed line. Demote the five SHOP-X buttons to a secondary row so the hero resolves to one primary action.",
+      "f_refs": ["visual-cta F-12", "visual-cta F-37", "visual-cta F-38", "visual-cta F-13"]
+    },
+    {
+      "mode": "bundle",
+      "title": "Restore Featured Collection merchandising and social-proof on desktop",
+      "severity": "HIGH",
+      "narrative": "The Featured Collection is the desktop homepage's primary product surface and is currently doing the opposite of merchandising work: eight of ten cards render with no star rating row, every card carries an identical yellow Made to Order badge, and the heading is text-only with no View all link. The two cards that do show ratings (5.0 with 2 reviews) prove the template supports the field; it is simply absent on cards whose products have zero or unfetched reviews. Render the rating row on every card (use No reviews yet for zero-review products so card heights stay consistent), reserve badges for genuine differentiation (Best Seller, New, Low Stock) and move the Made to Order label into the card body near the price as logistics copy, and add a Shop the collection link aligned right of the Featured Collection heading. Drop the grid from five columns to four at >=1440px while you are in the template.",
+      "f_refs": ["category-navigation F-51", "category-navigation F-28", "category-navigation F-06", "category-navigation F-96"]
+    },
+    {
+      "mode": "bundle",
+      "title": "Rebuild the mobile hero with headline, opaque CTA, and persistent vehicle context",
+      "severity": "HIGH",
+      "narrative": "The mobile hero stacks a generic search bar, four empty Select Make/Model/Year/Trim dropdowns, and a translucent FIND PARTS button over a stock WRX photograph, with no headline, no subhead, and a primary CTA whose white label dissolves into the white car body behind it. Compounding the failure, the captured vehicle does not persist after Find Parts: a visitor who picks 2018 Focus RS and clicks the logo back to home has no visual confirmation the catalog is filtered and must re-select on every return. Add a one-line headline above the picker plus a one-line subhead naming the audience, make the FIND PARTS button a 100%-opaque brand-blue fill with a 1-2px darker border and verified 4.5:1 text contrast, and persist the selected vehicle in localStorage with a Shopping for: 2018 Focus RS [Change] [Clear] chip rendered in the sticky header on every page.",
+      "f_refs": ["visual-cta F-24", "visual-cta F-36", "category-navigation F-59"]
+    },
+    {
+      "mode": "bundle",
+      "title": "Add sticky Find Parts bar and bind mobile search to the selected vehicle",
+      "severity": "HIGH",
+      "narrative": "Once the mobile hero scrolls off (around y=810) the page has no persistent conversion action, only an unlabelled cart icon in the top header. Meanwhile the search bar accepts free-text queries with a generic Search placeholder and pipes none of the captured fitment data into results, so a shopper who types cold air intake gets every intake in the catalog including parts that do not fit their car. Render a slim sticky bottom bar (under 56px) that becomes either FIND PARTS for [Selected Vehicle] once the picker has been used or Pick your vehicle otherwise, and bind the search input to the persisted vehicle so autocomplete and results pre-filter to fit-confirmed parts. Display an active vehicle chip inside the search bar (Searching: 2018 Focus RS) and rotate the placeholder through three concrete fitment examples to coach query vocabulary.",
+      "f_refs": ["visual-cta F-67", "category-navigation F-05", "category-navigation F-84", "visual-cta F-52"]
+    }
+  ],
+  "quick_wins_manifest": [
+    "category-navigation F-03",
+    "category-navigation F-06",
+    "visual-cta F-39",
+    "visual-cta F-89",
+    "visual-cta F-13",
+    "visual-cta F-69",
+    "visual-cta F-77",
+    "visual-cta F-36",
+    "visual-cta F-04",
+    "visual-cta F-11",
+    "visual-cta F-52",
+    "category-navigation F-84",
+    "category-navigation F-45"
+  ],
+  "severity_manifest": [
+    "category-navigation F-19",
+    "category-navigation F-05",
+    "category-navigation F-51",
+    "category-navigation F-84",
+    "category-navigation F-45",
+    "category-navigation F-59",
+    "visual-cta F-12",
+    "visual-cta F-24",
+    "visual-cta F-37",
+    "visual-cta F-36",
+    "visual-cta F-67",
+    "category-navigation F-28",
+    "category-navigation F-96",
+    "category-navigation F-04",
+    "category-navigation F-03",
+    "category-navigation F-87",
+    "category-navigation F-06",
+    "visual-cta F-38",
+    "visual-cta F-13",
+    "visual-cta F-04",
+    "visual-cta F-69",
+    "visual-cta F-89",
+    "visual-cta F-77",
+    "visual-cta F-52",
+    "category-navigation F-12",
+    "category-navigation F-98",
+    "visual-cta F-39",
+    "visual-cta F-11"
+  ],
+  "scope_page_synchronized_refs": [],
+  "humanized_findings": [
+    {
+      "f_ref": "category-navigation F-19",
+      "plain_english_summary": "The most important control on a parts site is the vehicle picker, but on desktop it sits as a tiny pill in the top-right corner, smaller than the cart icon, plus a low-contrast dropdown floating over the hero that only shows the Make step. Shoppers who can't quickly confirm a part fits their car bounce or end up buying the wrong part, which drives returns and support tickets.",
+      "plain_english_action": "Promote the Year/Make/Model selector to a full-width strip directly under the header with all three dropdowns visible at rest, and treat it as the page's main conversion path."
+    },
+    {
+      "f_ref": "category-navigation F-51",
+      "plain_english_summary": "Eight of the ten product cards on the homepage's main shelf render with no star rating row, while two cards do show ratings. Star ratings are the cheapest social proof on the page, and missing them on the most-viewed shelf forfeits a documented 270% lift in purchase likelihood.",
+      "plain_english_action": "Always show the rating row on every card. Use a quiet 'No reviews yet' line on products with zero reviews so card heights stay consistent."
+    },
+    {
+      "f_ref": "category-navigation F-28",
+      "plain_english_summary": "Every card on the Featured Collection carries the same yellow 'Made to Order' badge. Badges work because they pick out one or two cards as different; when the same badge is on every card it stops carrying information and just adds visual noise around the price."
+    },
+    {
+      "f_ref": "category-navigation F-96",
+      "plain_english_summary": "On a 1920px desktop screen the homepage shelf renders five product columns, which is at the published ceiling for grid density. Five small cards take noticeably longer to scan than four bigger cards, which slows the handoff into a product detail page."
+    },
+    {
+      "f_ref": "category-navigation F-03",
+      "plain_english_summary": "The desktop search bar is well-sized and prominent, but its placeholder reads 'What are you looking for?' which gives no clue that the catalog is fitment-aware. A shopper from Google has no way to tell whether to type a part name, a year+model+part, or a part number."
+    },
+    {
+      "f_ref": "category-navigation F-06",
+      "plain_english_summary": "The Featured Collection heading is text-only, with no 'View all' link to its right. Visitors who decide they want the full collection while looking at the first row have no fast escape to it."
+    },
+    {
+      "f_ref": "category-navigation F-12",
+      "plain_english_summary": "The five-tile category row directly under the hero is doing real navigation work: each tile names its subcategories inline (Intakes, Exhaust, Cooling, Drivetrain) so a shopper with a clear build goal can route themselves in one click. Keep this pattern."
+    },
+    {
+      "f_ref": "visual-cta F-12",
+      "plain_english_summary": "The desktop hero is a full-bleed photograph of a tuned car with zero copy: no headline, no value proposition, no statement of who the store serves. A first-time visitor has to decode the page from photo and nav labels alone, and most leave in the first five seconds.",
+      "plain_english_action": "Add a clear H1 over the hero photo naming the buyer and the offer ('Performance Parts for Subaru WRX, STI, Ford Focus RS and ST') with a one-line subhead naming the differentiator."
+    },
+    {
+      "f_ref": "visual-cta F-37",
+      "plain_english_summary": "There is no single dominant call-to-action on the desktop hero. The vehicle picker is tiny text in the upper-right corner, and the five category buttons below all compete equally with each other, so visitors fragment across four entry points and click none of them."
+    },
+    {
+      "f_ref": "visual-cta F-38",
+      "plain_english_summary": "Above the fold, there is no aggregate rating, no customer count, no Authorized Dealer mark, no fitment guarantee. For shoppers evaluating a $500-$1,500 purchase, the first credibility check happens before they ever scroll, and currently the page gives them nothing to work with."
+    },
+    {
+      "f_ref": "visual-cta F-13",
+      "plain_english_summary": "Five category buttons below the hero are rendered identically: same blue, same width, same height, same uppercase label. Performance is almost certainly the top-revenue category on an automotive performance store, but its button is no more visually prominent than Electronics."
+    },
+    {
+      "f_ref": "visual-cta F-89",
+      "plain_english_summary": "The desktop header gives a 929px-wide search bar pride of place in the center-left zone where 80% of fixations fall, while the higher-leverage vehicle picker sits as small text in the upper-right corner. On a fitment-driven catalog this inverts the friction and pushes shoppers toward unfiltered text searches that return wrong-fit parts."
+    },
+    {
+      "f_ref": "visual-cta F-39",
+      "plain_english_summary": "The 'FREE SHIPPING on most orders $75+' offer runs in a thin blue ribbon at the very top of the page, in small text on a saturated banner that the eye reliably skips. The threshold is a real and meaningful offer for this catalog and currently does none of the average-order-value work it could."
+    },
+    {
+      "f_ref": "category-navigation F-05",
+      "plain_english_summary": "The mobile search bar accepts free-text queries with a generic 'Search' placeholder and no fitment context. A shopper who types 'cold air intake' gets every intake in the catalog, including ones that do not fit their car. The Find Parts widget below proves the store has fitment data, but that data is not piped into search.",
+      "plain_english_action": "Once a vehicle is selected, persist it and pre-filter all search results to fit-confirmed parts. Show an active vehicle chip in the search bar so the shopper can verify or clear the constraint."
+    },
+    {
+      "f_ref": "category-navigation F-84",
+      "plain_english_summary": "On mobile, the five top-level subcategories render as a horizontal carousel with one full-width tile visible at a time and no dots, no chevron, and no peek of the next tile. A shopper looking for exhaust parts has no way of knowing Performance is one of five categories, not the only one."
+    },
+    {
+      "f_ref": "category-navigation F-45",
+      "plain_english_summary": "The Featured Collection on mobile shows one product card per screen instead of the standard 2-column grid. A shopper has to swipe four times to see the same five products a 2-column grid renders in one scroll, which slows browse and bias-loads attention onto the visible card."
+    },
+    {
+      "f_ref": "category-navigation F-04",
+      "plain_english_summary": "The lead Featured Collection card on mobile (VelourTex Floor Mats) shows no star rating, while the next card in the carousel shows '5.0/5.0 (2)'. The asymmetry trains shoppers to discount the rating signal across the whole grid."
+    },
+    {
+      "f_ref": "category-navigation F-87",
+      "plain_english_summary": "There is no 'View All' or 'Shop the Collection' link on the mobile Featured Collection. A shopper interested in floor mats has to swipe through the carousel and click into a PDP to discover whether a category page even exists."
+    },
+    {
+      "f_ref": "category-navigation F-59",
+      "plain_english_summary": "After a mobile shopper picks 2018 Focus RS in Find Parts, nothing on the page indicates the chosen vehicle persists across navigation. Click the logo back to home and the filter resets, training shoppers to abandon the gate entirely.",
+      "plain_english_action": "Persist the selected vehicle in localStorage and render a 'Shopping for: 2018 Focus RS [Change] [Clear]' chip in the sticky header on every page."
+    },
+    {
+      "f_ref": "category-navigation F-98",
+      "plain_english_summary": "The mobile search input is a visible 348px-wide field anchored at the top of the viewport and persists in the sticky header on scroll. This is the right pattern and avoids the most common mobile search-discovery failure. Keep it."
+    },
+    {
+      "f_ref": "visual-cta F-24",
+      "plain_english_summary": "The mobile hero shows a search bar, four empty 'Select Make/Model/Year/Trim' dropdowns, and a FIND PARTS button overlaid on a stock car photo. Nothing tells a first-time visitor what the store sells, who the parts are for, or why to buy here. Most cold visitors bounce before opening the first dropdown.",
+      "plain_english_action": "Add a one-line headline above the picker ('Performance parts for Focus RS, Focus ST, WRX and STI') and a one-line subhead naming the audience and differentiator."
+    },
+    {
+      "f_ref": "visual-cta F-36",
+      "plain_english_summary": "The FIND PARTS button on the mobile hero is half-transparent blue with a white label, sitting over the brightest part of the underlying car photo. The label and icon almost merge with the white car body behind them, so the only conversion action above the fold reads as a fading rectangle rather than a button."
+    },
+    {
+      "f_ref": "visual-cta F-67",
+      "plain_english_summary": "Once the mobile hero scrolls off, no persistent conversion action remains anywhere on the page. The vehicle picker is gone, there is no sticky bottom bar, and the only header element related to conversion is an unlabelled cart icon. The entire fitment funnel breaks on the first scroll.",
+      "plain_english_action": "Add a slim sticky bar at the bottom of the mobile screen that becomes 'FIND PARTS for [Selected Vehicle]' once the picker has been used, or 'Pick your vehicle' otherwise."
+    },
+    {
+      "f_ref": "visual-cta F-04",
+      "plain_english_summary": "On every mobile product card, the only conversion action is a small orange square with a white plus glyph in the corner. There is no text label telling a thumb-scrolling shopper whether tapping it adds to cart, opens a quick view, or saves to wishlist. Every unrecognised icon is a lost click."
+    },
+    {
+      "f_ref": "visual-cta F-69",
+      "plain_english_summary": "The largest piece of typography between the mobile hero and the product grid is the words 'Featured Collection', a generic Shopify default that names the layout, not the merchandise or the buyer. A competitor could copy this heading verbatim and lose nothing."
+    },
+    {
+      "f_ref": "visual-cta F-77",
+      "plain_english_summary": "The newsletter signup is the only conversion action in the lower third of the page, but its submit control is a bare arrow glyph with no word on it. The arrow could plausibly be read as a 'next step' indicator rather than a submit action, so visitors hesitate and abandon."
+    },
+    {
+      "f_ref": "visual-cta F-52",
+      "plain_english_summary": "On mobile, only one of the five category cards is fully visible per screen, with no dots, no chevron, and no edge fade signalling a swipe. A shopper who only ever sees the hero plus one screenful of below-fold content reaches at most one of five primary navigation paths."
+    },
+    {
+      "f_ref": "visual-cta F-11",
+      "plain_english_summary": "The mobile cart icon is a flat outlined glyph with no count badge, no dot, and no adjacent text. Returning visitors who already have items in cart get no nudge to complete checkout and have to tap the icon just to see whether anything is there."
+    }
+  ],
+  "telemetry": {
+    "scope_page_count": 18,
+    "scope_device_desktop_count": 4,
+    "scope_device_mobile_count": 6,
+    "ethics_findings_count": 1,
+    "baton_elements_kept_after_trim": 0
+  },
+  "notes": [
+    "scope_page_synchronized_refs is intentionally empty: this is a per-cluster two-cluster audit on a homepage where desktop and mobile specialists surfaced largely device-specific findings (different surface counts, device-specific layouts). No finding was rendered with byte-identical OBSERVATION/RECOMMENDATION/Why-this-matters paragraphs in both audit documents.",
+    "Priority Path stories are device-scoped per the per-device actionable_refs filter: stories 1-3 cite desktop-only refs, stories 4-5 cite mobile-only refs."
+  ]
+}

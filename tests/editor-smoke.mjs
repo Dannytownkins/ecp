@@ -8,7 +8,7 @@ import { chromium } from "playwright";
 
 const execFileAsync = promisify(execFile);
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const fixtureArg = process.argv[2] || "docs/ecp/2026-05-02-9cd2a2ac";
+const fixtureArg = process.argv[2] || "tests/fixtures/2026-05-02-9cd2a2ac";
 const device = process.argv[3] || "desktop";
 const sourceEngagement = path.resolve(repoRoot, fixtureArg);
 

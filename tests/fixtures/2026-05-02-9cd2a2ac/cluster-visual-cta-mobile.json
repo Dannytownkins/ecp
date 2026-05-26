@@ -1,0 +1,441 @@
+{
+  "schema_version": 1,
+  "engagement_id": "2026-05-02-9cd2a2ac",
+  "cluster": "visual-cta",
+  "device": "mobile",
+  "specialist_model": {
+    "family": "opus",
+    "version": "4.7",
+    "context_window": "1M"
+  },
+  "started_at": "2026-05-02T23:55:00.000Z",
+  "completed_at": "2026-05-02T23:58:30.000Z",
+  "status": "complete",
+  "findings": [
+    {
+      "cluster": "visual-cta",
+      "device": "mobile",
+      "local_id": 1,
+      "verdict": "FAIL",
+      "title": "Hero Lacks Headline And Value Proposition",
+      "surface": "hero",
+      "element": {
+        "baton_index": "absent",
+        "text_content": "",
+        "role": "section"
+      },
+      "proposed_anchor": {
+        "kind": "element",
+        "element_baton_index": "e14",
+        "placement": "after-element",
+        "viewport": "mobile",
+        "reason": "A headline and value-proposition line should appear immediately below the search bar and above the vehicle-picker dropdowns"
+      },
+      "severity": "HIGH",
+      "scope": "page",
+      "effort": {
+        "change_type": "copy",
+        "change_scope": "single-file"
+      },
+      "confidence": 0.9,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-1-mobile.jpg",
+          "scroll_y": 0,
+          "viewport": "mobile",
+          "context": "Hero image fills the viewport from y~290 to y~810. The only copy is a generic search input ('Search'), four placeholder dropdowns ('Select Make / Model / Year / Trim') and a 'FIND PARTS' button. There is no headline naming what AWDMods sells, no subhead naming the buyer (Focus RS/ST, WRX/STI owner), and no differentiator."
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "hero-section-psychology.md",
+          "section": "Finding 1: The 5-Second Test",
+          "tier": "Gold"
+        },
+        {
+          "source": "hero-section-psychology.md",
+          "section": "Finding 4: Required Above-Fold Elements",
+          "tier": "Gold"
+        }
+      ],
+      "observation": "Above the fold the visitor sees only a search bar, four empty 'Select Make / Model / Year / Trim' dropdowns, and a 'FIND PARTS' button overlaid on a stock Subaru WRX photograph. Nothing on the page tells a first-time visitor what AWDMods sells, who the parts are for, or why to buy here instead of from a generic parts marketplace. A 5-second comprehension test would fail Question 1 ('what does this site sell?') because the words 'parts', 'AWD', and the vehicle-picker context do not add up to a value proposition without prior brand familiarity.",
+      "recommendation": "Add a one-line headline directly above the vehicle picker that names the offer in plain words, paired with a one-line subhead naming the audience. Example: headline 'Performance parts for Focus RS, Focus ST, WRX and STI.' / subhead 'Fitment-checked for your exact trim. Free shipping over $75.' This puts the 5-second-test answer on the screen for every cold visitor and gives the dropdown picker context.",
+      "why_this_matters": "Cold paid traffic and SEO entries arrive without brand context. With no headline, the page asks the visitor to learn the brand, infer the catalog, and operate a four-step picker before they have any reason to invest. Most bounce before the first dropdown opens.",
+      "evidence_tier": "Gold"
+    },
+    {
+      "cluster": "visual-cta",
+      "device": "mobile",
+      "local_id": 2,
+      "verdict": "FAIL",
+      "title": "Find Parts Button Has Washed-Out Contrast",
+      "surface": "primary-cta",
+      "element": {
+        "baton_index": "absent",
+        "text_content": "",
+        "role": "button"
+      },
+      "proposed_anchor": {
+        "kind": "section",
+        "section_index": 0,
+        "placement": "section-bottom-overlay",
+        "viewport": "mobile",
+        "reason": "The FIND PARTS button sits near the bottom of the hero image at approximately y=740 over the brightest portion of the underlying car photo"
+      },
+      "severity": "HIGH",
+      "scope": "page",
+      "effort": {
+        "change_type": "css",
+        "change_scope": "single-file"
+      },
+      "confidence": 0.85,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-1-mobile.jpg",
+          "scroll_y": 0,
+          "viewport": "mobile",
+          "context": "The 'FIND PARTS' button uses a translucent blue fill with white text. It sits directly over the brightest, highest-contrast part of the underlying car image (white headlights and reflective hood). The button label is partially illegible — the white 'FIND PARTS' text and white search icon dissolve into the white car body behind them."
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "color-psychology.md",
+          "section": "Finding 2: Contrast and Visual Hierarchy Drive CTA Performance",
+          "tier": "Silver"
+        },
+        {
+          "source": "cta-design-and-placement.md",
+          "section": "Finding 2: CTA Button Color — Contrast Matters",
+          "tier": "Silver"
+        }
+      ],
+      "observation": "The single primary action on the page renders as a half-transparent blue panel sitting over the brightest section of the hero photograph, where the white headlights of the car bleed through the button fill. Looking at the screenshot, the word 'FIND PARTS' and the magnifying-glass icon almost merge with the white car body behind them — the button reads as a fading rectangle, not as the most clickable thing on the page. The squint test for the hero collapses to 'image of a car', not 'button'.",
+      "recommendation": "Make the FIND PARTS button a solid, opaque fill (the existing brand blue at 100% opacity, or the orange used elsewhere on the site for the quick-add badge). Add a 1–2px darker border or a subtle drop shadow so the button retains separation from any background image. Verify a 4.5:1 text-on-button contrast ratio per WCAG 2.2 across the full width of the button, not just the corners.",
+      "why_this_matters": "If the only conversion action above the fold is hard to see, the entire vehicle-picker funnel below it goes unused. Contrast is the single most-replicated lever in CTA testing — a button that fails the squint test will under-convert regardless of how well the form below it is designed.",
+      "evidence_tier": "Silver"
+    },
+    {
+      "cluster": "visual-cta",
+      "device": "mobile",
+      "local_id": 3,
+      "verdict": "FAIL",
+      "title": "No Sticky CTA After Hero Scrolls Off",
+      "surface": "sticky-cta",
+      "element": {
+        "baton_index": "absent",
+        "text_content": "",
+        "role": "button"
+      },
+      "proposed_anchor": {
+        "kind": "viewport",
+        "viewport_trigger": "after_primary_cta_offscreen",
+        "placement": "viewport-bottom-sticky",
+        "viewport": "mobile",
+        "reason": "Once the FIND PARTS button scrolls past the viewport (around scroll_y=810), no persistent conversion action remains visible on mobile"
+      },
+      "severity": "HIGH",
+      "scope": "device",
+      "effort": {
+        "change_type": "component",
+        "change_scope": "single-file"
+      },
+      "confidence": 0.9,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-2-mobile.jpg",
+          "scroll_y": 700,
+          "viewport": "mobile",
+          "context": "At scroll_y=700 only the (non-sticky) header and the Featured Collection grid are visible. No persistent vehicle-picker bar, no sticky 'Find Parts' button, and no sticky cart drawer trigger remain in the viewport."
+        },
+        {
+          "type": "visual",
+          "reference": "section-3-mobile.jpg",
+          "scroll_y": 1450,
+          "viewport": "mobile",
+          "context": "At scroll_y=1450 (newsletter and footer) the only persistent conversion-related element is a small unlabeled cart icon in the top header bar; no sticky FIND PARTS or category jump-back action appears at the bottom."
+        },
+        {
+          "type": "dom",
+          "reference": "e25"
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "cta-design-and-placement.md",
+          "section": "Finding 11: Sticky Add to Cart on mobile increases conversions 5-37%",
+          "tier": "Silver"
+        }
+      ],
+      "observation": "The vehicle picker and FIND PARTS button live only in the hero section. Once a mobile visitor scrolls past approximately y=810 to browse the category cards or featured products, the only way back to the picker is to scroll all the way to the top or open the hamburger menu. There is no sticky bottom bar, no minimised vehicle-picker chip, and no persistent 'FIND PARTS for my car' affordance anywhere on the page.",
+      "recommendation": "Once the hero FIND PARTS button leaves the viewport, render a slim sticky bar across the bottom of the mobile screen with either (a) a single-tap 'FIND PARTS for [Selected Vehicle]' button if the picker has been used, or (b) a 'Pick your vehicle' button that scrolls back to or expands the picker drawer. Keep the bar under 56px tall to preserve content area; match the brand blue used in the hero so the action reads as the same primary CTA persisting downpage.",
+      "why_this_matters": "Multiple independent A/B tests show sticky mobile CTAs lifting completed actions in the 5-37% range. AWDMods' entire conversion funnel begins with vehicle selection, so losing access to that picker after the first screenful breaks the path on every product card and every category browsing scroll.",
+      "evidence_tier": "Silver"
+    },
+    {
+      "cluster": "visual-cta",
+      "device": "mobile",
+      "local_id": 4,
+      "verdict": "FAIL",
+      "title": "Quick-Add Plus Icon Lacks Textual Affordance",
+      "surface": "primary-cta",
+      "element": {
+        "baton_index": "e36",
+        "text_content": "",
+        "role": "image"
+      },
+      "severity": "MEDIUM",
+      "scope": "device",
+      "effort": {
+        "change_type": "html-attr",
+        "change_scope": "component"
+      },
+      "confidence": 0.8,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-2-mobile.jpg",
+          "scroll_y": 700,
+          "viewport": "mobile",
+          "context": "On the VelourTex floor-mat product card, the only conversion action is a small orange square containing a white '+' icon, sitting at approximately x=750 y=1530 over the bottom-right corner of the product image. The card has no visible 'Add to Cart', 'Shop Now', or 'Choose options' text button."
+        },
+        {
+          "type": "dom",
+          "reference": "e36"
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "cta-design-and-placement.md",
+          "section": "Finding 6: 'Add to Cart' Outperforms 'Buy Now'",
+          "tier": "Silver"
+        },
+        {
+          "source": "cta-design-and-placement.md",
+          "section": "Finding 5: Touch Target Minimums",
+          "tier": "Silver"
+        }
+      ],
+      "observation": "Each product card on the Featured Collection grid carries a single conversion action: an orange square with a white '+' glyph overlaid on the bottom-right corner of the product photo. There is no text label anywhere on the card telling a thumb-scrolling visitor what tapping that icon does — Add to Cart? Quick view? Wishlist? The card title (LLOYD MATS / VELOURTEX FITTED CARPET FLOOR MATS…) and the 'FROM $135.99' price are the only labelled elements; the action itself is unannotated.",
+      "recommendation": "Replace the '+' icon-only quick-add with a labelled, full-width button under the price that reads 'Choose Options' (since these SKUs have variants — the 'Made to Order' badge confirms configuration is required) or 'Add to Cart' for fixed-variant SKUs. Keep the orange brand colour but make the button at minimum 48px tall and span the card width so the action is unambiguous and Fitts-friendly.",
+      "why_this_matters": "Icon-only CTAs on product cards consistently under-perform labelled buttons in commerce A/B tests because the action requires the visitor to learn the icon's meaning before tapping. On a homepage where these are the only purchase-path entries below the hero, every unrecognised icon is a lost click.",
+      "evidence_tier": "Silver"
+    },
+    {
+      "cluster": "visual-cta",
+      "device": "mobile",
+      "local_id": 5,
+      "verdict": "FAIL",
+      "title": "Featured Collection Heading Is Generic",
+      "surface": "headline",
+      "element": {
+        "baton_index": "e34",
+        "text_content": "Featured Collection",
+        "role": "heading"
+      },
+      "severity": "MEDIUM",
+      "scope": "page",
+      "effort": {
+        "change_type": "copy",
+        "change_scope": "single-file"
+      },
+      "confidence": 0.85,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-2-mobile.jpg",
+          "scroll_y": 700,
+          "viewport": "mobile",
+          "context": "The H2 between the hero carousel and the product grid reads 'Featured Collection' (capital F, capital C) in a heavy serif font at approximately x=21 y=940."
+        },
+        {
+          "type": "dom",
+          "reference": "e34"
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "headline-copywriting.md",
+          "section": "Finding 1: Specific, Quantified Headlines Outperform Vague Claims",
+          "tier": "Silver"
+        },
+        {
+          "source": "headline-copywriting.md",
+          "section": "Finding 2: Benefit-Led Headlines Outperform Feature-Led",
+          "tier": "Silver"
+        }
+      ],
+      "observation": "The largest piece of typography between the hero and the product grid is the words 'Featured Collection' — a generic Shopify default that names the layout, not the merchandise or the buyer. It tells a visitor nothing about what they are about to scroll through, who the products are for, or why these specific four items are surfaced first. A competitor could copy this heading verbatim and lose nothing.",
+      "recommendation": "Replace 'Featured Collection' with a vehicle- or use-case-specific lead-in that previews what the grid contains, such as 'New for Focus RS / ST owners' or 'Top-rated upgrades this month'. If the grid is curated by the team, name the curator or the reason: 'AWDMods picks for fall 2026'. Reserve the H2 weight for copy that gives the visitor a reason to read the four cards beneath it.",
+      "why_this_matters": "Generic platform-default headings get scanned past in milliseconds. On a mobile homepage where the visitor has already scrolled past a value-prop-free hero, this is the second chance to plant a reason to keep going — and the page spends it on the word 'Featured'.",
+      "evidence_tier": "Silver"
+    },
+    {
+      "cluster": "visual-cta",
+      "device": "mobile",
+      "local_id": 6,
+      "verdict": "FAIL",
+      "title": "Newsletter Subscribe Button Is Icon-Only",
+      "surface": "secondary-cta",
+      "element": {
+        "baton_index": "e78",
+        "text_content": "",
+        "role": "button"
+      },
+      "severity": "MEDIUM",
+      "scope": "page",
+      "effort": {
+        "change_type": "copy",
+        "change_scope": "single-file"
+      },
+      "confidence": 0.85,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-3-mobile.jpg",
+          "scroll_y": 1450,
+          "viewport": "mobile",
+          "context": "Inside the 'Join Our Newsletter!' section the email input ends with a small unlabelled arrow ('->') glyph as the submit button, occupying roughly 46×49 px at the right edge of the email field. There is no 'Subscribe', 'Sign me up', or 'Join' word anywhere on the button."
+        },
+        {
+          "type": "dom",
+          "reference": "e78"
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "headline-copywriting.md",
+          "section": "Finding 5: First-Person CTA Copy Outperforms Second-Person",
+          "tier": "Silver"
+        },
+        {
+          "source": "cta-design-and-placement.md",
+          "section": "Finding 4: Fitts's Law",
+          "tier": "Gold"
+        }
+      ],
+      "observation": "The newsletter signup is the only conversion action in the lower third of the page, but its submit control is a bare arrow glyph at the end of the email field. The button has no word on it — no 'Subscribe', no 'Sign me up', no 'Join' — and the arrow glyph could plausibly be read as a 'next step' indicator rather than a submit action. Visually it competes with the surrounding outlined input rather than asserting itself as a button.",
+      "recommendation": "Replace the arrow-only button with a labelled, full-width button beneath the email input that reads 'Send me new-part drops' or 'Join the list'. First-person framing ('Send me…', 'Sign me up') matches the testing pattern that has consistently lifted submit rates over second-person ('Subscribe'). Keep the orange brand accent so the button visually owns the section.",
+      "why_this_matters": "Email capture is the only action AWDMods can measure from visitors who don't yet have a vehicle in mind. An unlabelled arrow forces the visitor to guess what tapping it does and whether they are committing to anything; the result is a quieter list and weaker remarketing pool.",
+      "evidence_tier": "Gold"
+    },
+    {
+      "cluster": "visual-cta",
+      "device": "mobile",
+      "local_id": 7,
+      "verdict": "FAIL",
+      "title": "Cart Icon Has No State Indicator",
+      "surface": "secondary-cta",
+      "element": {
+        "baton_index": "e6",
+        "text_content": "Cart",
+        "role": "button"
+      },
+      "severity": "LOW",
+      "scope": "page",
+      "effort": {
+        "change_type": "component",
+        "change_scope": "component"
+      },
+      "confidence": 0.8,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-1-mobile.jpg",
+          "scroll_y": 0,
+          "viewport": "mobile",
+          "context": "Top-right of the sticky black header carries an outlined cart icon at approximately x=329 y=54 (46×46 px). The icon shows no count badge, no dot, and no copy beside it indicating cart state."
+        },
+        {
+          "type": "dom",
+          "reference": "e6"
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "cta-design-and-placement.md",
+          "section": "Finding 5: Touch Target Minimums",
+          "tier": "Silver"
+        }
+      ],
+      "observation": "The cart icon in the persistent header is a flat outlined glyph with no count badge, no dot, no colour change, and no adjacent text. There is no visual signal at any scroll depth telling the visitor whether their cart is empty, has items, or has unsaved changes from a prior session.",
+      "recommendation": "Add a small numeric badge in the brand orange to the cart icon when item-count is greater than zero, and consider replacing the empty-state outline with a filled glyph plus a small 'Cart' label beneath it on mobile. Keep the badge legible at 44px and ensure tap target remains at least 44×44 per Apple HIG.",
+      "why_this_matters": "Without a state indicator, returning visitors who already have items in cart get no nudge to complete checkout — they have to tap the icon just to see whether anything is there. A visible count badge is one of the highest-leverage micro-CTAs on a Shopify storefront.",
+      "evidence_tier": "Silver"
+    },
+    {
+      "cluster": "visual-cta",
+      "device": "mobile",
+      "local_id": 8,
+      "verdict": "PARTIAL",
+      "title": "Category Card Buttons Sit Below Card Fold",
+      "surface": "secondary-cta",
+      "element": {
+        "baton_index": "e8",
+        "text_content": "Performance \n\n\n                      IntakesExhaustCoolingDrivetrain upgrades\n                    Shop Performance",
+        "role": "div"
+      },
+      "severity": "MEDIUM",
+      "scope": "device",
+      "effort": {
+        "change_type": "css",
+        "change_scope": "component"
+      },
+      "confidence": 0.75,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-1-mobile.jpg",
+          "scroll_y": 0,
+          "viewport": "mobile",
+          "context": "Below the hero, only the first category tile ('Performance' with Intakes/Exhaust/Cooling/Drivetrain bullets and a 'SHOP PERFORMANCE' button) is fully visible at approximately y=900-1500. The next card peeks in at the right edge, requiring a horizontal scroll the visitor has not been told about."
+        },
+        {
+          "type": "dom",
+          "reference": "e8"
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "eye-tracking-and-scan-patterns.md",
+          "section": "Finding 4: 57% of Viewing Time Is Spent Above the Fold",
+          "tier": "Gold"
+        },
+        {
+          "source": "page-length-strategy.md",
+          "section": "Finding 3: 74% of viewing time in first two screenfuls",
+          "tier": "Silver"
+        }
+      ],
+      "observation": "The category-card carousel below the hero shows only one full card per mobile screen with a sliver of the next card at the right edge. The 'SHOP PERFORMANCE' button on the visible card sits low — bottom of the card around y=1490 — meaning a visitor who only ever sees the hero plus one screenful of below-fold content reaches at most one of five category buttons without intentional horizontal swiping. There is no visible swipe affordance (no dot pagination at the section bottom in this screenshot, no edge fade) cuing that more cards exist.",
+      "recommendation": "Either (a) collapse the five categories into a 2-column grid that shows all five labels above the fold-plus-one without horizontal scrolling, with each tile reading 'Shop [Category]' as a tap target, or (b) add a visible pagination dot indicator and arrow chevron at the right edge so the swipe affordance is obvious. The current single-card-per-screen layout hides four of five primary navigation paths.",
+      "why_this_matters": "On a homepage where the hero tells the visitor nothing about the catalog, the category tiles are the next-best discovery surface. Hiding four of the five behind an undiscoverable horizontal swipe collapses the homepage's wayfinding to a single vertical scroll past 'Performance'.",
+      "evidence_tier": "Gold"
+    }
+  ],
+  "notes": [
+    "Hero baton coverage gap: the FIND PARTS button, the four 'Select Make/Model/Year/Trim' dropdowns, and the 'FREE SHIPPING on most orders $75+' top promo bar are visible in section-1-mobile.jpg but do not appear as discrete elements in baton-mobile.json. Findings about those specific elements use 'absent' baton_index with section-level or element-level proposed_anchor against the closest captured element (e14 search bar, section[0] hero).",
+    "Orange '+' quick-add icon on each Featured Collection card is anchored to e36 (the product image) because the badge itself is not a discrete baton element — the card image is the natural anchor.",
+    "FREE SHIPPING strip ($75+ threshold) observed at top of section-1-mobile.jpg but emitted as a pricing/trust observation rather than a visual-cta finding to avoid cluster drift."
+  ],
+  "telemetry": {
+    "reference_files_read": [
+      "cta-design-and-placement.md",
+      "color-psychology.md",
+      "eye-tracking-and-scan-patterns.md",
+      "hero-section-psychology.md",
+      "headline-copywriting.md",
+      "page-length-strategy.md",
+      "evidence-tiers.md"
+    ],
+    "sections_routed_to_cluster": 1,
+    "baton_elements_referenced": 6,
+    "findings_by_verdict": {
+      "FAIL": 7,
+      "PARTIAL": 1,
+      "PASS": 0
+    }
+  }
+}

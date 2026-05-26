@@ -1,0 +1,31 @@
+# Audit Trace — 2026-05-02-9cd2a2ac
+# Skill: /ecp:audit  Plugin: v1.4.0  Dispatch: v2
+
+## ASSERTIONS (numerical canary header)
+subagent_spawned_acquirers: 2   # target >= 2 (D=2 devices)  ✓
+team_spawned_specialists: 4     # target >= 4 (expected_specialist_count)  ✓
+cluster_files_written: 4        # target == team_spawned_specialists  ✓
+subagent_spawned_ethics: 1      # target >= 1  ✓
+subagent_spawned_synthesizer: 1 # target >= 1 (single dispatch handled both devices for byte-identical scope=page guarantee)  ✓
+subagent_spawned_planner: 0     # target >= 1 (after audit checkpoint)
+subagent_spawned_reviewer: 0    # target >= 1 (after plan checkpoint)
+subagent_spawned_builder: 0     # target >= 1 (after review checkpoint, gated by source_mode)
+ethics_gate_executed: true      ✓
+expected_specialist_count: 4    # set at dispatch time (C=2 × D=2, no empty-slice prune yet)
+tasks_created_total: 10         # target >= 10 (D + C×D + 4 = 2 + 4 + 4)  ✓
+estimated_tokens_total: 0       # filled at audit completion
+
+## EVENTS
+2026-05-02T23:50:00Z  engagement_setup_start  id=2026-05-02-9cd2a2ac
+2026-05-02T23:50:00Z  url_validated  url=https://www.awdmods.com/
+2026-05-02T23:50:00Z  fetch_consent_granted_by_operator
+
+# SUBSTANTIVE CANARIES (Phase I)
+canary_ethics_source_urls: PASS — 1 actionable ethics finding, valid GDPR URL, no self-cite
+canary_element_index_match_rate: FAIL — rate=0.000 (0/0 present-element findings cite baton index in markdown). NOTE: renderer placed 7+9=16 e_index hotspots from synthesizer-emission-v1.json; canary appears to parse wrong artifact in v2. Documented in lead-reflection.md anomalies.
+canary_cross_device_ethics_diff: PASS — desktop=0, mobile=0, diff=0 (single-context synth = symmetric by construction)
+
+## EVENTS
+2026-05-03T00:14:00Z  audit_phase_complete  audit-desktop.md=12 findings, audit-mobile.md=14 findings, ethics=1 ADJACENT
+2026-05-03T00:14:00Z  visual_reports_rendered  desktop=12 hotspots, mobile=14 hotspots, banner_fallbacks=0
+2026-05-03T00:14:00Z  editor_artifacts_written  editor.html=4.8MB, review-state-{desktop,mobile}.json

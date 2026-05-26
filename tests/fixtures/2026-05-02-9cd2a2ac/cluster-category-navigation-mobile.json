@@ -1,0 +1,356 @@
+{
+  "schema_version": 1,
+  "engagement_id": "2026-05-02-9cd2a2ac",
+  "cluster": "category-navigation",
+  "device": "mobile",
+  "specialist_model": {
+    "family": "opus",
+    "version": "4.7",
+    "context_window": "1M"
+  },
+  "started_at": "2026-05-02T23:55:00.000Z",
+  "completed_at": "2026-05-02T23:58:30.000Z",
+  "status": "complete",
+  "findings": [
+    {
+      "cluster": "category-navigation",
+      "device": "mobile",
+      "local_id": 1,
+      "verdict": "FAIL",
+      "title": "Search Bar Has No Fitment Binding",
+      "surface": "search-bar",
+      "element": {
+        "baton_index": "e14",
+        "text_content": "",
+        "role": "combobox",
+        "tag": "input"
+      },
+      "severity": "HIGH",
+      "scope": "page",
+      "effort": {
+        "change_type": "feature",
+        "change_scope": "cross-cutting"
+      },
+      "confidence": 0.9,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-1-mobile.jpg",
+          "scroll_y": 110,
+          "viewport": "mobile",
+          "context": "Search input renders with a generic 'Search' placeholder and no fitment context. The Find Parts vehicle selector below is the only fitment-aware path; the search bar itself has no make/model gating, no recent-vehicle memory, and no compatibility-filtered autocomplete."
+        },
+        {
+          "type": "dom",
+          "reference": "e14"
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "search-and-filter-ux.md",
+          "tier": "Gold"
+        }
+      ],
+      "observation": "The header search box accepts free-text queries with a 'Search' placeholder and no fitment context. A shopper who types 'cold air intake' gets every intake in the catalog, including parts that do not fit their Focus RS, ST, WRX, or STI. The Find Parts vehicle dropdown directly below proves the store has fitment data, but that data is not piped into the search experience.",
+      "recommendation": "Bind the search input to the visitor's selected vehicle: once Make/Model/Year/Trim is set in Find Parts, persist it (cookie or localStorage) and pre-filter all search results and autocomplete suggestions to fit-confirmed parts. Display the active vehicle as a removable chip inside the search bar (e.g., 'Searching: 2018 Focus RS') so the shopper can verify or clear the constraint. Rotate the placeholder through three concrete examples ('Try: Focus RS cold air intake', 'Try: WRX coilovers', 'Try: STI shift knob') to coach query vocabulary at the same time.",
+      "why_this_matters": "Compatibility-dependent catalogs see roughly 65% task failure when shoppers cannot constrain results to their vehicle. On a four-platform parts store, every unfiltered search forces the shopper to manually verify fitment on the PDP, and most abandon before that step.",
+      "evidence_tier": "Gold"
+    },
+    {
+      "cluster": "category-navigation",
+      "device": "mobile",
+      "local_id": 2,
+      "verdict": "FAIL",
+      "title": "Subcategory Carousel Has No Scroll Affordance",
+      "surface": "subcategory-tiles",
+      "element": {
+        "baton_index": "e8",
+        "text_content": "Performance \n\n\n                      IntakesExhaustCoolingDrivetrain upgrades\n  ",
+        "role": "div",
+        "tag": "div"
+      },
+      "severity": "HIGH",
+      "scope": "device",
+      "effort": {
+        "change_type": "css",
+        "change_scope": "component"
+      },
+      "confidence": 0.9,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-1-mobile.jpg",
+          "scroll_y": 950,
+          "viewport": "mobile",
+          "context": "Only the Performance tile is visible; Handling & Brakes (e9 at x=358), Interior (e10 at x=696), Exterior (e11 at x=1033), and Electronics (e12 at x=1371) sit offscreen to the right. No dot indicator, arrow, or peek of the next card signals the row scrolls."
+        },
+        {
+          "type": "dom",
+          "reference": "e8"
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "merchandising-psychology.md",
+          "tier": "Silver"
+        },
+        {
+          "source": "grid-layout.md",
+          "tier": "Silver"
+        }
+      ],
+      "observation": "The five top-level subcategories — Performance, Handling & Brakes, Interior, Exterior, Electronics — render as a horizontal carousel with one full-width tile visible at a time. There are no pagination dots, no chevron arrow, and no peek of the next tile's edge to signal swiping reveals more categories. A shopper looking for exhaust parts has no way of knowing Performance is one of five tiles versus the only category that exists.",
+      "recommendation": "Restructure the row so the next tile peeks 8-16% into the viewport at rest, and add a dot pagination row underneath (5 dots, current dot filled). Better still on mobile: drop the carousel and render the five tiles as a 2-column grid (Performance/Handling, Interior/Exterior, Electronics spanning the third row) so all five subcategories are visible without interaction.",
+      "why_this_matters": "Subcategories are the primary self-routing tool on a homepage with thousands of SKUs. Hiding four of five categories behind an undiscovered swipe gesture forces every shopper through the hamburger menu or the vehicle selector, both of which add friction versus a one-tap category jump.",
+      "evidence_tier": "Silver"
+    },
+    {
+      "cluster": "category-navigation",
+      "device": "mobile",
+      "local_id": 3,
+      "verdict": "FAIL",
+      "title": "Featured Collection Renders One Card Per Row",
+      "surface": "product-grid",
+      "element": {
+        "baton_index": "e36",
+        "text_content": "",
+        "role": "image",
+        "tag": "img"
+      },
+      "severity": "HIGH",
+      "scope": "device",
+      "effort": {
+        "change_type": "css",
+        "change_scope": "component"
+      },
+      "confidence": 0.9,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-2-mobile.jpg",
+          "scroll_y": 1000,
+          "viewport": "mobile",
+          "context": "VelourTex Floor Mats card image is 266x266 anchored at x=22 inside a 390px viewport; the next card (Revo Designs Rocker Stripes, e37 at x=307) only peeks. Subsequent cards e38, e39 sit fully offscreen at x=592 and x=877 — confirming a single-column horizontal carousel rather than the standard 2-column mobile grid."
+        },
+        {
+          "type": "dom",
+          "reference": "e36"
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "grid-layout.md",
+          "tier": "Silver"
+        },
+        {
+          "source": "merchandising-psychology.md",
+          "tier": "Silver"
+        }
+      ],
+      "observation": "The Featured Collection on mobile shows one product card occupying nearly the full viewport width (266px image in a 390px frame) with the second card peeking. The ecommerce mobile standard is a 2-column grid that surfaces 4-6 products per scroll — this layout shows 1-2 and consumes ~700 vertical pixels per product. A shopper has to swipe four times to see the same five products a 2-column grid renders in a single screen.",
+      "recommendation": "Switch the Featured Collection to a 2-column grid on mobile with consistent card heights (image aspect ratio 1:1, fixed title height 2 lines with ellipsis, price line, badge line). Reserve the wide-card carousel only for editorial 'Build of the Month'-style merchandising blocks, not for browse-intent product surfaces.",
+      "why_this_matters": "Mobile shoppers form purchase shortlists by scanning rhythm; a 2-column grid lets them compare adjacent cards on price and image at a glance. A single-column carousel forces sequential evaluation, which slows browse and bias-loads the visible card with disproportionate attention.",
+      "evidence_tier": "Silver"
+    },
+    {
+      "cluster": "category-navigation",
+      "device": "mobile",
+      "local_id": 4,
+      "verdict": "FAIL",
+      "title": "Lead Featured Card Missing Star Rating",
+      "surface": "product-card",
+      "element": {
+        "baton_index": "e36",
+        "text_content": "",
+        "role": "image",
+        "tag": "img"
+      },
+      "severity": "MEDIUM",
+      "scope": "page",
+      "effort": {
+        "change_type": "component",
+        "change_scope": "component"
+      },
+      "confidence": 0.8,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-2-mobile.jpg",
+          "scroll_y": 2050,
+          "viewport": "mobile",
+          "context": "VelourTex card shows brand, title, From $135.99, and a 'Made to Order' badge — but no star rating row. The peeking Revo Designs card (e37) shows a star rating line at y=1424 (e40 '5.0 / 5.0 (2) total reviews'). Star presence is inconsistent across cards in the same row."
+        },
+        {
+          "type": "dom",
+          "reference": "e36"
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "product-cards.md",
+          "tier": "Gold"
+        }
+      ],
+      "observation": "The lead Featured Collection card (VelourTex Floor Mats) renders with no star rating or review count, while the next card in the carousel (Revo Designs Rocker Stripes) shows a 5.0/5.0 rating with review count. The asymmetry suggests stars only render when the product has reviews, with no placeholder when the product has zero. The first impression card is therefore the weakest social-proof card on the page.",
+      "recommendation": "Always reserve the rating row in the card template. If the product has reviews, render the star graphic plus numeric rating plus count ('★★★★★ 5.0 (2)'). If the product has zero reviews, render a low-key 'Be the first to review' link or a neutral 'New arrival' badge so the row never collapses and the card layout stays consistent. Promote a higher-reviewed product into the lead Featured slot until floor mats accumulate ratings.",
+      "why_this_matters": "Spiegel/Northwestern shows up to 270% higher purchase likelihood when a product card carries even five reviews versus none. A blank rating row on the lead card cedes that lift, and the inconsistency between cards trains shoppers to discount the rating signal across the whole grid.",
+      "evidence_tier": "Gold"
+    },
+    {
+      "cluster": "category-navigation",
+      "device": "mobile",
+      "local_id": 5,
+      "verdict": "FAIL",
+      "title": "No View-All Exit on Featured Collection",
+      "surface": "product-grid",
+      "element": {
+        "baton_index": "absent"
+      },
+      "severity": "MEDIUM",
+      "scope": "page",
+      "effort": {
+        "change_type": "component",
+        "change_scope": "component"
+      },
+      "confidence": 0.85,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-2-mobile.jpg",
+          "scroll_y": 1700,
+          "viewport": "mobile",
+          "context": "Featured Collection h2 (e34 at y=938) sits above a horizontal product carousel with no visible 'Shop All' or 'View Collection' link beside or below the heading. The shopper can only access more products by swiping the carousel, with no jump-to-collection-page exit."
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "collection-page-architecture.md",
+          "tier": "Silver"
+        },
+        {
+          "source": "merchandising-psychology.md",
+          "tier": "Silver"
+        }
+      ],
+      "observation": "The Featured Collection heading announces a curated set, but there is no 'View All' or 'Shop the Collection' CTA accompanying the heading or terminating the carousel. A shopper interested in floor mats has to swipe through the carousel, find a related product, and click into the PDP to discover whether a category page even exists.",
+      "recommendation": "Add a 'View All' link to the right of the Featured Collection heading (chevron 'View all >') and a terminal card at the end of the carousel ('See all 24 products in this collection →'). Both link to the underlying collection page so the shopper has two clear exits from the merchandised carousel into the full grid.",
+      "why_this_matters": "A featured carousel without a view-all exit is a dead-end merchandising surface — it shows what the merchant chose, then drops the shopper rather than promoting them to the broader catalog. Adding the exit lifts collection-page traffic, which is where filtering and sort actually happen.",
+      "evidence_tier": "Silver",
+      "proposed_anchor": {
+        "kind": "element",
+        "element_baton_index": "e34",
+        "placement": "after-element",
+        "viewport": "mobile",
+        "reason": "View-All link belongs immediately right of or below the Featured Collection h2"
+      }
+    },
+    {
+      "cluster": "category-navigation",
+      "device": "mobile",
+      "local_id": 6,
+      "verdict": "FAIL",
+      "title": "No Persistent Vehicle Selector After Find Parts",
+      "surface": "other",
+      "surface_note": "Persistent fitment-context bar; closest cluster surface is search-bar but the missing element spans the page header, not just search.",
+      "element": {
+        "baton_index": "absent"
+      },
+      "severity": "HIGH",
+      "scope": "page",
+      "effort": {
+        "change_type": "feature",
+        "change_scope": "cross-cutting"
+      },
+      "confidence": 0.85,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-1-mobile.jpg",
+          "scroll_y": 400,
+          "viewport": "mobile",
+          "context": "Find Parts widget collects Make/Model/Year/Trim then dispatches the shopper to a filtered results page, but no chip, badge, or sticky banner shows the selected vehicle on subsequent pages. The black sticky header (e25, e63, e88) carries only logo, hamburger, profile, and cart — no fitment context."
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "search-and-filter-ux.md",
+          "tier": "Gold"
+        },
+        {
+          "source": "filtering-ux.md",
+          "tier": "Gold"
+        }
+      ],
+      "observation": "The Find Parts vehicle gate captures Make, Model, Year, and Trim, but nothing on the page footprint indicates the chosen vehicle persists across navigation. The sticky header carries only the logo, hamburger, profile, and cart icon. A shopper who picks 2018 Focus RS and lands on a category page has no visual confirmation the catalog is filtered, and clicking the logo back to the homepage requires re-selecting the vehicle.",
+      "recommendation": "Add a persistent vehicle chip to the sticky header — a thin secondary bar below the logo row reading 'Shopping for: 2018 Focus RS [Change] [Clear]' — and persist the selection in localStorage so it reapplies on every page load. Render the same chip inside the hamburger drawer above the category list.",
+      "why_this_matters": "Year-Make-Model gates only earn their conversion lift when the captured fitment carries forward; without persistence, every back-button or logo click resets the filter and forces re-selection, training shoppers to abandon the gate entirely.",
+      "evidence_tier": "Gold",
+      "proposed_anchor": {
+        "kind": "element",
+        "element_baton_index": "e25",
+        "placement": "after-element",
+        "viewport": "mobile",
+        "reason": "Persistent vehicle chip should render directly below the sticky header band"
+      }
+    },
+    {
+      "cluster": "category-navigation",
+      "device": "mobile",
+      "local_id": 7,
+      "verdict": "PASS",
+      "title": "Search Bar Visible at Top, Not Hidden Behind Icon",
+      "surface": "search-bar",
+      "element": {
+        "baton_index": "e14",
+        "text_content": "",
+        "role": "combobox",
+        "tag": "input"
+      },
+      "severity": "LOW",
+      "scope": "device",
+      "effort": {
+        "change_type": "css",
+        "change_scope": "single-file"
+      },
+      "confidence": 0.9,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-1-mobile.jpg",
+          "scroll_y": 110,
+          "viewport": "mobile",
+          "context": "Full-width 348px search input renders directly below the brand row, persistent and visible without requiring an icon tap to expose. Sticky behavior keeps it accessible on scroll (visible in section-2 at y=769)."
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "search-and-filter-ux.md",
+          "tier": "Gold"
+        }
+      ],
+      "observation": "The search input is a visible 348px-wide field anchored at the top of the viewport and persists in the sticky header on scroll. This satisfies the NNGroup baseline for sites with more than 50 products and avoids the most common mobile search-discovery failure.",
+      "recommendation": "Keep the always-visible, sticky-on-scroll pattern. Remaining search-bar work is upstream — placeholder coaching and fitment binding (see F-1) — not the visibility surface.",
+      "why_this_matters": "An exposed search input doubles search-driven engagement compared to icon-toggled implementations, especially on mobile where extra taps cost disproportionately.",
+      "evidence_tier": "Gold"
+    }
+  ],
+  "notes": [
+    "Page is the AWDMods homepage, not a category/collection page. Category-navigation findings focus on the surfaces that exist on a homepage: header search, top-level subcategory tiles, featured collection grid, and footer category sitemap. Standard collection-page surfaces (filter panel, sort control, pagination, applied-filter chips) are not in scope here and were not emitted.",
+    "Compatibility-dependent automotive parts catalog with four supported platforms (Focus RS, Focus ST, WRX, STI) — fitment is the dominant conversion lever, hence HIGH severity on the missing vehicle persistence (F-6) and unbound search (F-1).",
+    "Other observations not emitted as findings: (a) Product card titles render in heavy bold uppercase wrapping to 4 lines, slowing scan but secondary to the grid-density problem; (b) Footer surfaces only 'Information' and 'My Account' accordions with no category sitemap, a moderate recovery-path miss; (c) Sticky header occupies ~195px (23% of 844px viewport) — search persistence is correct but the brand row could compress on scroll. The synthesizer can integrate these if cross-cluster signals warrant."
+  ],
+  "telemetry": {
+    "reference_files_read": [
+      "search-and-filter-ux.md",
+      "filtering-ux.md",
+      "grid-layout.md",
+      "merchandising-psychology.md",
+      "product-cards.md",
+      "breadcrumbs.md",
+      "collection-page-architecture.md"
+    ],
+    "baton_elements_referenced": ["e8", "e14", "e25", "e34", "e36"],
+    "sections_routed_to_cluster": 3,
+    "findings_by_verdict": {"FAIL": 6, "PARTIAL": 0, "PASS": 1}
+  }
+}

@@ -1,0 +1,351 @@
+{
+  "schema_version": 1,
+  "engagement_id": "2026-05-02-9cd2a2ac",
+  "cluster": "category-navigation",
+  "device": "desktop",
+  "specialist_model": {
+    "family": "opus",
+    "version": "4.7",
+    "context_window": "1M"
+  },
+  "started_at": "2026-05-02T23:55:00.000Z",
+  "completed_at": "2026-05-02T23:58:30.000Z",
+  "status": "complete",
+  "findings": [
+    {
+      "cluster": "category-navigation",
+      "device": "desktop",
+      "local_id": 1,
+      "verdict": "FAIL",
+      "title": "Vehicle Fitment Selector Buried as Tertiary CTA",
+      "surface": "filter-panel",
+      "element": {
+        "baton_index": "absent",
+        "text_content": "SELECT YOUR VEHICLE",
+        "role": "button"
+      },
+      "severity": "HIGH",
+      "scope": "page",
+      "effort": {
+        "change_type": "component",
+        "change_scope": "cross-cutting"
+      },
+      "confidence": 0.9,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-1.jpg",
+          "scroll_y": 0,
+          "viewport": "desktop",
+          "context": "The 'SELECT YOUR VEHICLE — Car parts, simplified' control sits in the top-right header at roughly x=1400, y=20 in a small black pill, smaller and visually quieter than the cart icon. A secondary 'Select Make' dropdown floats over the hero WRX image at roughly y=200 with low contrast against the photographic background, with no visible Year or Model steps."
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "search-and-filter-ux.md",
+          "section": "Finding 5: Compatibility Filters — Only 35% Task Success",
+          "tier": "Gold"
+        }
+      ],
+      "observation": "Visitors arriving at AWDMods need to confirm a part fits a specific Subaru WRX, STI, Ford Focus RS or ST before any browse decision matters. The site's two fitment entry points — the 'SELECT YOUR VEHICLE' pill in the top header and the 'Select Make' dropdown floating over the hero photo — are both visually subordinate. The header pill is smaller than the cart icon and competes with the search bar for attention; the hero dropdown sits on a busy automotive background with insufficient contrast and exposes only one of the three required fitment steps (Make, with no visible Year or Model controls until interaction).",
+      "recommendation": "Promote the Year/Make/Model selector to a full-width persistent strip directly under the primary header, with all three dropdowns visible in their resting state (Year, Make, Model, Submodel where applicable). Treat it as the page's primary conversion lever rather than as a header utility. On the hero, replace the floating 'Select Make' fragment with a single 'Find parts for your car' CTA that scrolls focus into the header strip.",
+      "why_this_matters": "Baymard's compatibility-filter study found only 35% of visitors successfully complete a purchase task on parts sites that hide or under-weight fitment selection. For an aftermarket parts catalog where wrong-fit returns are costly and trust-damaging, fitment is the single highest-leverage navigation element on the page.",
+      "evidence_tier": "Gold",
+      "proposed_anchor": {
+        "kind": "element",
+        "element_baton_index": "e23",
+        "placement": "after-element",
+        "viewport": "desktop",
+        "reason": "Vehicle selector strip belongs immediately below the search bar as the page's persistent primary navigation aid"
+      }
+    },
+    {
+      "cluster": "category-navigation",
+      "device": "desktop",
+      "local_id": 2,
+      "verdict": "FAIL",
+      "title": "Featured Grid Cards Missing Review Counts",
+      "surface": "product-card",
+      "element": {
+        "baton_index": "e15",
+        "text_content": "",
+        "role": "image",
+        "tag": "img"
+      },
+      "severity": "HIGH",
+      "scope": "page",
+      "effort": {
+        "change_type": "component",
+        "change_scope": "component"
+      },
+      "confidence": 0.9,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-2.jpg",
+          "scroll_y": 980,
+          "viewport": "desktop",
+          "context": "Of the ten product cards visible in the Featured Collection grid at scroll_y=980, only two carry a star rating + count line (the 'Tufskinz Peel & Stick Carbon Fiber...' card with '5.0 (2)' and one adjacent card). The remaining eight cards display product image, title, and price only — no star graphic, no review tally, no 'Be the first to review' affordance."
+        },
+        {
+          "type": "dom",
+          "reference": "e45"
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "product-cards.md",
+          "section": "Finding 1",
+          "tier": "Gold"
+        }
+      ],
+      "observation": "Eight of ten Featured Collection cards in the visible grid render with no star rating and no review count below the price. The two cards that do show rating data (a '5.0 (2)' tally on the carbon fiber peel-and-stick card) prove the template supports the field — it is simply absent on cards whose underlying products have zero or unfetched reviews. The page makes the homepage's most prominent shelf depend on bare title + price decisions.",
+      "recommendation": "Render the rating row on every card. For products with reviews, show the star graphic, numeric rating, and parenthetical count ('5.0 (2)'). For products with zero reviews, show a muted 'No reviews yet' line in the same vertical slot so card heights stay consistent and the absence reads as data rather than as a missing UI element. If the catalog has Judge.me or Yotpo running site-wide, surface aggregate ratings from those services rather than only Shopify-native review counts.",
+      "why_this_matters": "Spiegel/Northwestern observed a 270% purchase-likelihood lift between products with zero reviews and products with five reviews. On a Featured Collection that is the homepage's primary discovery surface, missing the rating row on most cards forfeits the cheapest social-proof signal on the page and drives visitors back to the search bar.",
+      "evidence_tier": "Gold"
+    },
+    {
+      "cluster": "category-navigation",
+      "device": "desktop",
+      "local_id": 3,
+      "verdict": "FAIL",
+      "title": "Made to Order Badge Repeated on Every Card",
+      "surface": "product-card",
+      "element": {
+        "baton_index": "e51",
+        "text_content": "Made to Order",
+        "role": "span",
+        "tag": "span"
+      },
+      "severity": "MEDIUM",
+      "scope": "page",
+      "effort": {
+        "change_type": "component",
+        "change_scope": "component"
+      },
+      "confidence": 0.85,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-2.jpg",
+          "scroll_y": 980,
+          "viewport": "desktop",
+          "context": "Every Featured Collection card carries the same yellow 'Made to Order' badge in the same position. Across the visible grid (e51, e52, e53, e54, e55 in the baton), the badge text is identical and adds no card-to-card differentiation."
+        },
+        {
+          "type": "dom",
+          "reference": "e51"
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "product-cards.md",
+          "section": "Finding 7",
+          "tier": "Silver"
+        },
+        {
+          "source": "merchandising-psychology.md",
+          "section": "Finding 5",
+          "tier": "Silver"
+        }
+      ],
+      "observation": "The 'Made to Order' badge appears identically on every card in the Featured Collection grid. Badges work as merchandising signals because they pick out one or two cards as different from the rest; when the same badge sits on every card it stops carrying information and becomes visual noise that crowds the price and title.",
+      "recommendation": "Reserve badges for genuine differentiation — 'Best Seller' on the top-3 sellers, 'New' on items added in the last 30 days, 'Low Stock' when fewer than 5 units remain. Move the 'Made to Order' label out of the badge slot and into the card body near the price ('Ships in 3–5 days, made to order'), where it carries logistics meaning without consuming the merchandising channel. Cap visible badges at one per card.",
+      "why_this_matters": "When every card flashes the same badge, visitors lose the scanning cue that lets them quickly find the bestseller, the new arrival, or the deal — the homepage stops doing the merchandising work it exists to do, and the burden shifts back to slow per-card title reading.",
+      "evidence_tier": "Silver"
+    },
+    {
+      "cluster": "category-navigation",
+      "device": "desktop",
+      "local_id": 4,
+      "verdict": "PARTIAL",
+      "title": "Featured Grid Pushed to 5 Columns at 1920px",
+      "surface": "product-grid",
+      "element": {
+        "baton_index": "e15",
+        "text_content": "",
+        "role": "image",
+        "tag": "img"
+      },
+      "severity": "MEDIUM",
+      "scope": "device",
+      "effort": {
+        "change_type": "css",
+        "change_scope": "single-file"
+      },
+      "confidence": 0.8,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-2.jpg",
+          "scroll_y": 980,
+          "viewport": "desktop",
+          "context": "The Featured Collection renders five columns wide at 1920×1080. Each card image measures 271×271px (e15, e16, e43, e44 in the baton), which is at the smaller end of comfortable scan size for an automotive parts context where parts often need to be visually distinguished by shape and finish."
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "grid-layout.md",
+          "section": "Finding 1",
+          "tier": "Silver"
+        }
+      ],
+      "observation": "The Featured Collection grid renders five product columns at the 1920px breakpoint. Five columns sits at the published ceiling — Jenkins 2020 measured a 35% increase in scanning time when grids step from four to five columns, and small-image cards make subtle differences between, for example, two carbon-fiber trim pieces harder to register at a glance.",
+      "recommendation": "If the Featured Collection's role is curated discovery rather than full-catalog browse, drop to four columns at >=1440px and let the cards grow to ~325px wide. Reserve five-column density for the full collection page where users have already committed to a category and are scanning for a specific part.",
+      "why_this_matters": "Slower grid scanning on the homepage's primary product surface translates directly into more visitors abandoning before they reach a product detail page, because the homepage's job is to hand off to a PDP within a few seconds of arrival.",
+      "evidence_tier": "Silver"
+    },
+    {
+      "cluster": "category-navigation",
+      "device": "desktop",
+      "local_id": 5,
+      "verdict": "FAIL",
+      "title": "Search Placeholder Misses Fitment Query Pattern",
+      "surface": "search-bar",
+      "element": {
+        "baton_index": "e2",
+        "text_content": "What are you looking for?",
+        "role": "button"
+      },
+      "severity": "MEDIUM",
+      "scope": "page",
+      "effort": {
+        "change_type": "copy",
+        "change_scope": "single-file"
+      },
+      "confidence": 0.85,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-1.jpg",
+          "scroll_y": 0,
+          "viewport": "desktop",
+          "context": "The header search input (e23, 929px wide) carries the placeholder 'Search' / 'What are you looking for?' (e2, e25). The placeholder gives no signal that the catalog is fitment-scoped to Focus RS, Focus ST, WRX and STI."
+        },
+        {
+          "type": "dom",
+          "reference": "e23"
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "search-and-filter-ux.md",
+          "section": "Finding 17",
+          "tier": "Gold"
+        }
+      ],
+      "observation": "The header search bar is well-sized and prominent — 929px wide, centered, with the search icon on the left — but its placeholder reads 'What are you looking for?' Visitors arriving from a Google query for a specific part have no indication of what query syntax actually returns useful results on this catalog. They cannot tell whether the search will accept a year + model + part term, a part number, or only product titles.",
+      "recommendation": "Replace the generic placeholder with a templated example that seeds the right mental model, e.g. 'Try \"2018 WRX cold air intake\" or part #'. Rotate the example through the four primary platforms (Focus RS, Focus ST, WRX, STI) on each page load so visitors quickly learn the catalog is fitment-aware.",
+      "why_this_matters": "NNGroup's search-bar guidance treats the placeholder as the primary discovery cue for first-time visitors. On a niche catalog, a generic placeholder forces users to guess at query syntax — the cheapest fix here moves the search from a hopeful-string entry into a guided fitment lookup.",
+      "evidence_tier": "Gold"
+    },
+    {
+      "cluster": "category-navigation",
+      "device": "desktop",
+      "local_id": 6,
+      "verdict": "PASS",
+      "title": "Subcategory Tile Row Routes Visitors by Build Goal",
+      "surface": "subcategory-tiles",
+      "element": {
+        "baton_index": "e17",
+        "text_content": "Performance \n\n\n                      IntakesExhaustCoolingDrivetrain upgrades\n                    Shop Performance",
+        "role": "div",
+        "tag": "div"
+      },
+      "severity": "LOW",
+      "scope": "page",
+      "effort": {
+        "change_type": "component",
+        "change_scope": "component"
+      },
+      "confidence": 0.9,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-1.jpg",
+          "scroll_y": 0,
+          "viewport": "desktop",
+          "context": "Five subcategory tiles render directly under the hero (Performance, Handling & Brakes, Interior, Exterior, Electronics — e17 through e21 plus e21's Electronics tile), each listing 3–4 named subcategories and a 'SHOP X' button. Tiles are 273x302 px with imagery, dark background, and a consistent CTA color."
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "merchandising-psychology.md",
+          "section": "Finding 8",
+          "tier": "Silver"
+        }
+      ],
+      "observation": "The five-tile subcategory row immediately below the hero gives visitors a clean self-routing surface organized by build intent (Performance, Handling, Interior, Exterior, Electronics). Each tile names its subcategories inline (Intakes, Exhaust, Cooling, Drivetrain) so a visitor can choose the right path without hovering a mega-menu.",
+      "recommendation": "Keep this pattern. When the subcategory row is rebuilt for new product lines, preserve the inline subcategory naming and the per-tile CTA — both are doing real navigation work.",
+      "why_this_matters": "Subcategory tiles above the grid let visitors with a clear build goal (\"I want exhaust\") skip past the hero noise and land on a relevant subcategory in one click rather than three.",
+      "evidence_tier": "Silver"
+    },
+    {
+      "cluster": "category-navigation",
+      "device": "desktop",
+      "local_id": 7,
+      "verdict": "PARTIAL",
+      "title": "Featured Collection Lacks View All Affordance",
+      "surface": "product-grid",
+      "element": {
+        "baton_index": "e8",
+        "text_content": "Featured Collection",
+        "role": "heading",
+        "tag": "h2"
+      },
+      "severity": "MEDIUM",
+      "scope": "page",
+      "effort": {
+        "change_type": "html-attr",
+        "change_scope": "single-file"
+      },
+      "confidence": 0.8,
+      "evidence_anchors": [
+        {
+          "type": "visual",
+          "reference": "section-2.jpg",
+          "scroll_y": 980,
+          "viewport": "desktop",
+          "context": "The 'Featured Collection' h2 (e8) sits above the grid as a static heading with no adjacent 'View all' link. The end of the visible grid shows a 'There's plenty more...' card in the final position with a 'Shop now' CTA, but there is no header-level link to the full collection."
+        },
+        {
+          "type": "dom",
+          "reference": "e8"
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "collection-page-architecture.md",
+          "section": "Finding 4",
+          "tier": "Gold"
+        }
+      ],
+      "observation": "The Featured Collection heading is text-only — no inline 'View all featured products' link sits to its right. The 'There's plenty more...' tile at the end of the grid does carry a CTA, but visitors who decide they want the full collection while looking at the first row have no header-level escape to it.",
+      "recommendation": "Add a 'View all' or 'Shop the collection →' link aligned right of the 'Featured Collection' heading, linking to the underlying Shopify collection URL. Keep the trailing 'There's plenty more...' tile for visitors who scroll the row, but give early-decision visitors the same hand-off without forcing them to scroll past every card.",
+      "why_this_matters": "Heading-aligned 'View all' links are also an SEO win — they expose a crawlable internal link to the full collection from the homepage, which collection-page-architecture treats as a trust signal in Google's category-page surfacing.",
+      "evidence_tier": "Gold"
+    }
+  ],
+  "notes": [
+    "Page is the storefront homepage, not a category/collection page, so filter-panel, sort-control, applied-filters, pagination and zero-results surfaces are not directly evaluable here. The Featured Collection grid is treated as the homepage's primary product surface for this audit.",
+    "Category-navigation findings on AWDMods would benefit from a follow-up audit on a real collection page (e.g. /collections/wrx-performance) where filter-panel, sort, and pagination patterns can be observed in their primary context."
+  ],
+  "telemetry": {
+    "reference_files_read": [
+      "search-and-filter-ux.md",
+      "filtering-ux.md",
+      "grid-layout.md",
+      "merchandising-psychology.md",
+      "product-cards.md",
+      "breadcrumbs.md",
+      "collection-page-architecture.md",
+      "evidence-tiers.md"
+    ],
+    "sections_routed_to_cluster": 3,
+    "findings_by_verdict": {
+      "FAIL": 4,
+      "PARTIAL": 2,
+      "PASS": 1
+    }
+  }
+}

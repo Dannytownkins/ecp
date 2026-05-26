@@ -1,0 +1,313 @@
+{
+  "engagement": "docs\\ecp\\2026-05-02-9cd2a2ac",
+  "entries": [
+    {
+      "f_ref": "category-navigation F-19",
+      "cluster": "category-navigation",
+      "display_index": 19,
+      "title": "Vehicle Fitment Selector Buried as Tertiary CTA",
+      "severity": "HIGH",
+      "devices_present": [
+        "desktop"
+      ],
+      "device": "desktop"
+    },
+    {
+      "f_ref": "category-navigation F-05",
+      "cluster": "category-navigation",
+      "display_index": 5,
+      "title": "Search Bar Has No Fitment Binding",
+      "severity": "HIGH",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    },
+    {
+      "f_ref": "category-navigation F-51",
+      "cluster": "category-navigation",
+      "display_index": 51,
+      "title": "Featured Grid Cards Missing Review Counts",
+      "severity": "HIGH",
+      "devices_present": [
+        "desktop"
+      ],
+      "device": "desktop"
+    },
+    {
+      "f_ref": "category-navigation F-84",
+      "cluster": "category-navigation",
+      "display_index": 84,
+      "title": "Subcategory Carousel Has No Scroll Affordance",
+      "severity": "HIGH",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    },
+    {
+      "f_ref": "category-navigation F-45",
+      "cluster": "category-navigation",
+      "display_index": 45,
+      "title": "Featured Collection Renders One Card Per Row",
+      "severity": "HIGH",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    },
+    {
+      "f_ref": "category-navigation F-59",
+      "cluster": "category-navigation",
+      "display_index": 59,
+      "title": "No Persistent Vehicle Selector After Find Parts",
+      "severity": "HIGH",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    },
+    {
+      "f_ref": "category-navigation F-28",
+      "cluster": "category-navigation",
+      "display_index": 28,
+      "title": "Made to Order Badge Repeated on Every Card",
+      "severity": "MEDIUM",
+      "devices_present": [
+        "desktop"
+      ],
+      "device": "desktop"
+    },
+    {
+      "f_ref": "category-navigation F-96",
+      "cluster": "category-navigation",
+      "display_index": 96,
+      "title": "Featured Grid Pushed to 5 Columns at 1920px",
+      "severity": "MEDIUM",
+      "devices_present": [
+        "desktop"
+      ],
+      "device": "desktop"
+    },
+    {
+      "f_ref": "category-navigation F-04",
+      "cluster": "category-navigation",
+      "display_index": 4,
+      "title": "Lead Featured Card Missing Star Rating",
+      "severity": "MEDIUM",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    },
+    {
+      "f_ref": "category-navigation F-03",
+      "cluster": "category-navigation",
+      "display_index": 3,
+      "title": "Search Placeholder Misses Fitment Query Pattern",
+      "severity": "MEDIUM",
+      "devices_present": [
+        "desktop"
+      ],
+      "device": "desktop"
+    },
+    {
+      "f_ref": "category-navigation F-87",
+      "cluster": "category-navigation",
+      "display_index": 87,
+      "title": "No View-All Exit on Featured Collection",
+      "severity": "MEDIUM",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    },
+    {
+      "f_ref": "category-navigation F-06",
+      "cluster": "category-navigation",
+      "display_index": 6,
+      "title": "Featured Collection Lacks View All Affordance",
+      "severity": "MEDIUM",
+      "devices_present": [
+        "desktop"
+      ],
+      "device": "desktop"
+    },
+    {
+      "f_ref": "category-navigation F-12",
+      "cluster": "category-navigation",
+      "display_index": 12,
+      "title": "Subcategory Tile Row Routes Visitors by Build Goal",
+      "severity": "LOW",
+      "devices_present": [
+        "desktop"
+      ],
+      "device": "desktop"
+    },
+    {
+      "f_ref": "category-navigation F-98",
+      "cluster": "category-navigation",
+      "display_index": 98,
+      "title": "Search Bar Visible at Top, Not Hidden Behind Icon",
+      "severity": "LOW",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    },
+    {
+      "f_ref": "visual-cta F-12",
+      "cluster": "visual-cta",
+      "display_index": 12,
+      "title": "Hero Has No Headline or Value Proposition",
+      "severity": "HIGH",
+      "devices_present": [
+        "desktop"
+      ],
+      "device": "desktop"
+    },
+    {
+      "f_ref": "visual-cta F-24",
+      "cluster": "visual-cta",
+      "display_index": 24,
+      "title": "Hero Lacks Headline And Value Proposition",
+      "severity": "HIGH",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    },
+    {
+      "f_ref": "visual-cta F-37",
+      "cluster": "visual-cta",
+      "display_index": 37,
+      "title": "No Primary CTA Button in Hero",
+      "severity": "HIGH",
+      "devices_present": [
+        "desktop"
+      ],
+      "device": "desktop"
+    },
+    {
+      "f_ref": "visual-cta F-36",
+      "cluster": "visual-cta",
+      "display_index": 36,
+      "title": "Find Parts Button Has Washed-Out Contrast",
+      "severity": "HIGH",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    },
+    {
+      "f_ref": "visual-cta F-67",
+      "cluster": "visual-cta",
+      "display_index": 67,
+      "title": "No Sticky CTA After Hero Scrolls Off",
+      "severity": "HIGH",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    },
+    {
+      "f_ref": "visual-cta F-38",
+      "cluster": "visual-cta",
+      "display_index": 38,
+      "title": "No Above-Fold Trust Signal",
+      "severity": "MEDIUM",
+      "devices_present": [
+        "desktop"
+      ],
+      "device": "desktop"
+    },
+    {
+      "f_ref": "visual-cta F-13",
+      "cluster": "visual-cta",
+      "display_index": 13,
+      "title": "Five Equal-Weight Category CTAs Compete",
+      "severity": "MEDIUM",
+      "devices_present": [
+        "desktop"
+      ],
+      "device": "desktop"
+    },
+    {
+      "f_ref": "visual-cta F-04",
+      "cluster": "visual-cta",
+      "display_index": 4,
+      "title": "Quick-Add Plus Icon Lacks Textual Affordance",
+      "severity": "MEDIUM",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    },
+    {
+      "f_ref": "visual-cta F-69",
+      "cluster": "visual-cta",
+      "display_index": 69,
+      "title": "Featured Collection Heading Is Generic",
+      "severity": "MEDIUM",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    },
+    {
+      "f_ref": "visual-cta F-89",
+      "cluster": "visual-cta",
+      "display_index": 89,
+      "title": "Search Input Dominates Above-Fold Real Estate",
+      "severity": "MEDIUM",
+      "devices_present": [
+        "desktop"
+      ],
+      "device": "desktop"
+    },
+    {
+      "f_ref": "visual-cta F-77",
+      "cluster": "visual-cta",
+      "display_index": 77,
+      "title": "Newsletter Subscribe Button Is Icon-Only",
+      "severity": "MEDIUM",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    },
+    {
+      "f_ref": "visual-cta F-52",
+      "cluster": "visual-cta",
+      "display_index": 52,
+      "title": "Category Card Buttons Sit Below Card Fold",
+      "severity": "MEDIUM",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    },
+    {
+      "f_ref": "visual-cta F-39",
+      "cluster": "visual-cta",
+      "display_index": 39,
+      "title": "Top Promo Bar Buries Free Shipping Threshold",
+      "severity": "LOW",
+      "devices_present": [
+        "desktop"
+      ],
+      "device": "desktop"
+    },
+    {
+      "f_ref": "visual-cta F-11",
+      "cluster": "visual-cta",
+      "display_index": 11,
+      "title": "Cart Icon Has No State Indicator",
+      "severity": "LOW",
+      "devices_present": [
+        "mobile"
+      ],
+      "device": "mobile"
+    }
+  ]
+}

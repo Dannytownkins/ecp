@@ -1,0 +1,1690 @@
+{
+  "cluster": "visual-cta",
+  "device": "desktop",
+  "sections": [
+    {
+      "label": "Hero, header navigation and primary CTA",
+      "scrollY": 0,
+      "height": null,
+      "clusters": [
+        "visual-cta",
+        "product-media",
+        "category-navigation",
+        "content-seo"
+      ],
+      "is_global": true,
+      "dom_slice": "<header class=\"header header--top-left header--mobile-left page-width drawer-menu drawer-menu--on-scroll header--has-menu header--has-social header--has-account header--keep-mobile-search\">\n<header-drawer>\n  <details id=\"Details-menu-drawer-container\" class=\"menu-drawer-container js-header-drawer-main\">\n    <summary class=\"header__icon header__icon--menu header__icon--summary link focus-inset\" aria-label=\"Menu\" role=\"button\" aria-expanded=\"false\" aria-controls=\"menu-drawer\">\n      <span>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-hamburger\" fill=\"none\" viewBox=\"0 0 512 512\"/>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-close hidden-during-load\" viewBox=\"0 0 512 512\"/>\n      </span>\n    </summary>\n    <div id=\"menu-drawer\" class=\"gradient menu-drawer motion-reduce color-scheme-3\">\n      <div class=\"menu-drawer__inner-container\">\n        <div class=\"menu-drawer__navigation-container custom-scrollbar\">\n          <nav class=\"menu-drawer__navigation\">\n            <div class=\"border-bottom flex justify-end p-1 mb-1 hidden-xs\">\n              <button class=\"button-control--no-colors color-foreground\" type=\"button\" aria-label=\"Close\">\n                <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-close\" viewBox=\"0 0 512 512\"/>\n              </button>\n            </div>\n\n            \n            <ul class=\"menu-drawer__menu has-submenu list-menu\" role=\"list\"><li class=\"\"><a id=\"HeaderDrawer-shop-all\" href=\"/collections\" class=\"menu-drawer__menu-item items-center list-menu__item link link--text focus-inset\"><svg class=\"icon icon--home custom-icon\" aria-hidden=\"true\" focusable=\"false\" xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 512 512\"/><span>Shop All</span>\n                    </a></li><li class=\"\"><details id=\"Details-menu-drawer-menu-item-2\" class=\"js-header-drawer-sub\">\n                      <summary id=\"HeaderDrawer-shop-by-category\" class=\"menu-drawer__menu-item items-center list-menu__item link link--text arrow-inset focus-inset\" role=\"button\" aria-expanded=\"false\" aria-controls=\"link-shop-by-category\"><svg class=\"icon icon--layers custom-icon\" aria-hidden=\"true\" focusable=\"false\" xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 512 512\"/><span>Shop by Category</span>\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-caret\" viewBox=\"0 0 512 512\"/>\n                      </summary>\n                      <div id=\"link-shop-by-category\" class=\"menu-drawer__submenu custom-scrollbar has-submenu gradient motion-reduce\" tabindex=\"-1\">\n                        <div class=\"menu-drawer__inner-submenu custom-scrollbar\">\n                          <button class=\"menu-drawer__close-button link link--text focus-inset\" aria-expanded=\"true\" dir=\"ltr\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" focusable=\"false\" class=\"icon icon-arrow\" viewBox=\"0 0 512 512\"/>\n                            Back\n                          </button>\n<ul class=\"menu-drawer__menu list-menu\" role=\"list\" tabindex=\"-1\"><li>\n                                  <a href=\"/collections\" class=\"menu-drawer__menu-item menu__menu-item-title link link--text list-menu__item focus-inset\">\n                                    <span>Shop by Category</span>\n                                  </a>\n                                </li><li><a id=\"HeaderDrawer-shop-by-category-performance\" href=\"/collections/performance\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Performance</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-exterior\" href=\"/collections/exterior\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Exterior</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-interior\" href=\"/collections/interior\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Interior</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-handling\" href=\"/collections/handling-brakes\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Handling</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-drivetrain\" href=\"/collections/drivetrain\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Drivetrain</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-brakes\" href=\"/collections/brakes\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Brakes</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-cooling\" href=\"/collections/cooling\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Cooling</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-wheels\" href=\"/collections/wheels\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Wheels</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-accessories\" href=\"/collections/accessories\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Accessories</span>\n                                    </a></li></ul></div>\n                      </div>\n                    </details></li><li class=\"\"><details id=\"Details-menu-drawer-menu-item-3\" class=\"js-header-drawer-sub\">\n                      <summary id=\"HeaderDrawer-shop-by-vehicle\" class=\"menu-drawer__menu-item items-center list-menu__item link link--text arrow-inset focus-inset\" role=\"button\" aria-expanded=\"false\" aria-controls=\"link-shop-by-vehicle\"><svg class=\"icon icon--sports_car custom-icon\" aria-hidden=\"true\" focusable=\"false\" xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 512 512\"/><span>Shop by Vehicle</span>\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-caret\" viewBox=\"0 0 512 512\"/>\n                      </summary>\n                      <div id=\"link-shop-by-vehicle\" class=\"menu-drawer__submenu custom-scrollbar has-submenu gradient motion-reduce\" tabindex=\"-1\">\n                        <div class=\"menu-drawer__inner-submenu custom-scrollbar\">\n                          <button class=\"menu-drawer__close-button link link--text focus-inset\" aria-expanded=\"true\" dir=\"ltr\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" focusable=\"false\" class=\"icon icon-arrow\" viewBox=\"0 0 512 512\"/>\n                            Back\n                          </button>\n<ul class=\"menu-drawer__menu list-menu\" role=\"list\" tabindex=\"-1\"><li>\n                                  <a href=\"/pages/shop-by-vehicle\" class=\"menu-drawer__menu-item menu__menu-item-title link link--text list-menu__item focus-inset\">\n                                    <span>Shop by Vehicle</span>\n                                  </a>\n                                </li><li><a id=\"HeaderDrawer-shop-by-vehicle-subaru-wrx-sti\" href=\"/collections/subaru-wrx-sti\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Subaru WRX / STI</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-vehicle-ford-focus-rs-st\" href=\"/collections/ford-focus\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Ford Focus RS / ST</span>\n                                    </a></li></ul></div>\n                      </div>\n                    </details></li><li class=\"\"><a id=\"HeaderDrawer-contact\" href=\"/pages/contact\" class=\"menu-drawer__menu-item items-center list-menu__item link link--text focus-inset\"><svg class=\"icon icon--build custom-icon\" aria-hidden=\"true\" focusable=\"false\" xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 512 512\"/><span>Contact</span>\n                    </a></li><li class=\"\">\n                  <a href=\"https://www.awdmods.com/customer_authentication/redirect?locale=en&amp;region_country=US\" class=\"menu-drawer__menu-item items-center list-menu__item link link--text focus-inset\">\n                    <span>My Account</span>\n                  </a>\n                </li></ul>\n          </nav>\n          <div class=\"menu-drawer__utility-links border-top\">\n            <div class=\"flex flex-wrap items-center gap-2 justify-between\">\n<ul class=\"list-unstyled list-social\" role=\"list\"><li class=\"list-social__item\">\n        <a href=\"https://www.facebook.com/awdmods\" class=\"link tap-target list-social__link\"><svg aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-facebook\" viewBox=\"0 0 20 20\"/>\n<span class=\"visually-hidden\">Facebook</span>\n        </a>\n      </li><li class=\"list-social__item\">\n        <a href=\"https://www.instagram.com/awdmods\" class=\"link tap-target list-social__link\"><svg aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-instagram\" viewBox=\"0 0 20 20\"/>\n<span class=\"visually-hidden\">Instagram</span>\n        </a>\n      </li><li class=\"list-social__item\">\n        <a href=\"https://www.youtube.com/@AWDMods\" class=\"link tap-target list-social__link\"><svg aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-youtube\" viewBox=\"0 0 20 20\"/>\n<span class=\"visually-hidden\">YouTube</span>\n        </a>\n      </li></ul>\n<div class=\"menu-drawer__localization header-localization flex\"></div></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </details>\n</header-drawer>\n<a href=\"/\" class=\"header__heading-link link link--text focus-inset\"><div class=\"header__heading-logo-wrapper\">\n            \n            <img src=\"//www.awdmods.com/cdn/shop/files/awd_big_3cb61c8f-fcd9-403e-9e96-dc294bd03a36.png?v=1771344724&amp;width=600\" alt=\"AWDMods\" srcset=\"//www.awdmods.com/cdn/shop/files/awd_big_3cb61c8f-fcd9-403e-9e96-dc294bd03a36.png?v=1771344724&amp;width=80 80w, //www.awdmods.com/cdn/shop/files/awd_big_3cb61c8f-fcd9-403e-9e96-dc294bd03a36.png?v=1771344724&amp;width=120 120w, //www.awdmods.com/cdn/shop/files/awd_big_3cb61c8f-fcd9-403e-9e96-dc294bd03a36.png?v=1771344724&amp;width=160 160w\" width=\"80\" height=\"45.02194907813872\" loading=\"eager\" class=\"header__heading-logo motion-reduce\" sizes=\"(max-width: 160px) 50vw, 80px\" style=\"object-position:51.6096% 52.8617%;\">\n          </div></a><div class=\"header__search-bar flex justify-end\">\n<form class=\"predictive_search_form hidden\">\n    <input type=\"hidden\" name=\"resources[options][fields]\" value=\"title,product_type,variants.title,vendor,variants.sku,variants.barcode,tag,body\">\n    <input type=\"hidden\" name=\"resources[limit]\" value=\"8\">\n    <input type=\"hidden\" name=\"resources[limit_scope]\" value=\"each\">\n    <input type=\"hidden\" name=\"section_id\" value=\"predictive-search\">\n  </form>\n  <predictive-search class=\"search-modal__form search-modal__form--large\"><form action=\"/search\" method=\"get\" role=\"search\" class=\"search search-modal__form\">\n    <input type=\"hidden\" name=\"options[prefix]\" value=\"last\"><div class=\"field border-radius-input color-scheme-9 gradient field--diff-color-scheme\"><input class=\"search__input field__input visible-placeholder\" id=\"Inline-Search\" type=\"search\" name=\"q\" value=\"\" placeholder=\"Search\" role=\"combobox\" aria-expanded=\"false\" aria-owns=\"predictive-search-results\" aria-controls=\"predictive-search-results\" aria-haspopup=\"listbox\" aria-autocomplete=\"list\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" spellcheck=\"false\">\n      <label class=\"visually-hidden\" for=\"Inline-Search\">\n        Search our store\n      </label>\n      <button class=\"search__button field__button\">\n        <svg class=\"icon icon-search\" aria-hidden=\"true\" focusable=\"false\"/>\n\n<span class=\"predictive-search__loading-state\">\n  <svg aria-hidden=\"true\" focusable=\"false\" class=\"spinner\" viewBox=\"0 0 66 66\" xmlns=\"http://www.w3.org/2000/svg\"/>\n</span>\n<span class=\"visually-hidden\">What are you looking for?</span>\n      </button>\n    </div><button type=\"button\" class=\"inline-search__close-button modal__close-button absolute link link--text focus-inset opacity-0 visibility-hidden\" aria-label=\"Close\">\n        <svg class=\"icon icon-close\" aria-hidden=\"true\" focusable=\"false\"/>\n      </button><div class=\"predictive-search predictive-search--header color-scheme-9 gradient custom-scrollbar\" tabindex=\"-1\"></div><span class=\"predictive-search-status color-scheme-9 gradient visually-hidden\" role=\"status\" aria-hidden=\"true\"></span></form></predictive-search></div><div class=\"header__icons\"><div class=\"header__cta header__cta--garage flex items-center z-1 p-1 gap-1 pl-15 pr-2 whitespace-nowrap hidden-xs medium-hide border-radius-input color-scheme-3 gradient\"><span class=\"header__cta-icon\"><svg class=\"icon icon--sports_car custom-icon\" aria-hidden=\"true\" focusable=\"false\" xmlns=\"http://www.w3.org/2000/svg\" width=\"36.0\" height=\"36.0\" viewBox=\"0 0 512 512\"/></span><span class=\"header__cta-icon\" style=\"display: none;\">\n              <svg viewBox=\"0 0 24 24\" width=\"36.0\" height=\"36.0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/>\n            </span>\n            <div class=\"header__cta-text\">\n              <p class=\"m-0 lh-13 t6\"><strong>SELECT YOUR VEHICLE</strong></p>\n              <p class=\"m-0 lh-13 opacity-80 t6\">Car parts, simplified.</p>\n            </div>\n            <button type=\"button\" class=\"header__cta-clear\" aria-label=\"Clear saved vehicle\" style=\"display: none;\">\n              <svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/>\n            </button>\n          </div><a href=\"https://www.awdmods.com/customer_authentication/redirect?locale=en&amp;region_country=US\" class=\"header__icon header__icon--account link focus-inset\">\n          <account-icon><svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-account\" viewBox=\"0 0 512 512\"/>\n</account-icon>\n          <span class=\"visually-hidden\">My Account</span>\n        </a><a href=\"/cart\" class=\"header__icon header__icon--cart link focus-inset\" id=\"cart-icon-bubble\" role=\"button\" aria-haspopup=\"dialog\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" class=\"icon icon-cart\" aria-hidden=\"true\" focusable=\"false\"/><span class=\"visually-hidden\">Cart</span></a>\n    </div>\n  </header>"
+    },
+    {
+      "label": "Featured products and category content",
+      "scrollY": 0,
+      "height": null,
+      "clusters": [
+        "product-media",
+        "category-navigation"
+      ],
+      "is_global": true,
+      "dom_slice": "<section id=\"shopify-section-template--20109859160129__multicolumn_ybzU9y\" class=\"shopify-section section section-multicolumn\"><link href=\"//www.awdmods.com/cdn/shop/t/24/assets/section-multicolumn.css?v=45585804487868498961777567070\" rel=\"stylesheet\" type=\"text/css\" media=\"all\">\n    <link href=\"//www.awdmods.com/cdn/shop/t/24/assets/component-slider.css?v=2947935458458542271777567021\" rel=\"stylesheet\" type=\"text/css\" media=\"all\">\n<div class=\"multicolumn color-scheme-2 gradient border-top border-bottom  \">\n    <div class=\"section__inner isolate\n        pt-s05 pb-s05\n        \">\n\n\n      <slider-component class=\"slider-mobile-gutter page-width-desktop\n        \n        \n        \n        \n        \">\n        <ul id=\"Slider-template--20109859160129__multicolumn_ybzU9y\" class=\"multicolumn-list contains-content-container section-grid grid mb-0 grid--5-col-desktop grid--scaled grid--1-col-tablet-down slider slider--tablet grid--peek slider--scroll-active\" role=\"list\" tabindex=\"0\" aria-label=\"Slider\" style=\"--mobile-height: 200px;--desktop-height: 280px\"><li id=\"Slide-template--20109859160129__multicolumn_ybzU9y-1\" class=\"multicolumn-list__item grid__item \n                text-left section-height-responsive--desktop section-height-responsive--mobile\n                 color-schemes--different\n                 slider__slide\n                 relative\n                \">\n              <div class=\"multicolumn-card responsive-card-padding overflow-hidden h-full flex flex-col content-container color-scheme-13 gradient\n                  \n                  \n                  \n                  \n                  \n                  \" style=\"--responsive-card-padding: 2.5rem;--overlay-opacity: 0.16;\">\n                  <div class=\"absolute inset image-overlay\">\n                    \n                      \n                    <div class=\"inline-block w-full h-full\">\n                      <div class=\"media media--transparent media--adapt\n                         w-full h-full\n                        \">\n                        <img src=\"//www.awdmods.com/cdn/shop/files/ChatGPT_Image_Dec_26_2025_12_33_24_PM_6ed8a302-3972-4776-a70c-e78b440eef47.png?v=1766814188&amp;width=3200\" alt=\"\" srcset=\"//www.awdmods.com/cdn/shop/files/ChatGPT_Image_Dec_26_2025_12_33_24_PM_6ed8a302-3972-4776-a70c-e78b440eef47.png?v=1766814188&amp;width=50 50w, //www.awdmods.com/cdn/shop/files/ChatGPT_Image_Dec_26_2025_12_33_24_PM_6ed8a302-3972-4776-a70c-e78b440eef47.png?v=1766814188&amp;width=75 75w, //www.awdmods.com/cdn/shop/files/ChatGPT_Image_Dec_26_2025_12_33_24_PM_6ed8a302-3972-4776-a70c-e78b440eef47.png?v=1766814188&amp;width=100 100w, //www.awdmods.com/cdn/shop/files/ChatGPT_Image_Dec_26_2025_12_33_24_PM_6ed8a302-3972-4776-a70c-e78b440eef47.png?v=1766814188&amp;width=150 150w, //www.awdmods.com/cdn/shop/files/ChatGPT_Image_Dec_26_2025_12_33_24_PM_6ed8a302-3972-4776-a70c-e78b440eef47.png?v=1766814188&amp;width=200 200w, //www.awdmods.com/cdn/shop/files/ChatGPT_Image_Dec_26_2025_12_33_24_PM_6ed8a302-3972-4776-a70c-e78b440eef47.png?v=1766814188&amp;width=300 300w, //www.awdmods.com/cdn/shop/files/ChatGPT_Image_Dec_26_2025_12_33_24_PM_6ed8a302-3972-4776-a70c-e78b440eef47.png?v=1766814188&amp;width=400 400w, //www.awdmods.com/cdn/shop/files/ChatGPT_Image_Dec_26_2025_12_33_24_PM_6ed8a302-3972-4776-a70c-e78b440eef47.png?v=1766814188&amp;width=500 500w, //www.awdmods.com/cdn/shop/files/ChatGPT_Image_Dec_26_2025_12_33_24_PM_6ed8a302-3972-4776-a70c-e78b440eef47.png?v=1766814188&amp;width=750 750w, //www.awdmods.com/cdn/shop/files/ChatGPT_Image_Dec_26_2025_12_33_24_PM_6ed8a302-3972-4776-a70c-e78b440eef47.png?v=1766814188&amp;width=1000 1000w\" width=\"3200\" height=\"3200\" sizes=\"\n                          (min-width: 1460px) calc((1460px - 164px) * 1 /  5),\n                          (min-width: 990px) calc((100vw - 164px) * 1 / 7),\n                          (min-width: 750px) calc((100vw - 100px) * 1 / 7),\n                          calc((100vw - 60px) / 1.5)\n                        \" class=\"multicolumn-card__image\" fetchpriority=\"high\">\n                      </div>\n                    </div>\n                  \n                    \n                  </div>\n                \n\n                <div class=\"multicolumn-card__info card-padding relative grow\n                    flex flex-col justify-start\n                    \n                     z-1\">\n<h3 class=\"multicolumn-card__heading lh-13 mt-05 mb-1 last-child:mb-0 inline-richtext  h4\"><strong>Performance </strong>\n</h3>\n<div class=\"multicolumn-card__text text-balance rte  t4\">\n                      <p>Intakes<br>Exhaust<br>Cooling<br>Drivetrain upgrades</p><p></p>\n                    </div><div class=\"\n                           banner__buttons--multiple\n                          \n                          \"><a href=\"/collections/performance\" class=\"mt-2 t6 button button--primary\">Shop Performance\n                        </a></div>\n\n                </div>\n              </div>\n            </li><li id=\"Slide-template--20109859160129__multicolumn_ybzU9y-2\" class=\"multicolumn-list__item grid__item \n                text-left section-height-responsive--desktop section-height-responsive--mobile\n                 color-schemes--different\n                 slider__slide\n                 relative\n                \">\n              <div class=\"multicolumn-card responsive-card-padding overflow-hidden h-full flex flex-col content-container color-scheme-13 gradient\n                  \n                  \n                  \n                  \n                  \n                  \" style=\"--responsive-card-padding: 2.5rem;--overlay-opacity: 0.26;\">\n                  <div class=\"absolute inset image-overlay\">\n                    \n                      \n                    <div class=\"inline-block w-full h-full\">\n                      <div class=\"media media--transparent media--adapt\n                         w-full h-full\n                        \">\n                        <img src=\"//www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_3jhovt3jhovt3jho.png?v=1766630046&amp;width=3200\" alt=\"\" srcset=\"//www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_3jhovt3jhovt3jho.png?v=1766630046&amp;width=50 50w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_3jhovt3jhovt3jho.png?v=1766630046&amp;width=75 75w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_3jhovt3jhovt3jho.png?v=1766630046&amp;width=100 100w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_3jhovt3jhovt3jho.png?v=1766630046&amp;width=150 150w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_3jhovt3jhovt3jho.png?v=1766630046&amp;width=200 200w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_3jhovt3jhovt3jho.png?v=1766630046&amp;width=300 300w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_3jhovt3jhovt3jho.png?v=1766630046&amp;width=400 400w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_3jhovt3jhovt3jho.png?v=1766630046&amp;width=500 500w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_3jhovt3jhovt3jho.png?v=1766630046&amp;width=750 750w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_3jhovt3jhovt3jho.png?v=1766630046&amp;width=1000 1000w\" width=\"3200\" height=\"4770\" sizes=\"\n                          (min-width: 1460px) calc((1460px - 164px) * 1 /  5),\n                          (min-width: 990px) calc((100vw - 164px) * 1 / 7),\n                          (min-width: 750px) calc((100vw - 100px) * 1 / 7),\n                          calc((100vw - 60px) / 1.5)\n                        \" class=\"multicolumn-card__image\" fetchpriority=\"high\">\n                      </div>\n                    </div>\n                  \n                    \n                  </div>\n                \n\n                <div class=\"multicolumn-card__info card-padding relative grow\n                    flex flex-col justify-start\n                    \n                     z-1\">\n<h3 class=\"multicolumn-card__heading lh-13 mt-05 mb-1 last-child:mb-0 inline-richtext  h4\"><strong>Handling  Brakes</strong>\n</h3>\n<div class=\"multicolumn-card__text text-balance rte  t4\">\n                      <p>Suspension<br>Wheels <br>Brake kits<br>Chassis control</p><p></p>\n                    </div><div class=\"\n                           banner__buttons--multiple\n                          \n                          \"><a href=\"/collections/handling-brakes\" class=\"mt-2 t6 button button--primary\">Shop Handling\n                        </a></div>\n\n                </div>\n              </div>\n            </li><li id=\"Slide-template--20109859160129__multicolumn_ybzU9y-3\" class=\"multicolumn-list__item grid__item \n                text-left section-height-responsive--desktop section-height-responsive--mobile\n                 color-schemes--different\n                 slider__slide\n                 relative\n                \">\n              <div class=\"multicolumn-card responsive-card-padding overflow-hidden h-full flex flex-col content-container color-scheme-13 gradient\n                  \n                  \n                  \n                  \n                  \n                  \" style=\"--responsive-card-padding: 2.5rem;--overlay-opacity: 0.0;\">\n                  <div class=\"absolute inset image-overlay\">\n                    \n                      \n                    <div class=\"inline-block w-full h-full\">\n                      <div class=\"media media--transparent media--adapt\n                         w-full h-full\n                        \">\n                        <img src=\"//www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_b245t6b245t6b245.png?v=1766613076&amp;width=3200\" alt=\"\" srcset=\"//www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_b245t6b245t6b245.png?v=1766613076&amp;width=50 50w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_b245t6b245t6b245.png?v=1766613076&amp;width=75 75w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_b245t6b245t6b245.png?v=1766613076&amp;width=100 100w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_b245t6b245t6b245.png?v=1766613076&amp;width=150 150w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_b245t6b245t6b245.png?v=1766613076&amp;width=200 200w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_b245t6b245t6b245.png?v=1766613076&amp;width=300 300w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_b245t6b245t6b245.png?v=1766613076&amp;width=400 400w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_b245t6b245t6b245.png?v=1766613076&amp;width=500 500w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_b245t6b245t6b245.png?v=1766613076&amp;width=750 750w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_b245t6b245t6b245.png?v=1766613076&amp;width=1000 1000w\" width=\"3200\" height=\"5733\" sizes=\"\n                          (min-width: 1460px) calc((1460px - 164px) * 1 /  5),\n                          (min-width: 990px) calc((100vw - 164px) * 1 / 7),\n                          (min-width: 750px) calc((100vw - 100px) * 1 / 7),\n                          calc((100vw - 60px) / 1.5)\n                        \" class=\"multicolumn-card__image\" fetchpriority=\"high\" style=\"object-position:50.0014% 43.2269%;\">\n                      </div>\n                    </div>\n                  \n                    \n                  </div>\n                \n\n                <div class=\"multicolumn-card__info card-padding relative grow\n                    flex flex-col justify-start\n                    \n                     z-1\">\n<h3 class=\"multicolumn-card__heading lh-13 mt-05 mb-1 last-child:mb-0 inline-richtext  h4\"><strong>Interior</strong>\n</h3>\n<div class=\"multicolumn-card__text text-balance rte  t4\">\n                      <p>Shifters<br>Trim<br>Seating <br>Cabin upgrades</p><p></p>\n                    </div><div class=\"\n                           banner__buttons--multiple\n                          \n                          \"><a href=\"/collections/interior\" class=\"mt-2 t6 button button--primary\">Shop Interior\n                        </a></div>\n\n                </div>\n              </div>\n            </li><li id=\"Slide-template--20109859160129__multicolumn_ybzU9y-4\" class=\"multicolumn-list__item grid__item \n                text-left section-height-responsive--desktop section-height-responsive--mobile\n                 color-schemes--different\n                 slider__slide\n                 relative\n                \">\n              <div class=\"multicolumn-card responsive-card-padding overflow-hidden h-full flex flex-col content-container color-scheme-13 gradient\n                  \n                  \n                  \n                  \n                  \n                  \" style=\"--responsive-card-padding: 2.5rem;--overlay-opacity: 0.38;\">\n                  <div class=\"absolute inset image-overlay\">\n                    \n                      \n                    <div class=\"inline-block w-full h-full\">\n                      <div class=\"media media--transparent media--adapt\n                         w-full h-full\n                        \">\n                        <img src=\"//www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_zdbeunzdbeunzdbe.png?v=1766614496&amp;width=3200\" alt=\"\" srcset=\"//www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_zdbeunzdbeunzdbe.png?v=1766614496&amp;width=50 50w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_zdbeunzdbeunzdbe.png?v=1766614496&amp;width=75 75w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_zdbeunzdbeunzdbe.png?v=1766614496&amp;width=100 100w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_zdbeunzdbeunzdbe.png?v=1766614496&amp;width=150 150w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_zdbeunzdbeunzdbe.png?v=1766614496&amp;width=200 200w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_zdbeunzdbeunzdbe.png?v=1766614496&amp;width=300 300w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_zdbeunzdbeunzdbe.png?v=1766614496&amp;width=400 400w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_zdbeunzdbeunzdbe.png?v=1766614496&amp;width=500 500w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_zdbeunzdbeunzdbe.png?v=1766614496&amp;width=750 750w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_zdbeunzdbeunzdbe.png?v=1766614496&amp;width=1000 1000w\" width=\"3200\" height=\"5733\" sizes=\"\n                          (min-width: 1460px) calc((1460px - 164px) * 1 /  5),\n                          (min-width: 990px) calc((100vw - 164px) * 1 / 7),\n                          (min-width: 750px) calc((100vw - 100px) * 1 / 7),\n                          calc((100vw - 60px) / 1.5)\n                        \" class=\"multicolumn-card__image\" fetchpriority=\"high\" style=\"object-position:45.7184% 50.5976%;\">\n                      </div>\n                    </div>\n                  \n                    \n                  </div>\n                \n\n                <div class=\"multicolumn-card__info card-padding relative grow\n                    flex flex-col justify-start\n                    \n                     z-1\">\n<h3 class=\"multicolumn-card__heading lh-13 mt-05 mb-1 last-child:mb-0 inline-richtext  h4\"><strong>Exterior</strong>\n</h3>\n<div class=\"multicolumn-card__text text-balance rte  t4\">\n                      <p>Aero<br>Styling<br>Body components<br>Accents</p><p></p>\n                    </div><div class=\"\n                           banner__buttons--multiple\n                          \n                          \"><a href=\"/collections/exterior\" class=\"mt-2 t6 button button--primary\">Shop Exterior\n                        </a></div>\n\n                </div>\n              </div>\n            </li><li id=\"Slide-template--20109859160129__multicolumn_ybzU9y-5\" class=\"multicolumn-list__item grid__item \n                text-left section-height-responsive--desktop section-height-responsive--mobile\n                 color-schemes--different\n                 slider__slide\n                 relative\n                \">\n              <div class=\"multicolumn-card responsive-card-padding overflow-hidden h-full flex flex-col content-container color-scheme-13 gradient\n                  \n                  \n                  \n                  \n                  \n                  \" style=\"--responsive-card-padding: 2.5rem;--overlay-opacity: 0.1;\">\n                  <div class=\"absolute inset image-overlay\">\n                    \n                      \n                    <div class=\"inline-block w-full h-full\">\n                      <div class=\"media media--transparent media--adapt\n                         w-full h-full\n                        \">\n                        <img src=\"//www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_na2h0fna2h0fna2h.png?v=1766628636&amp;width=3200\" alt=\"\" srcset=\"//www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_na2h0fna2h0fna2h.png?v=1766628636&amp;width=50 50w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_na2h0fna2h0fna2h.png?v=1766628636&amp;width=75 75w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_na2h0fna2h0fna2h.png?v=1766628636&amp;width=100 100w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_na2h0fna2h0fna2h.png?v=1766628636&amp;width=150 150w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_na2h0fna2h0fna2h.png?v=1766628636&amp;width=200 200w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_na2h0fna2h0fna2h.png?v=1766628636&amp;width=300 300w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_na2h0fna2h0fna2h.png?v=1766628636&amp;width=400 400w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_na2h0fna2h0fna2h.png?v=1766628636&amp;width=500 500w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_na2h0fna2h0fna2h.png?v=1766628636&amp;width=750 750w, //www.awdmods.com/cdn/shop/files/Gemini_Generated_Image_na2h0fna2h0fna2h.png?v=1766628636&amp;width=1000 1000w\" width=\"3200\" height=\"5733\" sizes=\"\n                          (min-width: 1460px) calc((1460px - 164px) * 1 /  5),\n                          (min-width: 990px) calc((100vw - 164px) * 1 / 7),\n                          (min-width: 750px) calc((100vw - 100px) * 1 / 7),\n                          calc((100vw - 60px) / 1.5)\n                        \" class=\"multicolumn-card__image\" fetchpriority=\"high\">\n                      </div>\n                    </div>\n                  \n                    \n                  </div>\n                \n\n                <div class=\"multicolumn-card__info card-padding relative grow\n                    flex flex-col justify-start\n                    \n                     z-1\">\n<h3 class=\"multicolumn-card__heading lh-13 mt-05 mb-1 last-child:mb-0 inline-richtext  h4\"><strong>Electronics</strong>\n</h3>\n<div class=\"multicolumn-card__text text-balance rte  t4\">\n                      <p>Lighting<br>Wiring<br>Infotainment<br>Vehicle tech</p><p></p>\n                    </div><div class=\"\n                           banner__buttons--multiple\n                          \n                          \"><a href=\"/collections/electronics\" class=\"mt-2 t6 button button--primary\">Shop Electronics\n                        </a></div>\n\n                </div>\n              </div>\n            </li></ul><div class=\"slider-buttons page-width no-js-hidden\">\n            <button type=\"button\" class=\"slider-button button-control tap-target slider-button--prev\" name=\"previous\" aria-label=\"Slide left\" aria-controls=\"Slider-template--20109859160129__multicolumn_ybzU9y\" disabled=\"disabled\">\n              <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-caret\" viewBox=\"0 0 512 512\"/>\n            </button>\n\n            <div class=\"slider-counter caption visually-hidden\">\n              <span class=\"slider-counter--current\">1</span>\n              <span aria-hidden=\"true\"> / </span>\n              <span>of</span>\n              <span class=\"slider-counter--total\">2</span>\n            </div>\n\n            <button type=\"button\" class=\"slider-button button-control tap-target slider-button--next\" name=\"next\" aria-label=\"Slide right\" aria-controls=\"Slider-template--20109859160129__multicolumn_ybzU9y\">\n              <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-caret\" viewBox=\"0 0 512 512\"/>\n            </button>\n\n            <div class=\"slider-scrollbar__track\" style=\"--num-slides: 5\">\n              <div class=\"slider-scrollbar__indicator\"></div>\n            </div>\n          </div></slider-component>\n    </div>\n  </div>\n</section>"
+    },
+    {
+      "label": "Footer, newsletter and payment information",
+      "scrollY": 0,
+      "height": null,
+      "clusters": [
+        "checkout-flows",
+        "post-purchase"
+      ],
+      "is_global": true,
+      "dom_slice": "<footer><div class=\"color-scheme-3 gradient section__inner\">\n      <div class=\"page-width\"><div class=\"footer__blocks-wrapper grid grid--1-col grid--2-col grid--4-col-tablet scroll-trigger animate--fade-in\"><div class=\"footer-block grid__item footer-block--menu\"><footer-accordion class=\"custom-accordion\">\n                    <details id=\"Details-collapsible_link_list_yAXYbY\" open=\"\">\n                      <summary id=\"Summary-collapsible_link_list_yAXYbY\" class=\"t2 pointer-events-none\" role=\"button\" aria-expanded=\"false\" tabindex=\"-1\">\n                        <h2 class=\"accordion__title inline-richtext t3\">Information</h2>\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-caret\" viewBox=\"0 0 512 512\"/>\n                      </summary>\n                      <div class=\"custom-accordion__panel custom-scrollbar\">\n                        <div class=\"flex\">\n                          <div class=\"accordion__content\" id=\"CollapsibleAccordion-collapsible_link_list_yAXYbY\" role=\"region\" aria-labelledby=\"Summary-collapsible_link_list_yAXYbY\"><ul class=\"footer-block__details-content list-unstyled\"><li>\n                              <a href=\"/pages/about-us\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                About Us\n                              </a>\n                            </li><li>\n                              <a href=\"/pages/data-sharing-opt-out\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                Your Privacy Choices<img src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMCAxNCI+IDxzdHlsZT4uc3Qwe2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6I0ZGRn0uc3Qxe2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6IzA2Rn0uc3Qye2ZpbGw6I0ZGRn0uc3Qze2ZpbGw6IzA2Rn08L3N0eWxlPiA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNy40IDEyLjhoNi44bDMuMS0xMS42SDcuNEM0LjIgMS4yIDEuNiAzLjggMS42IDdzMi42IDUuOCA1LjggNS44eiIvPiA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMjIuNiAwSDcuNEMzLjUgMCAuNCAzLjEuNCA3czMuMSA3IDcgN2gxNS4yYzMuOSAwIDctMy4xIDctN3MtMy4xLTctNy03ek0xLjYgN2MwLTMuMiAyLjYtNS44IDUuOC01LjhoOS45bC0zLjEgMTEuNkg3LjRDNC4yIDEyLjggMS42IDEwLjIgMS42IDd6Ii8+IDxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0yNC42IDRjLjIuMi4yLjYgMCAuOEwyMi41IDdsMi4yIDIuMmMuMi4yLjIuNiAwIC44LS4yLjItLjYuMi0uOCAwbC0yLjItMi4yTDE5LjUgMTBjLS4yLjItLjYuMi0uOCAwLS4yLS4yLS4yLS42IDAtLjhMMjAuOCA3bC0yLjItMi4yYy0uMi0uMi0uMi0uNiAwLS44LjItLjIuNi0uMi44IDBsMi4yIDIuMkwyMy44IDRjLjItLjIuNi0uMi44IDB6Ii8+IDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0xMi43IDQuMWMuMi4yLjMuNi4xLjhMOC42IDkuOGMtLjEuMS0uMi4yLS4zLjItLjIuMS0uNS4xLS43LS4xTDUuNCA3LjdjLS4yLS4yLS4yLS42IDAtLjguMi0uMi42LS4yLjggMEw4IDguNmwzLjgtNC41Yy4yLS4yLjYtLjIuOSAweiIvPiA8L3N2Zz4=\" alt=\"California Consumer Privacy Act (CCPA) Opt-Out Icon\" role=\"presentation\" class=\"shopify-dns-link-icon\" style=\"margin-left:.25em;height:.7em;vertical-align:middle;display: inline; width: auto;\">\n                              </a>\n                            </li><li>\n                              <a href=\"https://e1520g-k3.myshopify.com/policies/privacy-policy\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                Privacy Policy\n                              </a>\n                            </li><li>\n                              <a href=\"/pages/terms-of-service\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                Terms and Conditions\n                              </a>\n                            </li><li>\n                              <a href=\"/pages/carb-policy\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                CARB Policy\n                              </a>\n                            </li></ul>\n                          </div>\n                        </div>\n                      </div>\n                    </details>\n                  </footer-accordion></div><div class=\"footer-block grid__item footer-block--menu\"><footer-accordion class=\"custom-accordion\">\n                    <details id=\"Details-collapsible_link_list_XDr4wH\" open=\"\">\n                      <summary id=\"Summary-collapsible_link_list_XDr4wH\" class=\"t2 pointer-events-none\" role=\"button\" aria-expanded=\"false\" tabindex=\"-1\">\n                        <h2 class=\"accordion__title inline-richtext t3\">My Account</h2>\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-caret\" viewBox=\"0 0 512 512\"/>\n                      </summary>\n                      <div class=\"custom-accordion__panel custom-scrollbar\">\n                        <div class=\"flex\">\n                          <div class=\"accordion__content\" id=\"CollapsibleAccordion-collapsible_link_list_XDr4wH\" role=\"region\" aria-labelledby=\"Summary-collapsible_link_list_XDr4wH\"><ul class=\"footer-block__details-content list-unstyled\"><li>\n                              <a href=\"https://account.awdmods.com/profile?locale=en&amp;region_country=US&amp;buyer_flags=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlMTUyMGctazMubXlzaG9waWZ5LmNvbSIsImZsYWdzIjpbXSwiZXhwIjoxNzc4MzY4MDc2LCJuYmYiOjE3Nzc3NjMyNzZ9.Jo3GwSOr7UqfdKJzStRLU_CBUyzRojss-lHXT8qQ6iU\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                My Account\n                              </a>\n                            </li><li>\n                              <a href=\"https://account.awdmods.com/orders?locale=en&amp;region_country=US&amp;buyer_flags=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlMTUyMGctazMubXlzaG9waWZ5LmNvbSIsImZsYWdzIjpbXSwiZXhwIjoxNzc4MzY4MDc2LCJuYmYiOjE3Nzc3NjMyNzZ9.Jo3GwSOr7UqfdKJzStRLU_CBUyzRojss-lHXT8qQ6iU\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                Order History\n                              </a>\n                            </li><li>\n                              <a href=\"https://account.awdmods.com/profile?locale=en&amp;region_country=US&amp;buyer_flags=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlMTUyMGctazMubXlzaG9waWZ5LmNvbSIsImZsYWdzIjpbXSwiZXhwIjoxNzc4MzY4MDc2LCJuYmYiOjE3Nzc3NjMyNzZ9.Jo3GwSOr7UqfdKJzStRLU_CBUyzRojss-lHXT8qQ6iU\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                Wish List\n                              </a>\n                            </li><li>\n                              <a href=\"https://account.awdmods.com/orders?locale=en&amp;region_country=US&amp;buyer_flags=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlMTUyMGctazMubXlzaG9waWZ5LmNvbSIsImZsYWdzIjpbXSwiZXhwIjoxNzc4MzY4MDc2LCJuYmYiOjE3Nzc3NjMyNzZ9.Jo3GwSOr7UqfdKJzStRLU_CBUyzRojss-lHXT8qQ6iU\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                Track My Order\n                              </a>\n                            </li></ul>\n                          </div>\n                        </div>\n                      </div>\n                    </details>\n                  </footer-accordion></div></div></div>\n    </div><div class=\"footer__content-bottom color-scheme-3 gradient\" style=\"--color-background: 26,26,26; --gradient-background: rgb(26,26,26)\">\n    <div class=\"page-width\">\n      <div class=\"md:pb-1 md:pt-1 pt-s05 pb-s05\">\n        <div class=\"flex flex-col-reverse mt-1px md:flex-row flex-wrap gap-1 justify-between items-center\">\n\n          <div class=\"flex flex-col-reverse md:flex-row text-center md:text-left items-center gap-1\">\n            <div class=\"flex flex-wrap items-center justify-center md:justify-start mt-2 md:mt-0 xs:mb-1\">\n              <small class=\"copyright__content copyright__content-copy t7\">© 2026, <a href=\"/\">AWDMods</a>.</small>\n              \n            </div><ul class=\"list list-payment pt-0 mb-0\" role=\"list\"><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-labelledby=\"pi-american_express\" viewBox=\"0 0 38 24\" width=\"38\" height=\"24\"/>\n\n                  </li><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" x=\"0\" y=\"0\" width=\"38\" height=\"24\" viewBox=\"0 0 165.521 105.965\" xml:space=\"preserve\" aria-labelledby=\"pi-apple_pay\"/>\n\n                  </li><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" viewBox=\"0 0 38 24\" width=\"38\" height=\"24\" role=\"img\" aria-labelledby=\"pi-discover\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"/>\n                  </li><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" viewBox=\"0 0 38 24\" width=\"38\" height=\"24\" aria-labelledby=\"pi-google_pay\"/>\n\n                  </li><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" viewBox=\"0 0 38 24\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" width=\"38\" height=\"24\" aria-labelledby=\"pi-master\"/>\n                  </li><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" viewBox=\"0 0 38 24\" xmlns=\"http://www.w3.org/2000/svg\" width=\"38\" height=\"24\" role=\"img\" aria-labelledby=\"pi-paypal\"/>\n                  </li><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" viewBox=\"0 0 38 24\" width=\"38\" height=\"24\" aria-labelledby=\"pi-shopify_pay\"/>\n\n                  </li><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" viewBox=\"0 0 38 24\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" width=\"38\" height=\"24\" aria-labelledby=\"pi-visa\"/>\n                  </li></ul></div>\n\n          <div class=\"flex flex-col md:flex-row items-center gap-1 md:gap-2\">\n            <div class=\"flex flex-col md:flex-row items-center\">\n<ul class=\"list-unstyled list-social footer__list-social\" role=\"list\"><li class=\"list-social__item\">\n        <a href=\"https://www.facebook.com/awdmods\" class=\"link tap-target list-social__link\"><svg aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-facebook\" viewBox=\"0 0 20 20\"/>\n<span class=\"visually-hidden\">Facebook</span>\n        </a>\n      </li><li class=\"list-social__item\">\n        <a href=\"https://www.instagram.com/awdmods\" class=\"link tap-target list-social__link\"><svg aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-instagram\" viewBox=\"0 0 20 20\"/>\n<span class=\"visually-hidden\">Instagram</span>\n        </a>\n      </li><li class=\"list-social__item\">\n        <a href=\"https://www.youtube.com/@AWDMods\" class=\"link tap-target list-social__link\"><svg aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-youtube\" viewBox=\"0 0 20 20\"/>\n<span class=\"visually-hidden\">YouTube</span>\n        </a>\n      </li></ul></div></div>\n\n        </div>\n      </div>\n    </div>\n  </div>\n</footer>"
+    }
+  ],
+  "page_head": "<head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n    <meta name=\"theme-color\" content=\"\"><link rel=\"canonical\" href=\"https://www.awdmods.com/\"><link rel=\"icon\" type=\"image/png\" href=\"//www.awdmods.com/cdn/shop/files/favicon.png?crop=center&amp;height=32&amp;v=1774452987&amp;width=32\"><link rel=\"preconnect\" href=\"https://fonts.shopifycdn.com\" crossorigin=\"\"><title>\n      AWDMods\n – AWDMods</title>\n\n    \n\n    \n\n<meta property=\"og:site_name\" content=\"AWDMods\">\n<meta property=\"og:url\" content=\"https://www.awdmods.com/\">\n<meta property=\"og:title\" content=\"AWDMods\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:description\" content=\"AWDMods\"><meta name=\"twitter:card\" content=\"summary_large_image\">\n<meta name=\"twitter:title\" content=\"AWDMods\">\n<meta name=\"twitter:description\" content=\"AWDMods\">\n\n<meta name=\"theme:name\" content=\"Ignite\">\n<meta name=\"theme:version\" content=\"2.4.0\">\n<meta name=\"theme:preset\" content=\"unknown\">\n\n\n    <link rel=\"preload\" href=\"//www.awdmods.com/cdn/fonts/roboto_condensed/robotocondensed_n4.01812de96ca5a5e9d19bef3ca9cc80dd1bf6c8b8.woff2\" as=\"font\" crossorigin=\"\" fetchpriority=\"high\" type=\"font/woff2\"><link rel=\"preload\" href=\"//www.awdmods.com/cdn/fonts/open_sans_condensed/opensanscondensed_n7.540ad984d87539ff9a03e07d9527f1ec85e214bc.woff2\" as=\"font\" crossorigin=\"\" fetchpriority=\"high\" type=\"font/woff2\"><meta id=\"shopify-digital-wallet\" name=\"shopify-digital-wallet\" content=\"/69686427713/digital_wallets/dialog\">\n<meta name=\"shopify-checkout-api-token\" content=\"467cc8a8c80d438e7fd720fe7b6df020\">\n<meta id=\"in-context-paypal-metadata\">\n\n<link rel=\"preconnect\" href=\"https://shop.app\" crossorigin=\"anonymous\">\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<link id=\"shopify-accelerated-checkout-styles\" rel=\"stylesheet\" media=\"screen\" href=\"https://www.awdmods.com/cdn/shopifycloud/portable-wallets/latest/accelerated-checkout-backwards-compat.css\" crossorigin=\"anonymous\">\n\n\n\n\n\n    \n\n    <link href=\"//www.awdmods.com/cdn/shop/t/24/assets/base.css?v=51259230120410514841777567022\" rel=\"stylesheet\" type=\"text/css\" media=\"all\">\n<link rel=\"stylesheet\" href=\"//www.awdmods.com/cdn/shop/t/24/assets/standard.css?v=149958717719879108301777567071\" media=\"all\" onload=\"this.media='all'\"><link rel=\"stylesheet\" href=\"//www.awdmods.com/cdn/shop/t/24/assets/component-predictive-search.css?v=62479591507126246201777567021\" media=\"all\" onload=\"this.media='all'\">\n\n    <link rel=\"dns-prefetch preconnect\" href=\"https://cdn.shopify.com\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/polyfills.CgsWKOqO.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/app.3r-QFN-T.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/esnext-vendor.BU5-C5RZ.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/browser.-G55oGBd.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/FullScreenBackground.CFegFo2o.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/graphql-PaymentSessionMutation.Ci3hK8Gx.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/utilities-shop-discount-offer.DdO-7AzM.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/utilities-alternativePaymentCurrency.CUTZpdfN.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/consent-manager-shared.CnnexcNO.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/business-customer-BusinessCustomerShippingAddressManager.6NE0hugY.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/hooks-useUnauthenticatedErrorModal.DuSJSiRl.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/CaptureEvents-ButtonWithRegisterWebPixel.ChRj_lZQ.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/events-shared.xk3PqPtY.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/images-flag-icon.C_eXYJRt.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/images-payment-icon.D2Fpq5Mq.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/locale-en.Bh-E6-Un.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/page-OnePage.D2D4WM_H.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/MarketsProDisclaimer.hjyyrOON.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/CrossBorderConsolidation.DFgZJly6.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/hooks-useSubscribeMessenger.0HH2NQjb.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/hooks-useSuppressShopPayModalOnLoad.B6pdNT18.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/hooks-useHasOrdersFromMultipleShops.SDngVQMv.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/ShopPayLogo.CSfh6_C6.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/VaultedPayment.DPEMXEmk.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/ShippingGroupsSummaryLine.-giovg9s.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/StackedMerchandisePreview.GZMeDmNc.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/PickupPointCarrierLogo.BUKn6Mes.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/AutocompleteField-hooks.rUsL7EvV.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/LocalizationExtensionField.WjzZ61gI.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/ShopPayOptInDisclaimer.DAJOYlXN.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/RememberMeDescriptionText.COeyfY5x.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/MobileOrderSummary.BEFPwZfL.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/OrderEditVaultedDelivery.CFEqCtXk.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/SeparatePaymentsNotice.BHacIpJ6.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/StockProblems-StockProblemsLineItemList.rmuKPHQJ.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/shop-cash-constants.DputEnFZ.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/hooks-useShopPayPaymentRequiredMethod.COhANLvC.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/ShipmentBreakdown.DbfsgyGa.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/MerchandiseModal.CXtYolz7.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/extension-targets-shipping-options.BmSK4I2H.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/DutyOptions.BjV9whA6.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/ShippingMethodSelector.BUS1YzdB.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/SubscriptionPriceBreakdown.CDpDFsZG.js\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/app.CfAhKPz4.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/FullScreenBackground.CfHxiIwO.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/ButtonWithRegisterWebPixel.CU099GPu.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/shared.CEMlQpma.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/OnePage.CtwmLt0f.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/CrossBorderConsolidation.CvXXnYCy.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/LocalizationExtensionField.BGO83eR3.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/MobileOrderSummary.Cko1fUoG.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/OrderEditVaultedDelivery.CSQKPDv7.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/useSubscribeMessenger.BrcQzLuH.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/DutyOptions.LcqrKXE1.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/VaultedPayment.OxMVm7u-.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/PickupPointCarrierLogo.cbVP6Hp_.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/StackedMerchandisePreview.D6OuIVjc.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/ShippingMethodSelector.B0hio2RO.css\" crossorigin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"style\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/assets/SubscriptionPriceBreakdown.BSemv9tH.css\" crossorigin=\"\"><link rel=\"stylesheet\" href=\"//www.awdmods.com/cdn/shop/t/24/assets/quantity-popover.css?v=158112609692343651221777567068\" media=\"all\" onload=\"this.media='all'\"><link rel=\"stylesheet\" href=\"//www.awdmods.com/cdn/shop/t/24/assets/component-card.css?v=142288266843829202341777567021\" media=\"all\" onload=\"this.media='all'\"></head>",
+  "header_html": "<header class=\"header header--top-left header--mobile-left page-width drawer-menu drawer-menu--on-scroll header--has-menu header--has-social header--has-account header--keep-mobile-search\">\n<header-drawer>\n  <details id=\"Details-menu-drawer-container\" class=\"menu-drawer-container js-header-drawer-main\">\n    <summary class=\"header__icon header__icon--menu header__icon--summary link focus-inset\" aria-label=\"Menu\" role=\"button\" aria-expanded=\"false\" aria-controls=\"menu-drawer\">\n      <span>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-hamburger\" fill=\"none\" viewBox=\"0 0 512 512\"/>\n        <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-close hidden-during-load\" viewBox=\"0 0 512 512\"/>\n      </span>\n    </summary>\n    <div id=\"menu-drawer\" class=\"gradient menu-drawer motion-reduce color-scheme-3\">\n      <div class=\"menu-drawer__inner-container\">\n        <div class=\"menu-drawer__navigation-container custom-scrollbar\">\n          <nav class=\"menu-drawer__navigation\">\n            <div class=\"border-bottom flex justify-end p-1 mb-1 hidden-xs\">\n              <button class=\"button-control--no-colors color-foreground\" type=\"button\" aria-label=\"Close\">\n                <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-close\" viewBox=\"0 0 512 512\"/>\n              </button>\n            </div>\n\n            \n            <ul class=\"menu-drawer__menu has-submenu list-menu\" role=\"list\"><li class=\"\"><a id=\"HeaderDrawer-shop-all\" href=\"/collections\" class=\"menu-drawer__menu-item items-center list-menu__item link link--text focus-inset\"><svg class=\"icon icon--home custom-icon\" aria-hidden=\"true\" focusable=\"false\" xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 512 512\"/><span>Shop All</span>\n                    </a></li><li class=\"\"><details id=\"Details-menu-drawer-menu-item-2\" class=\"js-header-drawer-sub\">\n                      <summary id=\"HeaderDrawer-shop-by-category\" class=\"menu-drawer__menu-item items-center list-menu__item link link--text arrow-inset focus-inset\" role=\"button\" aria-expanded=\"false\" aria-controls=\"link-shop-by-category\"><svg class=\"icon icon--layers custom-icon\" aria-hidden=\"true\" focusable=\"false\" xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 512 512\"/><span>Shop by Category</span>\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-caret\" viewBox=\"0 0 512 512\"/>\n                      </summary>\n                      <div id=\"link-shop-by-category\" class=\"menu-drawer__submenu custom-scrollbar has-submenu gradient motion-reduce\" tabindex=\"-1\">\n                        <div class=\"menu-drawer__inner-submenu custom-scrollbar\">\n                          <button class=\"menu-drawer__close-button link link--text focus-inset\" aria-expanded=\"true\" dir=\"ltr\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" focusable=\"false\" class=\"icon icon-arrow\" viewBox=\"0 0 512 512\"/>\n                            Back\n                          </button>\n<ul class=\"menu-drawer__menu list-menu\" role=\"list\" tabindex=\"-1\"><li>\n                                  <a href=\"/collections\" class=\"menu-drawer__menu-item menu__menu-item-title link link--text list-menu__item focus-inset\">\n                                    <span>Shop by Category</span>\n                                  </a>\n                                </li><li><a id=\"HeaderDrawer-shop-by-category-performance\" href=\"/collections/performance\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Performance</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-exterior\" href=\"/collections/exterior\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Exterior</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-interior\" href=\"/collections/interior\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Interior</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-handling\" href=\"/collections/handling-brakes\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Handling</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-drivetrain\" href=\"/collections/drivetrain\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Drivetrain</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-brakes\" href=\"/collections/brakes\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Brakes</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-cooling\" href=\"/collections/cooling\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Cooling</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-wheels\" href=\"/collections/wheels\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Wheels</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-category-accessories\" href=\"/collections/accessories\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Accessories</span>\n                                    </a></li></ul></div>\n                      </div>\n                    </details></li><li class=\"\"><details id=\"Details-menu-drawer-menu-item-3\" class=\"js-header-drawer-sub\">\n                      <summary id=\"HeaderDrawer-shop-by-vehicle\" class=\"menu-drawer__menu-item items-center list-menu__item link link--text arrow-inset focus-inset\" role=\"button\" aria-expanded=\"false\" aria-controls=\"link-shop-by-vehicle\"><svg class=\"icon icon--sports_car custom-icon\" aria-hidden=\"true\" focusable=\"false\" xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 512 512\"/><span>Shop by Vehicle</span>\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-caret\" viewBox=\"0 0 512 512\"/>\n                      </summary>\n                      <div id=\"link-shop-by-vehicle\" class=\"menu-drawer__submenu custom-scrollbar has-submenu gradient motion-reduce\" tabindex=\"-1\">\n                        <div class=\"menu-drawer__inner-submenu custom-scrollbar\">\n                          <button class=\"menu-drawer__close-button link link--text focus-inset\" aria-expanded=\"true\" dir=\"ltr\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" focusable=\"false\" class=\"icon icon-arrow\" viewBox=\"0 0 512 512\"/>\n                            Back\n                          </button>\n<ul class=\"menu-drawer__menu list-menu\" role=\"list\" tabindex=\"-1\"><li>\n                                  <a href=\"/pages/shop-by-vehicle\" class=\"menu-drawer__menu-item menu__menu-item-title link link--text list-menu__item focus-inset\">\n                                    <span>Shop by Vehicle</span>\n                                  </a>\n                                </li><li><a id=\"HeaderDrawer-shop-by-vehicle-subaru-wrx-sti\" href=\"/collections/subaru-wrx-sti\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Subaru WRX / STI</span>\n                                    </a></li><li><a id=\"HeaderDrawer-shop-by-vehicle-ford-focus-rs-st\" href=\"/collections/ford-focus\" class=\"menu-drawer__menu-item menu-drawer__child-menu-item link link--text list-menu__item focus-inset\">\n                                      <span>Ford Focus RS / ST</span>\n                                    </a></li></ul></div>\n                      </div>\n                    </details></li><li class=\"\"><a id=\"HeaderDrawer-contact\" href=\"/pages/contact\" class=\"menu-drawer__menu-item items-center list-menu__item link link--text focus-inset\"><svg class=\"icon icon--build custom-icon\" aria-hidden=\"true\" focusable=\"false\" xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 512 512\"/><span>Contact</span>\n                    </a></li><li class=\"\">\n                  <a href=\"https://www.awdmods.com/customer_authentication/redirect?locale=en&amp;region_country=US\" class=\"menu-drawer__menu-item items-center list-menu__item link link--text focus-inset\">\n                    <span>My Account</span>\n                  </a>\n                </li></ul>\n          </nav>\n          <div class=\"menu-drawer__utility-links border-top\">\n            <div class=\"flex flex-wrap items-center gap-2 justify-between\">\n<ul class=\"list-unstyled list-social\" role=\"list\"><li class=\"list-social__item\">\n        <a href=\"https://www.facebook.com/awdmods\" class=\"link tap-target list-social__link\"><svg aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-facebook\" viewBox=\"0 0 20 20\"/>\n<span class=\"visually-hidden\">Facebook</span>\n        </a>\n      </li><li class=\"list-social__item\">\n        <a href=\"https://www.instagram.com/awdmods\" class=\"link tap-target list-social__link\"><svg aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-instagram\" viewBox=\"0 0 20 20\"/>\n<span class=\"visually-hidden\">Instagram</span>\n        </a>\n      </li><li class=\"list-social__item\">\n        <a href=\"https://www.youtube.com/@AWDMods\" class=\"link tap-target list-social__link\"><svg aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-youtube\" viewBox=\"0 0 20 20\"/>\n<span class=\"visually-hidden\">YouTube</span>\n        </a>\n      </li></ul>\n<div class=\"menu-drawer__localization header-localization flex\"></div></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </details>\n</header-drawer>\n<a href=\"/\" class=\"header__heading-link link link--text focus-inset\"><div class=\"header__heading-logo-wrapper\">\n            \n            <img src=\"//www.awdmods.com/cdn/shop/files/awd_big_3cb61c8f-fcd9-403e-9e96-dc294bd03a36.png?v=1771344724&amp;width=600\" alt=\"AWDMods\" srcset=\"//www.awdmods.com/cdn/shop/files/awd_big_3cb61c8f-fcd9-403e-9e96-dc294bd03a36.png?v=1771344724&amp;width=80 80w, //www.awdmods.com/cdn/shop/files/awd_big_3cb61c8f-fcd9-403e-9e96-dc294bd03a36.png?v=1771344724&amp;width=120 120w, //www.awdmods.com/cdn/shop/files/awd_big_3cb61c8f-fcd9-403e-9e96-dc294bd03a36.png?v=1771344724&amp;width=160 160w\" width=\"80\" height=\"45.02194907813872\" loading=\"eager\" class=\"header__heading-logo motion-reduce\" sizes=\"(max-width: 160px) 50vw, 80px\" style=\"object-position:51.6096% 52.8617%;\">\n          </div></a><div class=\"header__search-bar flex justify-end\">\n<form class=\"predictive_search_form hidden\">\n    <input type=\"hidden\" name=\"resources[options][fields]\" value=\"title,product_type,variants.title,vendor,variants.sku,variants.barcode,tag,body\">\n    <input type=\"hidden\" name=\"resources[limit]\" value=\"8\">\n    <input type=\"hidden\" name=\"resources[limit_scope]\" value=\"each\">\n    <input type=\"hidden\" name=\"section_id\" value=\"predictive-search\">\n  </form>\n  <predictive-search class=\"search-modal__form search-modal__form--large\"><form action=\"/search\" method=\"get\" role=\"search\" class=\"search search-modal__form\">\n    <input type=\"hidden\" name=\"options[prefix]\" value=\"last\"><div class=\"field border-radius-input color-scheme-9 gradient field--diff-color-scheme\"><input class=\"search__input field__input visible-placeholder\" id=\"Inline-Search\" type=\"search\" name=\"q\" value=\"\" placeholder=\"Search\" role=\"combobox\" aria-expanded=\"false\" aria-owns=\"predictive-search-results\" aria-controls=\"predictive-search-results\" aria-haspopup=\"listbox\" aria-autocomplete=\"list\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" spellcheck=\"false\">\n      <label class=\"visually-hidden\" for=\"Inline-Search\">\n        Search our store\n      </label>\n      <button class=\"search__button field__button\">\n        <svg class=\"icon icon-search\" aria-hidden=\"true\" focusable=\"false\"/>\n\n<span class=\"predictive-search__loading-state\">\n  <svg aria-hidden=\"true\" focusable=\"false\" class=\"spinner\" viewBox=\"0 0 66 66\" xmlns=\"http://www.w3.org/2000/svg\"/>\n</span>\n<span class=\"visually-hidden\">What are you looking for?</span>\n      </button>\n    </div><button type=\"button\" class=\"inline-search__close-button modal__close-button absolute link link--text focus-inset opacity-0 visibility-hidden\" aria-label=\"Close\">\n        <svg class=\"icon icon-close\" aria-hidden=\"true\" focusable=\"false\"/>\n      </button><div class=\"predictive-search predictive-search--header color-scheme-9 gradient custom-scrollbar\" tabindex=\"-1\"></div><span class=\"predictive-search-status color-scheme-9 gradient visually-hidden\" role=\"status\" aria-hidden=\"true\"></span></form></predictive-search></div><div class=\"header__icons\"><div class=\"header__cta header__cta--garage flex items-center z-1 p-1 gap-1 pl-15 pr-2 whitespace-nowrap hidden-xs medium-hide border-radius-input color-scheme-3 gradient\"><span class=\"header__cta-icon\"><svg class=\"icon icon--sports_car custom-icon\" aria-hidden=\"true\" focusable=\"false\" xmlns=\"http://www.w3.org/2000/svg\" width=\"36.0\" height=\"36.0\" viewBox=\"0 0 512 512\"/></span><span class=\"header__cta-icon\" style=\"display: none;\">\n              <svg viewBox=\"0 0 24 24\" width=\"36.0\" height=\"36.0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/>\n            </span>\n            <div class=\"header__cta-text\">\n              <p class=\"m-0 lh-13 t6\"><strong>SELECT YOUR VEHICLE</strong></p>\n              <p class=\"m-0 lh-13 opacity-80 t6\">Car parts, simplified.</p>\n            </div>\n            <button type=\"button\" class=\"header__cta-clear\" aria-label=\"Clear saved vehicle\" style=\"display: none;\">\n              <svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/>\n            </button>\n          </div><a href=\"https://www.awdmods.com/customer_authentication/redirect?locale=en&amp;region_country=US\" class=\"header__icon header__icon--account link focus-inset\">\n          <account-icon><svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-account\" viewBox=\"0 0 512 512\"/>\n</account-icon>\n          <span class=\"visually-hidden\">My Account</span>\n        </a><a href=\"/cart\" class=\"header__icon header__icon--cart link focus-inset\" id=\"cart-icon-bubble\" role=\"button\" aria-haspopup=\"dialog\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" class=\"icon icon-cart\" aria-hidden=\"true\" focusable=\"false\"/><span class=\"visually-hidden\">Cart</span></a>\n    </div>\n  </header>",
+  "footer_html": "<footer><div class=\"color-scheme-3 gradient section__inner\">\n      <div class=\"page-width\"><div class=\"footer__blocks-wrapper grid grid--1-col grid--2-col grid--4-col-tablet scroll-trigger animate--fade-in\"><div class=\"footer-block grid__item footer-block--menu\"><footer-accordion class=\"custom-accordion\">\n                    <details id=\"Details-collapsible_link_list_yAXYbY\" open=\"\">\n                      <summary id=\"Summary-collapsible_link_list_yAXYbY\" class=\"t2 pointer-events-none\" role=\"button\" aria-expanded=\"false\" tabindex=\"-1\">\n                        <h2 class=\"accordion__title inline-richtext t3\">Information</h2>\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-caret\" viewBox=\"0 0 512 512\"/>\n                      </summary>\n                      <div class=\"custom-accordion__panel custom-scrollbar\">\n                        <div class=\"flex\">\n                          <div class=\"accordion__content\" id=\"CollapsibleAccordion-collapsible_link_list_yAXYbY\" role=\"region\" aria-labelledby=\"Summary-collapsible_link_list_yAXYbY\"><ul class=\"footer-block__details-content list-unstyled\"><li>\n                              <a href=\"/pages/about-us\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                About Us\n                              </a>\n                            </li><li>\n                              <a href=\"/pages/data-sharing-opt-out\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                Your Privacy Choices<img src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMCAxNCI+IDxzdHlsZT4uc3Qwe2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6I0ZGRn0uc3Qxe2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6IzA2Rn0uc3Qye2ZpbGw6I0ZGRn0uc3Qze2ZpbGw6IzA2Rn08L3N0eWxlPiA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNy40IDEyLjhoNi44bDMuMS0xMS42SDcuNEM0LjIgMS4yIDEuNiAzLjggMS42IDdzMi42IDUuOCA1LjggNS44eiIvPiA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMjIuNiAwSDcuNEMzLjUgMCAuNCAzLjEuNCA3czMuMSA3IDcgN2gxNS4yYzMuOSAwIDctMy4xIDctN3MtMy4xLTctNy03ek0xLjYgN2MwLTMuMiAyLjYtNS44IDUuOC01LjhoOS45bC0zLjEgMTEuNkg3LjRDNC4yIDEyLjggMS42IDEwLjIgMS42IDd6Ii8+IDxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0yNC42IDRjLjIuMi4yLjYgMCAuOEwyMi41IDdsMi4yIDIuMmMuMi4yLjIuNiAwIC44LS4yLjItLjYuMi0uOCAwbC0yLjItMi4yTDE5LjUgMTBjLS4yLjItLjYuMi0uOCAwLS4yLS4yLS4yLS42IDAtLjhMMjAuOCA3bC0yLjItMi4yYy0uMi0uMi0uMi0uNiAwLS44LjItLjIuNi0uMi44IDBsMi4yIDIuMkwyMy44IDRjLjItLjIuNi0uMi44IDB6Ii8+IDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0xMi43IDQuMWMuMi4yLjMuNi4xLjhMOC42IDkuOGMtLjEuMS0uMi4yLS4zLjItLjIuMS0uNS4xLS43LS4xTDUuNCA3LjdjLS4yLS4yLS4yLS42IDAtLjguMi0uMi42LS4yLjggMEw4IDguNmwzLjgtNC41Yy4yLS4yLjYtLjIuOSAweiIvPiA8L3N2Zz4=\" alt=\"California Consumer Privacy Act (CCPA) Opt-Out Icon\" role=\"presentation\" class=\"shopify-dns-link-icon\" style=\"margin-left:.25em;height:.7em;vertical-align:middle;display: inline; width: auto;\">\n                              </a>\n                            </li><li>\n                              <a href=\"https://e1520g-k3.myshopify.com/policies/privacy-policy\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                Privacy Policy\n                              </a>\n                            </li><li>\n                              <a href=\"/pages/terms-of-service\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                Terms and Conditions\n                              </a>\n                            </li><li>\n                              <a href=\"/pages/carb-policy\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                CARB Policy\n                              </a>\n                            </li></ul>\n                          </div>\n                        </div>\n                      </div>\n                    </details>\n                  </footer-accordion></div><div class=\"footer-block grid__item footer-block--menu\"><footer-accordion class=\"custom-accordion\">\n                    <details id=\"Details-collapsible_link_list_XDr4wH\" open=\"\">\n                      <summary id=\"Summary-collapsible_link_list_XDr4wH\" class=\"t2 pointer-events-none\" role=\"button\" aria-expanded=\"false\" tabindex=\"-1\">\n                        <h2 class=\"accordion__title inline-richtext t3\">My Account</h2>\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-caret\" viewBox=\"0 0 512 512\"/>\n                      </summary>\n                      <div class=\"custom-accordion__panel custom-scrollbar\">\n                        <div class=\"flex\">\n                          <div class=\"accordion__content\" id=\"CollapsibleAccordion-collapsible_link_list_XDr4wH\" role=\"region\" aria-labelledby=\"Summary-collapsible_link_list_XDr4wH\"><ul class=\"footer-block__details-content list-unstyled\"><li>\n                              <a href=\"https://account.awdmods.com/profile?locale=en&amp;region_country=US&amp;buyer_flags=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlMTUyMGctazMubXlzaG9waWZ5LmNvbSIsImZsYWdzIjpbXSwiZXhwIjoxNzc4MzY4MDc2LCJuYmYiOjE3Nzc3NjMyNzZ9.Jo3GwSOr7UqfdKJzStRLU_CBUyzRojss-lHXT8qQ6iU\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                My Account\n                              </a>\n                            </li><li>\n                              <a href=\"https://account.awdmods.com/orders?locale=en&amp;region_country=US&amp;buyer_flags=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlMTUyMGctazMubXlzaG9waWZ5LmNvbSIsImZsYWdzIjpbXSwiZXhwIjoxNzc4MzY4MDc2LCJuYmYiOjE3Nzc3NjMyNzZ9.Jo3GwSOr7UqfdKJzStRLU_CBUyzRojss-lHXT8qQ6iU\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                Order History\n                              </a>\n                            </li><li>\n                              <a href=\"https://account.awdmods.com/profile?locale=en&amp;region_country=US&amp;buyer_flags=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlMTUyMGctazMubXlzaG9waWZ5LmNvbSIsImZsYWdzIjpbXSwiZXhwIjoxNzc4MzY4MDc2LCJuYmYiOjE3Nzc3NjMyNzZ9.Jo3GwSOr7UqfdKJzStRLU_CBUyzRojss-lHXT8qQ6iU\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                Wish List\n                              </a>\n                            </li><li>\n                              <a href=\"https://account.awdmods.com/orders?locale=en&amp;region_country=US&amp;buyer_flags=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlMTUyMGctazMubXlzaG9waWZ5LmNvbSIsImZsYWdzIjpbXSwiZXhwIjoxNzc4MzY4MDc2LCJuYmYiOjE3Nzc3NjMyNzZ9.Jo3GwSOr7UqfdKJzStRLU_CBUyzRojss-lHXT8qQ6iU\" class=\"link link--text focus-inset full-unstyled-link--foreground t4 footer__link\">\n                                Track My Order\n                              </a>\n                            </li></ul>\n                          </div>\n                        </div>\n                      </div>\n                    </details>\n                  </footer-accordion></div></div></div>\n    </div><div class=\"footer__content-bottom color-scheme-3 gradient\" style=\"--color-background: 26,26,26; --gradient-background: rgb(26,26,26)\">\n    <div class=\"page-width\">\n      <div class=\"md:pb-1 md:pt-1 pt-s05 pb-s05\">\n        <div class=\"flex flex-col-reverse mt-1px md:flex-row flex-wrap gap-1 justify-between items-center\">\n\n          <div class=\"flex flex-col-reverse md:flex-row text-center md:text-left items-center gap-1\">\n            <div class=\"flex flex-wrap items-center justify-center md:justify-start mt-2 md:mt-0 xs:mb-1\">\n              <small class=\"copyright__content copyright__content-copy t7\">© 2026, <a href=\"/\">AWDMods</a>.</small>\n              \n            </div><ul class=\"list list-payment pt-0 mb-0\" role=\"list\"><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-labelledby=\"pi-american_express\" viewBox=\"0 0 38 24\" width=\"38\" height=\"24\"/>\n\n                  </li><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" x=\"0\" y=\"0\" width=\"38\" height=\"24\" viewBox=\"0 0 165.521 105.965\" xml:space=\"preserve\" aria-labelledby=\"pi-apple_pay\"/>\n\n                  </li><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" viewBox=\"0 0 38 24\" width=\"38\" height=\"24\" role=\"img\" aria-labelledby=\"pi-discover\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"/>\n                  </li><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" viewBox=\"0 0 38 24\" width=\"38\" height=\"24\" aria-labelledby=\"pi-google_pay\"/>\n\n                  </li><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" viewBox=\"0 0 38 24\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" width=\"38\" height=\"24\" aria-labelledby=\"pi-master\"/>\n                  </li><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" viewBox=\"0 0 38 24\" xmlns=\"http://www.w3.org/2000/svg\" width=\"38\" height=\"24\" role=\"img\" aria-labelledby=\"pi-paypal\"/>\n                  </li><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" viewBox=\"0 0 38 24\" width=\"38\" height=\"24\" aria-labelledby=\"pi-shopify_pay\"/>\n\n                  </li><li class=\"list-payment__item\">\n                    <svg class=\"icon icon--full-color\" viewBox=\"0 0 38 24\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" width=\"38\" height=\"24\" aria-labelledby=\"pi-visa\"/>\n                  </li></ul></div>\n\n          <div class=\"flex flex-col md:flex-row items-center gap-1 md:gap-2\">\n            <div class=\"flex flex-col md:flex-row items-center\">\n<ul class=\"list-unstyled list-social footer__list-social\" role=\"list\"><li class=\"list-social__item\">\n        <a href=\"https://www.facebook.com/awdmods\" class=\"link tap-target list-social__link\"><svg aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-facebook\" viewBox=\"0 0 20 20\"/>\n<span class=\"visually-hidden\">Facebook</span>\n        </a>\n      </li><li class=\"list-social__item\">\n        <a href=\"https://www.instagram.com/awdmods\" class=\"link tap-target list-social__link\"><svg aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-instagram\" viewBox=\"0 0 20 20\"/>\n<span class=\"visually-hidden\">Instagram</span>\n        </a>\n      </li><li class=\"list-social__item\">\n        <a href=\"https://www.youtube.com/@AWDMods\" class=\"link tap-target list-social__link\"><svg aria-hidden=\"true\" focusable=\"false\" class=\"icon icon-youtube\" viewBox=\"0 0 20 20\"/>\n<span class=\"visually-hidden\">YouTube</span>\n        </a>\n      </li></ul></div></div>\n\n        </div>\n      </div>\n    </div>\n  </div>\n</footer>",
+  "elements": [
+    {
+      "e_index": "e0",
+      "tag": "button",
+      "selector": "button",
+      "rect": {
+        "x": 313,
+        "y": 62,
+        "width": 44,
+        "height": 44
+      },
+      "scroll_y_at_capture": 0,
+      "role": "button",
+      "accessible_name": "Close",
+      "text_content": "",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": true,
+      "coords": "css"
+    },
+    {
+      "e_index": "e1",
+      "tag": "button",
+      "selector": "button",
+      "rect": {
+        "x": 367,
+        "y": 767,
+        "width": 137,
+        "height": 92
+      },
+      "scroll_y_at_capture": 0,
+      "role": "button",
+      "accessible_name": "Back",
+      "text_content": "Back",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": true,
+      "coords": "css"
+    },
+    {
+      "e_index": "e2",
+      "tag": "button",
+      "selector": "button",
+      "rect": {
+        "x": 1246,
+        "y": 56,
+        "width": 44,
+        "height": 44
+      },
+      "scroll_y_at_capture": 0,
+      "role": "button",
+      "accessible_name": "What are you looking for?",
+      "text_content": "What are you looking for?",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e3",
+      "tag": "button",
+      "selector": "button",
+      "rect": {
+        "x": 367,
+        "y": 59,
+        "width": 46,
+        "height": 46
+      },
+      "scroll_y_at_capture": 0,
+      "role": "button",
+      "accessible_name": "Close",
+      "text_content": "",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": true,
+      "coords": "css"
+    },
+    {
+      "e_index": "e4",
+      "tag": "summary",
+      "selector": "[role=\"button\"]",
+      "rect": {
+        "x": 227,
+        "y": 267,
+        "width": 140,
+        "height": 500
+      },
+      "scroll_y_at_capture": 0,
+      "role": "button",
+      "accessible_name": "Shop by Category",
+      "text_content": "Shop by Category",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": true,
+      "coords": "css"
+    },
+    {
+      "e_index": "e5",
+      "tag": "summary",
+      "selector": "[role=\"button\"]",
+      "rect": {
+        "x": 227,
+        "y": 769,
+        "width": 140,
+        "height": 467
+      },
+      "scroll_y_at_capture": 0,
+      "role": "button",
+      "accessible_name": "Shop by Vehicle",
+      "text_content": "Shop by Vehicle",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": true,
+      "coords": "css"
+    },
+    {
+      "e_index": "e6",
+      "tag": "a",
+      "selector": "[role=\"button\"]",
+      "rect": {
+        "x": 1616,
+        "y": 51,
+        "width": 55,
+        "height": 55
+      },
+      "scroll_y_at_capture": 0,
+      "role": "button",
+      "accessible_name": "Cart",
+      "text_content": "Cart",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e7",
+      "tag": "summary",
+      "selector": "[role=\"button\"]",
+      "rect": {
+        "x": 795,
+        "y": 116,
+        "width": 158,
+        "height": 41
+      },
+      "scroll_y_at_capture": 0,
+      "role": "button",
+      "accessible_name": "Shop by Category",
+      "text_content": "Shop by Category",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e8",
+      "tag": "h2",
+      "selector": "h2",
+      "rect": {
+        "x": 239,
+        "y": 906,
+        "width": 286,
+        "height": 50
+      },
+      "scroll_y_at_capture": 0,
+      "role": "heading",
+      "accessible_name": "Featured Collection",
+      "text_content": "Featured Collection",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e9",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 191,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 0,
+      "role": "heading",
+      "accessible_name": "Performance",
+      "text_content": "Performance",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e10",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 326,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 0,
+      "role": "heading",
+      "accessible_name": "Exterior",
+      "text_content": "Exterior",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e11",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 413,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 0,
+      "role": "heading",
+      "accessible_name": "Interior",
+      "text_content": "Interior",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e12",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 549,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 0,
+      "role": "heading",
+      "accessible_name": "Handling & Brakes",
+      "text_content": "Handling & Brakes",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e13",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 660,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 0,
+      "role": "heading",
+      "accessible_name": "Drivetrain",
+      "text_content": "Drivetrain",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e14",
+      "tag": "img",
+      "selector": "img[alt]:not([alt=\"\"])",
+      "rect": {
+        "x": 239,
+        "y": 56,
+        "width": 80,
+        "height": 45
+      },
+      "scroll_y_at_capture": 0,
+      "role": "image",
+      "accessible_name": "AWDMods",
+      "text_content": "",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e15",
+      "tag": "img",
+      "selector": "img[alt]:not([alt=\"\"])",
+      "rect": {
+        "x": 240,
+        "y": 989,
+        "width": 271,
+        "height": 271
+      },
+      "scroll_y_at_capture": 0,
+      "role": "image",
+      "accessible_name": "VelourTex Fitted Carpet Floor Mats for the Ford Focus RS / ST (Set of 4)",
+      "text_content": "",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e16",
+      "tag": "img",
+      "selector": "img[alt]:not([alt=\"\"])",
+      "rect": {
+        "x": 528,
+        "y": 989,
+        "width": 271,
+        "height": 271
+      },
+      "scroll_y_at_capture": 0,
+      "role": "image",
+      "accessible_name": "Revo Designs Rocker Stripes Decal Kit for the Ford Focus RS / ST (Set of 2)",
+      "text_content": "",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e17",
+      "tag": "div",
+      "selector": "[class*=\"star\"]",
+      "rect": {
+        "x": 239,
+        "y": 544,
+        "width": 273,
+        "height": 302
+      },
+      "scroll_y_at_capture": 0,
+      "role": "div",
+      "accessible_name": "Performance \n\n\n                      IntakesExhaustCoolingDrivetrain upgrades\n  ",
+      "text_content": "Performance \n\n\n                      IntakesExhaustCoolingDrivetrain upgrades\n                    Shop Performance",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e18",
+      "tag": "div",
+      "selector": "[class*=\"star\"]",
+      "rect": {
+        "x": 527,
+        "y": 544,
+        "width": 273,
+        "height": 302
+      },
+      "scroll_y_at_capture": 0,
+      "role": "div",
+      "accessible_name": "Handling & Brakes\n\n\n                      SuspensionWheels Brake kitsChassis con",
+      "text_content": "Handling & Brakes\n\n\n                      SuspensionWheels Brake kitsChassis control\n                    Shop Handling",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e19",
+      "tag": "div",
+      "selector": "[class*=\"star\"]",
+      "rect": {
+        "x": 816,
+        "y": 544,
+        "width": 273,
+        "height": 302
+      },
+      "scroll_y_at_capture": 0,
+      "role": "div",
+      "accessible_name": "Interior\n\n\n                      ShiftersTrimSeating Cabin upgrades\n            ",
+      "text_content": "Interior\n\n\n                      ShiftersTrimSeating Cabin upgrades\n                    Shop Interior",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e20",
+      "tag": "div",
+      "selector": "[class*=\"star\"]",
+      "rect": {
+        "x": 1105,
+        "y": 544,
+        "width": 273,
+        "height": 302
+      },
+      "scroll_y_at_capture": 0,
+      "role": "div",
+      "accessible_name": "Exterior\n\n\n                      AeroStylingBody componentsAccents\n             ",
+      "text_content": "Exterior\n\n\n                      AeroStylingBody componentsAccents\n                    Shop Exterior",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e21",
+      "tag": "div",
+      "selector": "[class*=\"star\"]",
+      "rect": {
+        "x": 1394,
+        "y": 544,
+        "width": 273,
+        "height": 302
+      },
+      "scroll_y_at_capture": 0,
+      "role": "div",
+      "accessible_name": "Electronics\n\n\n                      LightingWiringInfotainmentVehicle tech\n     ",
+      "text_content": "Electronics\n\n\n                      LightingWiringInfotainmentVehicle tech\n                    Shop Electronics",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e22",
+      "tag": "svg",
+      "selector": "[class*=\"cart\"]",
+      "rect": {
+        "x": 1630,
+        "y": 64,
+        "width": 27,
+        "height": 27
+      },
+      "scroll_y_at_capture": 0,
+      "role": "svg",
+      "accessible_name": "",
+      "text_content": "",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": true,
+      "coords": "css"
+    },
+    {
+      "e_index": "e23",
+      "tag": "input",
+      "selector": "input[type=\"search\"]",
+      "rect": {
+        "x": 367,
+        "y": 51,
+        "width": 929,
+        "height": 55
+      },
+      "scroll_y_at_capture": 0,
+      "role": "combobox",
+      "accessible_name": "",
+      "text_content": "",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e24",
+      "tag": "header",
+      "selector": "[class*=\"search\"]",
+      "rect": {
+        "x": 186,
+        "y": 41,
+        "width": 1533,
+        "height": 74
+      },
+      "scroll_y_at_capture": 0,
+      "role": "banner",
+      "accessible_name": "Shop All\n                    \n                      \n      \n    Shop by Category",
+      "text_content": "Shop All\n                    \n                      \n      \n    Shop by Category\n                        \n  \n\n                      \n                      \n                        \n                          \n                            \n  \n",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e25",
+      "tag": "div",
+      "selector": "[class*=\"search\"]",
+      "rect": {
+        "x": 347,
+        "y": 51,
+        "width": 967,
+        "height": 55
+      },
+      "scroll_y_at_capture": 0,
+      "role": "div",
+      "accessible_name": "Search our store\n      \n      \n        \n          \n        \n\n\n  \n    \n  \n\nWhat a",
+      "text_content": "Search our store\n      \n      \n        \n          \n        \n\n\n  \n    \n  \n\nWhat are you looking for?",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e26",
+      "tag": "predictive-search",
+      "selector": "[class*=\"search\"]",
+      "rect": {
+        "x": 367,
+        "y": 51,
+        "width": 948,
+        "height": 55
+      },
+      "scroll_y_at_capture": 0,
+      "role": "predictive-search",
+      "accessible_name": "Search our store\n      \n      \n        \n          \n        \n\n\n  \n    \n  \n\nWhat a",
+      "text_content": "Search our store\n      \n      \n        \n          \n        \n\n\n  \n    \n  \n\nWhat are you looking for?",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e27",
+      "tag": "form",
+      "selector": "[class*=\"search\"]",
+      "rect": {
+        "x": 367,
+        "y": 51,
+        "width": 929,
+        "height": 55
+      },
+      "scroll_y_at_capture": 0,
+      "role": "search",
+      "accessible_name": "Search our store\n      \n      \n        \n          \n        \n\n\n  \n    \n  \n\nWhat a",
+      "text_content": "Search our store\n      \n      \n        \n          \n        \n\n\n  \n    \n  \n\nWhat are you looking for?",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e28",
+      "tag": "nav",
+      "selector": "nav",
+      "rect": {
+        "x": 227,
+        "y": 52,
+        "width": 140,
+        "height": 1414
+      },
+      "scroll_y_at_capture": 0,
+      "role": "navigation",
+      "accessible_name": "Shop All\n                    \n                      \n      \n    Shop by Category",
+      "text_content": "Shop All\n                    \n                      \n      \n    Shop by Category\n                        \n  \n\n                      \n                      \n                        \n                          \n                            \n  \n",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": true,
+      "coords": "css"
+    },
+    {
+      "e_index": "e29",
+      "tag": "nav",
+      "selector": "nav",
+      "rect": {
+        "x": -13,
+        "y": 115,
+        "width": 1918,
+        "height": 47
+      },
+      "scroll_y_at_capture": 0,
+      "role": "navigation",
+      "accessible_name": "Shop All\n              \n                \n                  \n                    ",
+      "text_content": "Shop All\n              \n                \n                  \n                    Shop by Category\n                    \n  \n\n                  \n  \n    \n              \n                Performance\n              ExhaustIntakeTurboEngine\n         ",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e30",
+      "tag": "button",
+      "selector": "button",
+      "rect": {
+        "x": 2352,
+        "y": 986,
+        "width": 46,
+        "height": 46
+      },
+      "scroll_y_at_capture": 980,
+      "role": "button",
+      "accessible_name": "Close",
+      "text_content": "",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e31",
+      "tag": "button",
+      "selector": "button",
+      "rect": {
+        "x": 367,
+        "y": 1001,
+        "width": 44,
+        "height": 44
+      },
+      "scroll_y_at_capture": 980,
+      "role": "button",
+      "accessible_name": "Close",
+      "text_content": "",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e32",
+      "tag": "summary",
+      "selector": "[role=\"button\"]",
+      "rect": {
+        "x": 228,
+        "y": 990,
+        "width": 55,
+        "height": 55
+      },
+      "scroll_y_at_capture": 980,
+      "role": "button",
+      "accessible_name": "Menu",
+      "text_content": "",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e33",
+      "tag": "summary",
+      "selector": "[role=\"button\"]",
+      "rect": {
+        "x": 282,
+        "y": 1206,
+        "width": 140,
+        "height": 500
+      },
+      "scroll_y_at_capture": 980,
+      "role": "button",
+      "accessible_name": "Shop by Category",
+      "text_content": "Shop by Category",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e34",
+      "tag": "summary",
+      "selector": "[role=\"button\"]",
+      "rect": {
+        "x": 282,
+        "y": 1708,
+        "width": 140,
+        "height": 467
+      },
+      "scroll_y_at_capture": 980,
+      "role": "button",
+      "accessible_name": "Shop by Vehicle",
+      "text_content": "Shop by Vehicle",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e35",
+      "tag": "a",
+      "selector": "[role=\"button\"]",
+      "rect": {
+        "x": 1616,
+        "y": 990,
+        "width": 55,
+        "height": 55
+      },
+      "scroll_y_at_capture": 980,
+      "role": "button",
+      "accessible_name": "Cart",
+      "text_content": "Cart",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e36",
+      "tag": "summary",
+      "selector": "[role=\"button\"]",
+      "rect": {
+        "x": 795,
+        "y": 1055,
+        "width": 158,
+        "height": 41
+      },
+      "scroll_y_at_capture": 980,
+      "role": "button",
+      "accessible_name": "Shop by Category",
+      "text_content": "Shop by Category",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e37",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 1130,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 980,
+      "role": "heading",
+      "accessible_name": "Performance",
+      "text_content": "Performance",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e38",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 1265,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 980,
+      "role": "heading",
+      "accessible_name": "Exterior",
+      "text_content": "Exterior",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e39",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 1353,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 980,
+      "role": "heading",
+      "accessible_name": "Interior",
+      "text_content": "Interior",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e40",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 1488,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 980,
+      "role": "heading",
+      "accessible_name": "Handling & Brakes",
+      "text_content": "Handling & Brakes",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e41",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 1599,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 980,
+      "role": "heading",
+      "accessible_name": "Drivetrain",
+      "text_content": "Drivetrain",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e42",
+      "tag": "img",
+      "selector": "img[alt]:not([alt=\"\"])",
+      "rect": {
+        "x": 283,
+        "y": 995,
+        "width": 80,
+        "height": 45
+      },
+      "scroll_y_at_capture": 980,
+      "role": "image",
+      "accessible_name": "AWDMods",
+      "text_content": "",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e43",
+      "tag": "img",
+      "selector": "img[alt]:not([alt=\"\"])",
+      "rect": {
+        "x": 240,
+        "y": 942,
+        "width": 271,
+        "height": 271
+      },
+      "scroll_y_at_capture": 980,
+      "role": "image",
+      "accessible_name": "VelourTex Fitted Carpet Floor Mats for the Ford Focus RS / ST (Set of 4)",
+      "text_content": "",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e44",
+      "tag": "img",
+      "selector": "img[alt]:not([alt=\"\"])",
+      "rect": {
+        "x": 528,
+        "y": 942,
+        "width": 271,
+        "height": 271
+      },
+      "scroll_y_at_capture": 980,
+      "role": "image",
+      "accessible_name": "Revo Designs Rocker Stripes Decal Kit for the Ford Focus RS / ST (Set of 2)",
+      "text_content": "",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e45",
+      "tag": "div",
+      "selector": "[class*=\"rating\"]",
+      "rect": {
+        "x": 549,
+        "y": 1362,
+        "width": 229,
+        "height": 21
+      },
+      "scroll_y_at_capture": 980,
+      "role": "div",
+      "accessible_name": "5.0 /\n                    5.0\n                \n\n                \n               ",
+      "text_content": "5.0 /\n                    5.0\n                \n\n                \n                  (2)\n                  2\n                    total reviews",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e46",
+      "tag": "div",
+      "selector": "[class*=\"rating\"]",
+      "rect": {
+        "x": 549,
+        "y": 1364,
+        "width": 67,
+        "height": 18
+      },
+      "scroll_y_at_capture": 980,
+      "role": "img",
+      "accessible_name": "5.0 out of 5.0 stars",
+      "text_content": "",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e47",
+      "tag": "span",
+      "selector": "[class*=\"rating\"]",
+      "rect": {
+        "x": 549,
+        "y": 1364,
+        "width": 67,
+        "height": 18
+      },
+      "scroll_y_at_capture": 980,
+      "role": "span",
+      "accessible_name": "",
+      "text_content": "",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e48",
+      "tag": "p",
+      "selector": "[class*=\"rating\"]",
+      "rect": {
+        "x": 622,
+        "y": 1362,
+        "width": 16,
+        "height": 21
+      },
+      "scroll_y_at_capture": 980,
+      "role": "p",
+      "accessible_name": "(2)\n                  2\n                    total reviews",
+      "text_content": "(2)\n                  2\n                    total reviews",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e49",
+      "tag": "div",
+      "selector": "[class*=\"price\"]",
+      "rect": {
+        "x": 261,
+        "y": 1346,
+        "width": 229,
+        "height": 26
+      },
+      "scroll_y_at_capture": 980,
+      "role": "div",
+      "accessible_name": "Regular price\n          \n            From $135.99\n          \n\n      \n        Sal",
+      "text_content": "Regular price\n          \n            From $135.99\n          \n\n      \n        Sale price\n        \n          From $135.99\n        \n          Regular price\n          \n            \n              \n                \n              \n            \n   ",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e50",
+      "tag": "span",
+      "selector": "[class*=\"price\"]",
+      "rect": {
+        "x": 261,
+        "y": 1346,
+        "width": 104,
+        "height": 26
+      },
+      "scroll_y_at_capture": 980,
+      "role": "span",
+      "accessible_name": "From $135.99",
+      "text_content": "From $135.99",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e51",
+      "tag": "span",
+      "selector": "[class*=\"badge\"]",
+      "rect": {
+        "x": 375,
+        "y": 1351,
+        "width": 80,
+        "height": 21
+      },
+      "scroll_y_at_capture": 980,
+      "role": "span",
+      "accessible_name": "Made to Order",
+      "text_content": "Made to Order",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e52",
+      "tag": "span",
+      "selector": "[class*=\"badge\"]",
+      "rect": {
+        "x": 609,
+        "y": 1396,
+        "width": 80,
+        "height": 21
+      },
+      "scroll_y_at_capture": 980,
+      "role": "span",
+      "accessible_name": "Made to Order",
+      "text_content": "Made to Order",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e53",
+      "tag": "span",
+      "selector": "[class*=\"badge\"]",
+      "rect": {
+        "x": 1475,
+        "y": 1420,
+        "width": 80,
+        "height": 21
+      },
+      "scroll_y_at_capture": 980,
+      "role": "span",
+      "accessible_name": "Made to Order",
+      "text_content": "Made to Order",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e54",
+      "tag": "span",
+      "selector": "[class*=\"badge\"]",
+      "rect": {
+        "x": 366,
+        "y": 1941,
+        "width": 80,
+        "height": 21
+      },
+      "scroll_y_at_capture": 980,
+      "role": "span",
+      "accessible_name": "Made to Order",
+      "text_content": "Made to Order",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e55",
+      "tag": "span",
+      "selector": "[class*=\"badge\"]",
+      "rect": {
+        "x": 630,
+        "y": 1921,
+        "width": 80,
+        "height": 21
+      },
+      "scroll_y_at_capture": 980,
+      "role": "span",
+      "accessible_name": "Made to Order",
+      "text_content": "Made to Order",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e56",
+      "tag": "div",
+      "selector": "[class*=\"cart\"]",
+      "rect": {
+        "x": 1437,
+        "y": 980,
+        "width": 483,
+        "height": 1080
+      },
+      "scroll_y_at_capture": 980,
+      "role": "div",
+      "accessible_name": "Your cart is empty :(\n              \n                \n  \n\n              \n\n      ",
+      "text_content": "Your cart is empty :(\n              \n                \n  \n\n              \n\n              \n                Continue shopping\n              \n          \n        Your cart\n        \n          \n  \n\n        \n      \n\n      \n    YOU'RE $75.00 AWAY FR",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e57",
+      "tag": "div",
+      "selector": "[class*=\"cart\"]",
+      "rect": {
+        "x": 0,
+        "y": 980,
+        "width": 1905,
+        "height": 1080
+      },
+      "scroll_y_at_capture": 980,
+      "role": "div",
+      "accessible_name": "",
+      "text_content": "",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e58",
+      "tag": "div",
+      "selector": "[class*=\"cart\"]",
+      "rect": {
+        "x": 1936,
+        "y": 980,
+        "width": 452,
+        "height": 1080
+      },
+      "scroll_y_at_capture": 980,
+      "role": "div",
+      "accessible_name": "Your cart is empty :(\n              \n                \n  \n\n              \n\n      ",
+      "text_content": "Your cart is empty :(\n              \n                \n  \n\n              \n\n              \n                Continue shopping",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e59",
+      "tag": "div",
+      "selector": "[class*=\"cart\"]",
+      "rect": {
+        "x": 1936,
+        "y": 1462,
+        "width": 452,
+        "height": 116
+      },
+      "scroll_y_at_capture": 980,
+      "role": "div",
+      "accessible_name": "Your cart is empty :(\n              \n                \n  \n\n              \n\n      ",
+      "text_content": "Your cart is empty :(\n              \n                \n  \n\n              \n\n              \n                Continue shopping",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e60",
+      "tag": "p",
+      "selector": "[class*=\"cart\"]",
+      "rect": {
+        "x": 1936,
+        "y": 1462,
+        "width": 452,
+        "height": 35
+      },
+      "scroll_y_at_capture": 980,
+      "role": "p",
+      "accessible_name": "Your cart is empty :(",
+      "text_content": "Your cart is empty :(",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e61",
+      "tag": "form",
+      "selector": "form",
+      "rect": {
+        "x": 410,
+        "y": 990,
+        "width": 887,
+        "height": 55
+      },
+      "scroll_y_at_capture": 980,
+      "role": "search",
+      "accessible_name": "Search our store\n      \n      \n        \n          \n        \n\n\n  \n    \n  \n\nWhat a",
+      "text_content": "Search our store\n      \n      \n        \n          \n        \n\n\n  \n    \n  \n\nWhat are you looking for?",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e62",
+      "tag": "form",
+      "selector": "form",
+      "rect": {
+        "x": 1441,
+        "y": 1129,
+        "width": 214,
+        "height": 49
+      },
+      "scroll_y_at_capture": 980,
+      "role": "form",
+      "accessible_name": "Checkout",
+      "text_content": "Checkout",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e63",
+      "tag": "nav",
+      "selector": "nav",
+      "rect": {
+        "x": 282,
+        "y": 991,
+        "width": 140,
+        "height": 1414
+      },
+      "scroll_y_at_capture": 980,
+      "role": "navigation",
+      "accessible_name": "Shop All\n                    \n                      \n      \n    Shop by Category",
+      "text_content": "Shop All\n                    \n                      \n      \n    Shop by Category\n                        \n  \n\n                      \n                      \n                        \n                          \n                            \n  \n",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e64",
+      "tag": "header",
+      "selector": "header",
+      "rect": {
+        "x": 186,
+        "y": 980,
+        "width": 1533,
+        "height": 74
+      },
+      "scroll_y_at_capture": 980,
+      "role": "banner",
+      "accessible_name": "Shop All\n                    \n                      \n      \n    Shop by Category",
+      "text_content": "Shop All\n                    \n                      \n      \n    Shop by Category\n                        \n  \n\n                      \n                      \n                        \n                          \n                            \n  \n",
+      "is_above_fold": true,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e65",
+      "tag": "button",
+      "selector": "button",
+      "rect": {
+        "x": 2352,
+        "y": 1821,
+        "width": 46,
+        "height": 46
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "button",
+      "accessible_name": "Close",
+      "text_content": "",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e66",
+      "tag": "button",
+      "selector": "button",
+      "rect": {
+        "x": 367,
+        "y": 1836,
+        "width": 44,
+        "height": 44
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "button",
+      "accessible_name": "Close",
+      "text_content": "",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e67",
+      "tag": "h2",
+      "selector": "h2",
+      "rect": {
+        "x": 281,
+        "y": 2158,
+        "width": 483,
+        "height": 50
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "heading",
+      "accessible_name": "Join Our Newsletter!",
+      "text_content": "Join Our Newsletter!",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e68",
+      "tag": "h2",
+      "selector": "h2",
+      "rect": {
+        "x": 239,
+        "y": 2612,
+        "width": 690,
+        "height": 21
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "heading",
+      "accessible_name": "Information",
+      "text_content": "Information",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e69",
+      "tag": "h2",
+      "selector": "h2",
+      "rect": {
+        "x": 977,
+        "y": 2612,
+        "width": 690,
+        "height": 21
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "heading",
+      "accessible_name": "My Account",
+      "text_content": "My Account",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e70",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 1965,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "heading",
+      "accessible_name": "Performance",
+      "text_content": "Performance",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e71",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 2100,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "heading",
+      "accessible_name": "Exterior",
+      "text_content": "Exterior",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e72",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 2188,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "heading",
+      "accessible_name": "Interior",
+      "text_content": "Interior",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e73",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 2323,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "heading",
+      "accessible_name": "Handling & Brakes",
+      "text_content": "Handling & Brakes",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e74",
+      "tag": "h3",
+      "selector": "h3",
+      "rect": {
+        "x": 848,
+        "y": 2434,
+        "width": 120,
+        "height": 19
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "heading",
+      "accessible_name": "Drivetrain",
+      "text_content": "Drivetrain",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e75",
+      "tag": "img",
+      "selector": "img[alt]:not([alt=\"\"])",
+      "rect": {
+        "x": 283,
+        "y": 1830,
+        "width": 80,
+        "height": 45
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "image",
+      "accessible_name": "AWDMods",
+      "text_content": "",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e76",
+      "tag": "form",
+      "selector": "form",
+      "rect": {
+        "x": 410,
+        "y": 1825,
+        "width": 887,
+        "height": 55
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "search",
+      "accessible_name": "Search our store\n      \n      \n        \n          \n        \n\n\n  \n    \n  \n\nWhat a",
+      "text_content": "Search our store\n      \n      \n        \n          \n        \n\n\n  \n    \n  \n\nWhat are you looking for?",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e77",
+      "tag": "form",
+      "selector": "form",
+      "rect": {
+        "x": 1441,
+        "y": 1964,
+        "width": 214,
+        "height": 49
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "form",
+      "accessible_name": "Checkout",
+      "text_content": "Checkout",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e78",
+      "tag": "footer",
+      "selector": "footer",
+      "rect": {
+        "x": 0,
+        "y": 2585,
+        "width": 1905,
+        "height": 310
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "contentinfo",
+      "accessible_name": "Information\n                        \n  \n\n                      \n                ",
+      "text_content": "Information\n                        \n  \n\n                      \n                      \n                        \n                          \n                              \n                                About Us\n                             ",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e79",
+      "tag": "section",
+      "selector": "[class*=\"newsletter\"]",
+      "rect": {
+        "x": 0,
+        "y": 2073,
+        "width": 1905,
+        "height": 512
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "section",
+      "accessible_name": "Join Our Newsletter!\n\n        New parts, new builds, exclusive deals. Be the fir",
+      "text_content": "Join Our Newsletter!\n\n        New parts, new builds, exclusive deals. Be the first to know when something drops for your Focus RS, Focus ST, WRX, or STI.\n      \n        \n        \n          \n            \n\n            \n              \n  \n  \n\n ",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e80",
+      "tag": "button",
+      "selector": "[class*=\"newsletter\"]",
+      "rect": {
+        "x": 716,
+        "y": 2302,
+        "width": 46,
+        "height": 49
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "button",
+      "accessible_name": "Subscribe",
+      "text_content": "",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e81",
+      "tag": "ul",
+      "selector": "[class*=\"payment\"]",
+      "rect": {
+        "x": 338,
+        "y": 2841,
+        "width": 388,
+        "height": 35
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "list",
+      "accessible_name": "American Express\n\n                  \n                    Apple Pay\n\n            ",
+      "text_content": "American Express\n\n                  \n                    Apple Pay\n\n                  \n                    Discover\n                  \n                    Google Pay\n\n                  \n                    Mastercard\n                  \n    ",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e82",
+      "tag": "li",
+      "selector": "[class*=\"payment\"]",
+      "rect": {
+        "x": 338,
+        "y": 2841,
+        "width": 49,
+        "height": 35
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "li",
+      "accessible_name": "American Express",
+      "text_content": "American Express",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e83",
+      "tag": "li",
+      "selector": "[class*=\"payment\"]",
+      "rect": {
+        "x": 386,
+        "y": 2841,
+        "width": 49,
+        "height": 35
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "li",
+      "accessible_name": "Apple Pay",
+      "text_content": "Apple Pay",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e84",
+      "tag": "li",
+      "selector": "[class*=\"payment\"]",
+      "rect": {
+        "x": 435,
+        "y": 2841,
+        "width": 49,
+        "height": 35
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "li",
+      "accessible_name": "Discover",
+      "text_content": "Discover",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    },
+    {
+      "e_index": "e85",
+      "tag": "li",
+      "selector": "[class*=\"payment\"]",
+      "rect": {
+        "x": 483,
+        "y": 2841,
+        "width": 49,
+        "height": 35
+      },
+      "scroll_y_at_capture": 1815,
+      "role": "li",
+      "accessible_name": "Google Pay",
+      "text_content": "Google Pay",
+      "is_above_fold": false,
+      "is_sticky": false,
+      "is_offscreen": false,
+      "coords": "css"
+    }
+  ],
+  "coords": "css",
+  "styles": {},
+  "structured_data": [],
+  "viewport": {
+    "width": 1920,
+    "height": 1080,
+    "dpr_requested": 1,
+    "dpr_actual": 1,
+    "dpr": 1
+  }
+}

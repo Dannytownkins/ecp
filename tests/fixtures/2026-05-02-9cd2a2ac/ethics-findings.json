@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "engagement_id": "2026-05-02-9cd2a2ac",
+  "cluster": "ethics",
+  "device": "page",
+  "specialist_model": {
+    "family": "opus",
+    "version": "4.7"
+  },
+  "started_at": "2026-05-02T23:55:00.000Z",
+  "completed_at": "2026-05-03T00:05:00.000Z",
+  "status": "complete",
+  "findings": [
+    {
+      "cluster": "ethics",
+      "device": "page",
+      "local_id": 1,
+      "verdict": "FAIL",
+      "title": "Privacy Policy Link Points to Staging-Domain Host",
+      "surface": "footer-policy-links",
+      "element": {
+        "baton_index": "absent",
+        "text_content": "Privacy Policy",
+        "role": "link"
+      },
+      "severity": "HIGH",
+      "scope": "page",
+      "effort": {
+        "change_type": "html-attr",
+        "change_scope": "single-file"
+      },
+      "ethics_state": "ADJACENT",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+      "confidence": 0.95,
+      "evidence_anchors": [
+        {
+          "type": "code",
+          "reference": "dom.html:2366",
+          "context": "Footer Privacy Policy link href is https://e1520g-k3.myshopify.com/policies/privacy-policy — a Shopify internal staging/preview domain — while sibling policy links (Terms and Conditions /pages/terms-of-service, CARB Policy /pages/carb-policy, Data Sharing Opt-Out /pages/data-sharing-opt-out) all resolve to the canonical first-party storefront domain. Only the Privacy Policy redirects off-site."
+        }
+      ],
+      "reference_citations": [
+        {
+          "source": "ethics-gate.md",
+          "section": "PART 6: CROSS-CUTTING REGULATORY LANDSCAPE — Regulatory Disclosure Chain (privacy notice canonical hosting)",
+          "tier": "Gold"
+        }
+      ],
+      "observation": "The footer Privacy Policy link directs to https://e1520g-k3.myshopify.com/policies/privacy-policy — a Shopify internal staging-domain URL — instead of the canonical awdmods.com storefront where the visitor is transacting. Sibling policy links (Terms and Conditions, CARB Policy, Data Sharing Opt-Out) all use first-party /pages/ URLs on the canonical domain. The disclosure itself exists, so this is not a current GDPR Art 13 / CCPA § 1798.130 violation — it is the regulatory chain-of-disclosure that is fragile: visitors land on a domain that visibly does not match the merchant they're transacting with, weakening the evidentiary trail if a regulator or class-action plaintiff later disputes whether disclosure was meaningfully presented. The myshopify.com host also exposes the underlying store-handle (e1520g-k3) which most operators choose to mask.",
+      "recommendation": "Update the footer Privacy Policy link to /policies/privacy-policy (relative) so it resolves on awdmods.com, matching the pattern used by Terms and Conditions and CARB Policy. In Shopify Admin: Settings > Policies — confirm the privacy policy is published, then edit the footer menu (Online Store > Navigation > Footer) and replace the absolute myshopify.com URL with the relative /policies/privacy-policy path. No code change required.",
+      "why_this_matters": "GDPR Art 13 and CCPA § 1798.130 require the privacy notice to be presented at or before data collection in a manner accessible to the consumer. A staging-domain redirect doesn't currently violate either statute because the policy is reachable, but it creates two downstream risks: (1) regulators or plaintiffs in a future dispute can argue the disclosure chain was not transparent because the policy lived on a domain the consumer had no relationship with; (2) if the staging-domain URL ever breaks (Shopify deprecates the preview host, store-handle changes), the link becomes a 404 and the disclosure quietly disappears — which IS a clear violation. Fixing this now is a one-line config change that closes both exposures.",
+      "evidence_tier": "Gold"
+    }
+  ],
+  "notes": [
+    "Reviews/social proof: product cards display 5.0 filled stars accompanied by explicit '(2) total reviews' count text. This is a truthful display of two real reviews, not phantom social proof — does not trigger FTC Fake Reviews Rule 16 CFR Part 465 § 465.2 because the count is disclosed and accurate. CLEAR.",
+    "Urgency/scarcity: no countdown timers, no 'Only X left' inventory claims, no 'people viewing' counters detected in either device DOM. CLEAR against ethics-gate Part 1.1.",
+    "Cookie consent: no consent banner detected. Page targets US traffic (CARB Policy in footer is California-specific; product copy references US-market vehicles — Focus RS, Focus ST, WRX, STI; no hreflang or EU shipping indicators). No GDPR Art 7 / ePrivacy Art 5(3) BLOCK fired because EU jurisdiction is not indicated. Operator should re-evaluate if EU traffic is added.",
+    "Pricing display: no drip pricing or hidden mandatory fees observed in the homepage capture. Cart drawer shows 'Taxes, discounts and shipping calculated at checkout' which is consistent with CA SB-478 carve-out for shipping (postage explicitly excluded from mandatory-fee disclosure). CLEAR against Part 1.2.",
+    "Subscription dark patterns: newsletter signup is plain email-only collection with no pre-checked SMS opt-in, no auto-renew traps, no free-trial hooks. CLEAR against ROSCA / Part 1.5.",
+    "Newsletter signup absent of explicit consent disclosure copy near the email field. CAN-SPAM § 7704 compliance attaches to sent commercial messages (unsubscribe link, physical postal address) rather than to signup-time disclosure, so this is not a current violation; flagging as a notes-only observation rather than ADJACENT.",
+    "Choice architecture: no confirm-shaming, no asymmetric accept/decline buttons, no pre-checked subscription boxes detected on the homepage. CLEAR against Part 1.4.",
+    "Account links in footer (/profile, /orders) include JWT-style buyer_flags tokens in query strings. This is a security/session-handling pattern adjacent to privacy concerns but does not map to a specific ethics-gate Source Registry rule — surfaced here for operator awareness rather than emitted as a finding."
+  ],
+  "telemetry": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "reference_files_read": [
+      "ethics-gate.md"
+    ]
+  }
+}
