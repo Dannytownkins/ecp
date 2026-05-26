@@ -231,7 +231,7 @@ def _resolve_citations(findings, plugin_path, page_url=None):
                         print(
                             f"warning: ethics finding (index={f.get('index')}) had "
                             f"SOURCE_URL pointing at the audited domain "
-                            f"({src_netloc}) — cleared to force fallback. The "
+                            f"({src_netloc}) - cleared to force fallback. The "
                             f"cluster file should cite the regulation's canonical "
                             f"URL from ethics-gate.md Source Registry, not the "
                             f"page under audit.",
@@ -551,7 +551,7 @@ def _process_screenshots(engagement_path, baton, slide_markers):
         # SLIDE_SOURCES is empty, so the empty array flows through the
         # rest of the pipeline safely.
         print(
-            "Notice: no screenshots available — rendering text-only report. "
+            "Notice: no screenshots available - rendering text-only report. "
             "Findings + Priority Path + ethics tab will still render; the "
             "center screenshot panel will show the empty-state placeholder.",
             file=sys.stderr,
@@ -827,7 +827,7 @@ def _write_output(engagement_path, device, output_file, html, device_label,
             unmapped = total_findings - mapped
             print(
                 f"  WARNING: hotspot match rate {mapped}/{total_findings} "
-                f"({rate:.0%}) is below 90% — {unmapped} finding(s) placed "
+                f"({rate:.0%}) is below 90% - {unmapped} finding(s) placed "
                 f"at fallback positions and may appear misaligned. Either "
                 f"(a) re-prompt auditors to emit a real CSS selector that "
                 f"appears in baton.elements[], or (b) supply --markers "

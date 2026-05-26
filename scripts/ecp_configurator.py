@@ -100,7 +100,7 @@ def try_configured_state_capture(
     try:
         path, _h, _f, _e = shot_jpeg(out, 80)
     except (OSError, RuntimeError) as exc:
-        print(f"STATUS: PARTIAL — configurator screenshot failed: {exc}", flush=True)
+        print(f"STATUS: PARTIAL - configurator screenshot failed: {exc}", flush=True)
         return None
     if not path.exists() or path.stat().st_size < 100:
         return None

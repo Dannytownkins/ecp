@@ -622,7 +622,7 @@ def validate_synthesizer_emission_file(
         validate_synthesizer_emission_payload(payload, valid_refs, source_path=str(emission_path))
     except SynthesizerValidationError as err:
         print(
-            f"FAIL — {emission_path.name} synthesizer-emission validation: "
+            f"FAIL - {emission_path.name} synthesizer-emission validation: "
             f"{len(err.schema_errors)} schema error(s), "
             f"{len(err.hallucinated_refs)} hallucinated f_ref(s)",
             file=sys.stderr,
@@ -639,7 +639,7 @@ def validate_synthesizer_emission_file(
             print(f"\nRetry prompt written to {write_retry_prompt}", file=sys.stderr)
         return 1
 
-    print(f"OK — {emission_path.name} validates against synthesizer-emission-v1.json")
+    print(f"OK - {emission_path.name} validates against synthesizer-emission-v1.json")
     print(f"  engagement_id: {payload.get('engagement_id')}")
     print(f"  status: {payload.get('status')}")
     print(f"  dispatch_shape: {payload.get('dispatch_shape')}")
@@ -649,7 +649,7 @@ def validate_synthesizer_emission_file(
         f"{len(payload.get('scope_page_synchronized_refs') or [])}"
     )
     if not valid_refs:
-        print("  (allowlist check skipped — no --finalized-findings provided)")
+        print("  (allowlist check skipped - no --finalized-findings provided)")
     return 0
 
 
@@ -694,10 +694,10 @@ def run_drift_check(
         marker = " " if max(obs_r, rec_r, why_r) <= report.threshold else "!"
         print(f"  {marker} {f_ref}: obs={obs_r:.4f} rec={rec_r:.4f} why={why_r:.4f}")
     if report.ok:
-        print("OK — cross-device synchronization invariant holds.")
+        print("OK - cross-device synchronization invariant holds.")
         return 0
     print(
-        f"FAIL — synthesis drift exceeds threshold ({report.max_ratio:.4f} > "
+        f"FAIL - synthesis drift exceeds threshold ({report.max_ratio:.4f} > "
         f"{SYNCHRONIZATION_THRESHOLD}).",
         file=sys.stderr,
     )
@@ -886,14 +886,14 @@ def validate_emission(
     device_for_prompt = emission.get("device") or "unknown"
 
     if not all_errors:
-        print(f"OK — {emission_path.name} validates against cluster-emission-v1.json")
+        print(f"OK - {emission_path.name} validates against cluster-emission-v1.json")
         print(f"  cluster: {emission.get('cluster')}")
         print(f"  device: {emission.get('device')}")
         print(f"  status: {emission.get('status')}")
         print(f"  findings: {len(emission.get('findings', []))}")
         return 0
 
-    print(f"FAIL — {emission_path.name} has {len(all_errors)} validation error(s):", file=sys.stderr)
+    print(f"FAIL - {emission_path.name} has {len(all_errors)} validation error(s):", file=sys.stderr)
     for err in identity_errors:
         print(f"  IDENTITY: {err}", file=sys.stderr)
     for err in schema_errors:

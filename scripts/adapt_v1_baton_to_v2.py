@@ -76,10 +76,13 @@ def adapt(src_dir: Path, device: str) -> dict:
             "tag": tag,
             "selector": (el.get("selector") or tag)[:512],
             "rect": {
-                "x": float(el.get("x", 0)),
-                "y": float(el.get("y", 0)),
-                "width": float(el.get("width", 0)),
-                "height": float(el.get("height", 0)),
+                # Clamp to >=0: off-canvas elements yield negative
+                # getBoundingClientRect coords, which schema/baton-v1.json
+                # (rect.* minimum: 0) rejects.
+                "x": max(0.0, float(el.get("x", 0))),
+                "y": max(0.0, float(el.get("y", 0))),
+                "width": max(0.0, float(el.get("width", 0))),
+                "height": max(0.0, float(el.get("height", 0))),
             },
             "scroll_y_at_capture": 0,
             "role": IMPLICIT_ROLE.get(tag, tag or "group"),

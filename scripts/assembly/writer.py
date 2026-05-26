@@ -478,7 +478,7 @@ def _atomic_write(target: Path, content: str) -> None:
         os.replace(str(tmp), str(target))
     else:
         print(
-            f"WARNING: atomic write not possible — {tmp} and {target} are on "
+            f"WARNING: atomic write not possible - {tmp} and {target} are on "
             f"different volumes. Falling back to shutil.move (non-atomic).",
             file=sys.stderr,
         )

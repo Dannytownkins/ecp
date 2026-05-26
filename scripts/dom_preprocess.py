@@ -332,7 +332,7 @@ def preprocess_device(
 
     if not dom_path.exists() or not baton_path.exists():
         print(
-            f"[{device}] skip — expected {dom_path.name} + {baton_path.name} not found",
+            f"[{device}] skip - expected {dom_path.name} + {baton_path.name} not found",
             file=sys.stderr,
         )
         return {"written": 0, "skipped": len(clusters)}
@@ -443,7 +443,7 @@ def preprocess_device(
             })
 
         if not cluster_sections:
-            print(f"[{device}] SKIP {cluster} — no sections routed")
+            print(f"[{device}] SKIP {cluster} - no sections routed")
             skipped += 1
             continue
 
@@ -531,7 +531,7 @@ def main(argv: list[str] | None = None) -> int:
         meta = json.loads(meta_path.read_text(encoding="utf-8"))
         source_mode = meta.get("source_mode") or ""
         if source_mode in ("file", "description", "screenshot"):
-            print(f"[{args.device}] skip — source_mode={source_mode!r} has no DOM to slice")
+            print(f"[{args.device}] skip - source_mode={source_mode!r} has no DOM to slice")
             return 0
 
     if args.clusters:
@@ -541,7 +541,7 @@ def main(argv: list[str] | None = None) -> int:
 
     result = preprocess_device(engagement_dir, args.device, clusters)
     print(
-        f"[{args.device}] done — wrote {result['written']} context files, "
+        f"[{args.device}] done - wrote {result['written']} context files, "
         f"skipped {result['skipped']} empty clusters"
     )
 
@@ -570,7 +570,7 @@ def main(argv: list[str] | None = None) -> int:
                 file=sys.stderr,
             )
     else:
-        print(f"[{args.device}] anchor-candidates skipped — {baton_filename} not present")
+        print(f"[{args.device}] anchor-candidates skipped - {baton_filename} not present")
 
     return 0
 

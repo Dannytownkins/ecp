@@ -188,7 +188,7 @@ def main() -> None:
         # audit.md, and write_sidecars emits [] for each JSON file.
         print(
             f"Notice: no FAIL/PARTIAL findings parsed for device={device}. "
-            "Proceeding with empty audit — this is the correct artifact "
+            "Proceeding with empty audit - this is the correct artifact "
             "for a genuinely clean page or an over-strict min-priority filter.",
             file=sys.stderr,
         )
@@ -203,7 +203,7 @@ def main() -> None:
     if zero_clusters:
         cluster_file = lambda c: engagement_dir / f"cluster-{c}-{device}.md"
         print(
-            "WARNING: {n} cluster file(s) parsed to 0 findings — this usually means "
+            "WARNING: {n} cluster file(s) parsed to 0 findings - this usually means "
             "the auditor used a non-canonical format (Markdown heading style or "
             "bold-prose fields) instead of triple-backtick FINDING code blocks. "
             "Check workflows/audit.md Step 4a. Affected:".format(n=len(zero_clusters)),

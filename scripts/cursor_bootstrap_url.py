@@ -85,8 +85,8 @@ _ELEMENTS_JS = r"""
           tag: el.tagName.toLowerCase(),
           text: (el.textContent || '').trim().slice(0, 60),
           class: (el.className || '').toString().slice(0, 80),
-          x: Math.round(r.left),
-          y: Math.round(r.top + scrollY),
+          x: Math.max(0, Math.round(r.left)),
+          y: Math.max(0, Math.round(r.top + scrollY)),
           width: Math.round(r.width),
           height: Math.round(r.height)
         };
@@ -491,7 +491,9 @@ def _dpr_scale_element_css_to_phys(el: dict[str, Any], dpr: int) -> dict[str, An
     out = dict(el)
     for k in ("x", "y", "width", "height"):
         v = int(out.get(k, 0) or 0)
-        out[k] = int(round(v * dpr))
+        # Clamp to >=0: off-canvas elements yield negative getBoundingClientRect
+        # coords, which schema/baton-v1.json (rect.* minimum: 0) rejects.
+        out[k] = max(0, int(round(v * dpr)))
     return out
 
 
@@ -702,7 +704,7 @@ def _run_one_device(
     except (RuntimeError, OSError) as exc:
         msg = str(exc).lower()
         if "timed out" in msg or "timeout" in msg:
-            print("STATUS: BLOCKED — navigation timed out", file=sys.stderr)
+            print("STATUS: BLOCKED - navigation timed out", file=sys.stderr)
             return 2, None
         print(f"ERROR: navigation failed: {exc}", file=sys.stderr)
         return 1, None
@@ -720,11 +722,11 @@ def _run_one_device(
 
     g_reason = ecp_ov.guardrails_fail_reason(request_url=url, final_href=page_href_early or url)
     if g_reason:
-        print(f"STATUS: BLOCKED — {g_reason}", file=sys.stderr)
+        print(f"STATUS: BLOCKED - {g_reason}", file=sys.stderr)
         return 2, None
     pwd = _ev('JSON.stringify(!!document.querySelector(\'input[type="password"]\'))')
     if str(pwd).strip().lower() == "true":
-        print("STATUS: BLOCKED — page requires authentication (password field).", file=sys.stderr)
+        print("STATUS: BLOCKED - page requires authentication (password field).", file=sys.stderr)
         return 2, None
 
     if _count_visible_text(agent_browser, session) < 10:
@@ -758,7 +760,7 @@ def _run_one_device(
     if not viewport_ok:
         max_shots_eff = 1
         print(
-            "STATUS: PARTIAL — viewport not clear after overlay handling; "
+            "STATUS: PARTIAL - viewport not clear after overlay handling; "
             f"capturing {max_shots_eff} reference screenshot(s) only (see `workflows/acquire.md` Step 1b).",
             file=sys.stderr,
         )
