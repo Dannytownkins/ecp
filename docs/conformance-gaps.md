@@ -131,12 +131,75 @@ Severity: **P1** = spec'd invariant unimplemented or a notable divergence ·
 
 ---
 
+## Run-observed robustness (from the 2026-05-26 live-audit handoff)
+
+Source: `docs/2026-05-26-ecp-v2-run-observations-handoff.md` — observed during the
+live run, not from spec/code reading. That handoff's **P0-1 (canonical-fref drift)
+is already FIXED** (commit `caea832` + `tests/test_canonical_frefs_parity.py`). The
+rest, verified against current `HEAD`:
+
+### G11 · P1 · SKILL router documents the v1 pipeline for v2 work
+- **Now:** `skills/audit/SKILL.md` "Validation And Recovery" tells the lead to run
+  `validate-cluster-files.py` + `assemble-audit.py` — both v1 markdown-path tools.
+  On a v2 (JSON-emission) engagement they no-op or crash (`prep_synth_input.py`
+  raises `FileNotFoundError` expecting `.md`). The real v2 path
+  (`test-specialist.py validate` → `lead_prep build-canonical-frefs` →
+  `synth_input.trim_baton_file` → synthesizer → `generate-report.py --v2`) isn't
+  documented; the lead discovered it by reading code.
+- **Fix:** add a v2-pipeline subsection (or `workflows/assemble-v2.md`) with the
+  real commands/order; mark the v1 tools v1-only with pointers.
+
+### G12 · P1 · Claude acquirer (`workflows/acquire.md`) has no base64 eval guard
+- **Now:** the earlier Windows eval fix (base64 + `_unwrap_eval`) was applied to
+  `scripts/cursor_bootstrap_url.py` — the **Cursor/standalone** path. The Claude
+  `/ecp:audit` acquirer follows `workflows/acquire.md`, which runs `agent-browser
+  eval` **directly via Bash** (no base64). It worked in the live run only because
+  the Bash tool uses the *bash* shim (no PowerShell `\"` mangling) — dodged by
+  environment luck, not design.
+- **Fix:** steer `workflows/acquire.md` to use `agent-browser eval -b <base64>`
+  (or `--stdin`) for any non-trivial JS, mirroring `_eval_args` in
+  `cursor_bootstrap_url.py`. Bundle with G11.
+
+### G13 · P1 · Non-ASCII in canary summaries crashes the Windows console
+- **Now:** `scripts/assembly/canary_checks.py` has ~30 non-ASCII chars (`→` etc.);
+  printing on a cp1252 Windows console raises `UnicodeEncodeError`. Operator is on
+  Windows. (Confirmed via grep.)
+- **Fix:** ASCII (`->`) in summary strings, or `sys.stdout.reconfigure(encoding=
+  "utf-8")` at CLI entrypoints. Sweep `print()` strings repo-wide for non-ASCII.
+
+### G14 · P1 · Acquirer emits negative rect coords; schema rejects them
+- **Now:** off-canvas elements yield `getBoundingClientRect` negatives (e.g.
+  `rect.x = -13`); `schema/baton-v1.json` sets `rect.x/y minimum: 0`, so the baton
+  fails validation and the lead clamped by hand. (Confirmed.)
+- **Fix:** clamp negative `x/y` to 0 at the source (acquirer extraction step) —
+  cleaner than relaxing the schema.
+
+### G15 · P1/P2 · Emission-bounce friction, ethics jurisdiction, screenshot note
+- **P1-3 (bounce rate, 5/13 retries):** anchor-candidate registry friction
+  (specialist cites a real `eN` not in the candidate registry); the
+  `proposed_anchor.reason` ≤200-char cap isn't surfaced inline in
+  `contracts/specialist-prompt-v2.md`; ethics-emission shape traps (path-form
+  telemetry, missing `proposed_anchor` on absent findings). Tighten prompts / add
+  a small ethics-emission autofix.
+- **P1-4 (ethics jurisdiction):** ethics cited GDPR for a US-targeted page; add a
+  "match citation to the page's jurisdiction (US→CCPA/FTC, EU→GDPR gated on
+  hreflang)" steer to `contracts/ethics-subagent-v2.md`. (Overlaps G2/G9.)
+- **P2-3:** note in `workflows/acquire.md` that `--screenshot-quality` is
+  session-global — set it before the first capture.
+
+---
+
 ## Suggested order
 
-1. **G4** (hotspot blank-below-confidence) and **G8** (client-ready gate) — the two
-   P1 *behavioral* gaps that directly back §4.2 and §6 trust invariants.
-2. **G7** (URL-only) — decide conform vs. spec-change, then act.
-3. **G1 / G6** (hotspot precision tuning) — reduce manual editing per audit.
-4. **G2** (citation/legal re-audit) — elevate any legal-claim fix to P1.
-5. **G5** (editor UX) — needs an operator pass.
-6. **G3 / G9 / G10** — low-priority hardening + cosmetics.
+1. **G11 + G12** (v2-pipeline doc + acquirer base64 guard) — bundle; prevents the
+   next lead from rediscovering the v2 path and hardens the acquirer.
+2. **G13 + G14** (Windows unicode crash + negative-coord clamp) — cheap, and both
+   bit the live run on a Windows operator.
+3. **G4** (hotspot blank-below-confidence) and **G8** (client-ready gate) — the two
+   P1 *behavioral* gaps that back §4.2 and §6 trust invariants.
+4. **G7** (URL-only) — decide conform vs. spec-change, then act.
+5. **G1 / G6 / G15** (hotspot precision + emission-bounce + ethics-jurisdiction
+   tuning) — reduce manual editing and retries per audit.
+6. **G2** (citation/legal re-audit) — elevate any legal-claim fix to P1.
+7. **G5** (editor UX) — needs an operator pass.
+8. **G3 / G9 / G10** — low-priority hardening + cosmetics.
