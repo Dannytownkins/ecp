@@ -138,7 +138,12 @@ live run, not from spec/code reading. That handoff's **P0-1 (canonical-fref drif
 is already FIXED** (commit `caea832` + `tests/test_canonical_frefs_parity.py`). The
 rest, verified against current `HEAD`:
 
-### G11 · P1 · SKILL router documents the v1 pipeline for v2 work
+> **Status (2026-05-26 session 2): G11, G12, G13, G14 are ✓ DONE** — commits
+> `763065b` (G11+G12) and `65c1c93` (G13+G14), each with a browser-free regression
+> test. **G15 remains.** See "Post-migration completeness" below for additional
+> drops resolved this session.
+
+### G11 · P1 · ✓ DONE (`763065b`) · SKILL router documents the v1 pipeline for v2 work
 - **Now:** `skills/audit/SKILL.md` "Validation And Recovery" tells the lead to run
   `validate-cluster-files.py` + `assemble-audit.py` — both v1 markdown-path tools.
   On a v2 (JSON-emission) engagement they no-op or crash (`prep_synth_input.py`
@@ -149,7 +154,7 @@ rest, verified against current `HEAD`:
 - **Fix:** add a v2-pipeline subsection (or `workflows/assemble-v2.md`) with the
   real commands/order; mark the v1 tools v1-only with pointers.
 
-### G12 · P1 · Claude acquirer (`workflows/acquire.md`) has no base64 eval guard
+### G12 · P1 · ✓ DONE (`763065b`) · Claude acquirer (`workflows/acquire.md`) has no base64 eval guard
 - **Now:** the earlier Windows eval fix (base64 + `_unwrap_eval`) was applied to
   `scripts/cursor_bootstrap_url.py` — the **Cursor/standalone** path. The Claude
   `/ecp:audit` acquirer follows `workflows/acquire.md`, which runs `agent-browser
@@ -160,14 +165,17 @@ rest, verified against current `HEAD`:
   (or `--stdin`) for any non-trivial JS, mirroring `_eval_args` in
   `cursor_bootstrap_url.py`. Bundle with G11.
 
-### G13 · P1 · Non-ASCII in canary summaries crashes the Windows console
+### G13 · P1 · ✓ DONE (`65c1c93`) · Non-ASCII in `print()` literals crashes the Windows console
 - **Now:** `scripts/assembly/canary_checks.py` has ~30 non-ASCII chars (`→` etc.);
   printing on a cp1252 Windows console raises `UnicodeEncodeError`. Operator is on
   Windows. (Confirmed via grep.)
 - **Fix:** ASCII (`->`) in summary strings, or `sys.stdout.reconfigure(encoding=
   "utf-8")` at CLI entrypoints. Sweep `print()` strings repo-wide for non-ASCII.
+- **Done note:** `canary_checks.py` was actually safe (`json.dumps` escapes
+  non-ASCII); the real offenders were 23 `print()` em-dash literals across 7 scripts.
+  ASCII-swept + repo-wide lint `tests/test_no_nonascii_in_script_prints.py`.
 
-### G14 · P1 · Acquirer emits negative rect coords; schema rejects them
+### G14 · P1 · ✓ DONE (`65c1c93`) · Acquirer emits negative rect coords; schema rejects them
 - **Now:** off-canvas elements yield `getBoundingClientRect` negatives (e.g.
   `rect.x = -13`); `schema/baton-v1.json` sets `rect.x/y minimum: 0`, so the baton
   fails validation and the lead clamped by hand. (Confirmed.)
@@ -189,14 +197,35 @@ rest, verified against current `HEAD`:
 
 ---
 
+## Post-migration completeness (2026-05-26 session 2) · ✓ DONE
+
+Migrating from the larger plugin dropped several referenced scripts/fixtures that
+the canonical `unittest discover` runner didn't catch (it silently skips
+pytest-style tests). Swept systematically + cross-checked vs the archive; all resolved:
+
+- **`build_canonical_f_refs.py`** (dropped) → consolidated into `lead_prep
+  build-canonical-frefs`, which now writes both `canonical-f-refs.json` (consumer
+  shape) and the manifest from one `build_canonical_view` call (`fc96777`).
+- **`build_synthesizer_emission_fallback.py`** (dropped) → restored from archive (`3431c61`).
+- **3 dev-engagement fixtures:** 2 editor-smoke fixtures restored to `tests/fixtures/`;
+  the 50 MB review-state engagement skip-guarded (`05c9883`).
+- **Stale `build_canonical_f_refs.py` references** scrubbed; Cursor `next_steps` stale
+  guidance removed (`831b66e`).
+- The 2 `.cursor-plugin/` scripts (`validate_meta.py`, `ecp_run_visual_reports.py`) are
+  deliberate non-canonical drops (§8) — NOT restored.
+
+**Verify BOTH runners:** `unittest discover` → 422 pass / 1 skip; `pytest tests/` →
+692 pass / 12 skip / 0 fail. (unittest alone hides pytest-style breakage.)
+
+---
+
 ## Suggested order
 
-1. **G11 + G12** (v2-pipeline doc + acquirer base64 guard) — bundle; prevents the
-   next lead from rediscovering the v2 path and hardens the acquirer.
-2. **G13 + G14** (Windows unicode crash + negative-coord clamp) — cheap, and both
-   bit the live run on a Windows operator.
-3. **G4** (hotspot blank-below-confidence) and **G8** (client-ready gate) — the two
-   P1 *behavioral* gaps that back §4.2 and §6 trust invariants.
+1. ~~**G11 + G12** (v2-pipeline doc + acquirer base64 guard)~~ — ✓ DONE (`763065b`).
+2. ~~**G13 + G14** (Windows unicode crash + negative-coord clamp)~~ — ✓ DONE (`65c1c93`);
+   plus post-migration completeness (above) — ✓ DONE.
+3. **← START HERE — G4** (hotspot blank-below-confidence) and **G8** (client-ready gate) —
+   the two P1 *behavioral* gaps that back §4.2 and §6 trust invariants.
 4. **G7** (URL-only) — decide conform vs. spec-change, then act.
 5. **G1 / G6 / G15** (hotspot precision + emission-bounce + ethics-jurisdiction
    tuning) — reduce manual editing and retries per audit.

@@ -4,6 +4,30 @@ This repo begins at **1.0.0** as a clean prune-and-re-root. Governance and scope
 defined by `product.md`; spec-level changes are logged in its §10 Spec Change Log.
 The full pre-1.0 history lives in the archived `ecommerce-conversion-psychology` repo.
 
+## Post-1.0.0 conformance — 2026-05-26 (session 2)
+
+Conformance toward `product.md` + completion of the migration. Full roadmap and
+status: `docs/conformance-gaps.md`. All on `main`.
+
+- **G11 / G12** (`763065b`): the audit router now documents the real v2 pipeline
+  (legacy v1 markdown tools marked v1-only); the Claude acquirer steers non-trivial
+  `agent-browser eval` through base64 `-b` (mirrors `_eval_args`).
+- **G13 / G14** (`65c1c93`): ASCII-swept `print()` literals + repo-wide lint
+  (`tests/test_no_nonascii_in_script_prints.py`); clamp negative `rect.x/y` to 0 at
+  extraction (schema keeps `minimum: 0`).
+- **canonical-f-refs consolidation** (`fc96777`): `lead_prep build-canonical-frefs`
+  writes both `canonical-f-refs.json` (the synthesizer-dispatch input) and the
+  manifest from one `build_canonical_view` call — single source of truth.
+- **Migration completeness** (`3431c61`, `05c9883`, `831b66e`): restored
+  `build_synthesizer_emission_fallback.py`; restored 2 editor fixtures to
+  `tests/fixtures/` + skip-guarded the 50 MB review-state engagement; scrubbed
+  dangling `build_canonical_f_refs.py` references + Cursor stale `next_steps` guidance.
+- **Test runners:** `unittest discover` 422/1-skip; `pytest tests/` 692/12-skip/0-fail.
+  The canonical unittest runner skips pytest-style tests — run **both**.
+
+Next conformance target (per `docs/conformance-gaps.md`): **G4** (hotspot
+blank-below-confidence, §4.2) + **G8** (draft→client-ready gate, §6).
+
 ## 1.0.0 — 2026-05-26
 
 **Clean audit-only baseline.** Pruned and re-rooted from
