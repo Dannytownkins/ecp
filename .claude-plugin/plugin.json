@@ -1,11 +1,11 @@
 {
   "name": "ecp",
-  "version": "1.4.1",
-  "description": "E-commerce Psychology toolkit for ecommerce pages, powered by 900+ research-backed findings across pricing, trust, SEO, mobile, visual design, content, and checkout. Evidence tier citations (Gold/Silver/Bronze), annotated screenshot reports with click-to-spotlight finding hotspots, three-state ethics gate (BLOCK/ADJACENT/CLEAR) backed by 27 regulations with source URLs, automated finding dedup via assemble-audit.py, dark chrome design system with WCAG AA contrast, auto-save audit artifacts. Commands: /ecp:audit, /ecp:build, /ecp:quick-scan, /ecp:compare, /ecp:resume. Platform-aware (Shopify, Next.js, OpenCart, WooCommerce).",
+  "version": "1.0.0",
+  "description": "E-commerce conversion-psychology audit for a single ecommerce page from a URL. Evidence-tiered findings (Gold/Silver/Bronze) across pricing, trust, SEO, mobile, performance, visual design, content, and checkout; a prioritized Priority Path; and an annotated visual report with an editable hotspot tool. Three-state ethics gate (BLOCK/ADJACENT/CLEAR). Command: /ecp:audit. Canonical scope: product.md. Platform-aware detection (Shopify, Next.js, OpenCart, WooCommerce).",
   "author": {
     "name": "Daniel Kinsner"
   },
-  "repository": "https://github.com/Dannytownkins/ecommerce-conversion-psychology",
+  "repository": "https://github.com/Dannytownkins/ecp",
   "license": "MIT",
   "keywords": [
     "ecommerce",

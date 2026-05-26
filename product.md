@@ -201,12 +201,14 @@ modes are downstream consumers of these contracts.
 
 ## 8. Runtime
 
-- **Claude Code is canonical.** This spec is written in Claude Code terms; the
-  Claude runtime is THE product.
-- **Codex is optional.** It also works and historically renders the HTML report with
-  good precision, but it is not guaranteed to stay in lockstep and is not canonical.
-  No mixed-engine (audit-in-Claude, render-in-Codex) workflow is promised or
-  supported as a guarantee.
+- **Claude Code is the only runtime in this repo.** The audit is the `ecp` plugin,
+  invoked as `/ecp:audit`. For live development the plugin loads straight from the
+  repo with `claude --plugin-dir <repo>` — no cache copy, no stale-version step.
+- **Codex (and Cursor) are archived, not shipped.** Both alternate runtimes were
+  archived with the old repo and are reserved seams (§5): re-portable from the
+  archive if ever wanted, but not part of the canonical product. Codex historically
+  rendered the report with good precision — that edge is a target for the Claude
+  renderer, not a reason to maintain a second runtime.
 
 The **ethics gate is permanent and dual-role**: an **absolute guardrail** on ECP's
 own output (it must never recommend fake urgency, hidden fees, deceptive defaults,

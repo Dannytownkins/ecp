@@ -1,13 +1,13 @@
 {
-  "name": "ecommerce-conversion-psychology",
-  "description": "E-commerce Psychology toolkit for ecommerce pages using research-backed psychology",
+  "name": "ecp",
+  "description": "E-commerce conversion-psychology audit engine (URL in, cited findings + Priority Path + annotated report out)",
   "owner": {
     "name": "Daniel Kinsner"
   },
   "plugins": [
     {
       "name": "ecp",
-      "description": "E-commerce Psychology toolkit for ecommerce pages, powered by 900+ research-backed findings across pricing, trust, SEO, mobile, visual design, content, and checkout. Audit existing pages or build from scratch with evidence-backed recommendations. Commands: /ecp:audit (full relay), /ecp:build (from scratch), /ecp:quick-scan (fast single-focus), /ecp:compare (competitor gap analysis), /ecp:resume (pick up where you left off). Screenshot-only input, annotated visual reports, ethics compliance, dark chrome design system. Platform-aware (Shopify, Next.js, OpenCart, WooCommerce).",
+      "description": "E-commerce conversion-psychology audit for a single ecommerce page from a URL. Evidence-tiered findings (Gold/Silver/Bronze) across pricing, trust, SEO, mobile, performance, visual design, content, and checkout; a prioritized Priority Path; and an annotated visual report with an editable hotspot tool. Ethics gate in every audit. Command: /ecp:audit. Canonical scope: product.md.",
       "category": "development",
       "source": "./"
     }
