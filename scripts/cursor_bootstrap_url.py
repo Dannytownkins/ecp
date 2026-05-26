@@ -28,6 +28,7 @@ Examples:
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import importlib.util
 import json
@@ -313,6 +314,21 @@ def _ab_bin(agent_browser: str, args: list[str], *, session: str | None) -> list
     return [agent_browser, *args]
 
 
+def _eval_args(source: str) -> list[str]:
+    """Return `eval` args with the JS base64-encoded.
+
+    On Windows, `agent-browser` resolves to a .ps1/.cmd npm shim that re-parses
+    argv through PowerShell/cmd. JS payloads containing double-quotes or shell
+    metacharacters (`"`, `(`, `)`, `{`, `}`, `>`, `&&`, `|`) get mangled or
+    truncated by the shim's parser (PowerShell does not treat CMD-style `\\"` as an
+    escape, so it ends the string early), producing `SyntaxError: Unexpected end of
+    input` in the browser. base64 is metacharacter-free, so it round-trips intact;
+    agent-browser decodes it via `-b/--base64`.
+    """
+    b64 = base64.b64encode(source.encode("utf-8")).decode("ascii")
+    return ["eval", "-b", b64]
+
+
 def _parse_trailing_json(stdout: str) -> Any:
     s = stdout.strip()
     if not s:
@@ -332,17 +348,32 @@ def _parse_trailing_json(stdout: str) -> Any:
     return None
 
 
+def _unwrap_eval(value: Any) -> Any:
+    """Unwrap agent-browser's JSON-encoded eval result.
+
+    agent-browser JSON-encodes the value an `eval` returns. Our JS wraps payloads
+    in `JSON.stringify(...)`, so results arrive double-encoded: a JSON string whose
+    content is itself JSON. Decode the inner layer when present; leave plain,
+    non-JSON strings and already-decoded structures untouched. Safe whether
+    agent-browser single- or double-encodes.
+    """
+    if isinstance(value, str) and value.strip():
+        try:
+            return json.loads(value)
+        except json.JSONDecodeError:
+            return value
+    return value
+
+
 def _parse_eval_json_string(stdout: str) -> str:
-    payload = _parse_trailing_json(stdout)
-    if isinstance(payload, str):
-        return payload
-    return ""
+    payload = _unwrap_eval(_parse_trailing_json(stdout))
+    return payload if isinstance(payload, str) else ""
 
 
 def _eval_json_object(agent_browser: str, session: str | None, source: str) -> Any:
     source = " ".join(str(source).split())
-    out = _run_capture(_ab_bin(agent_browser, ["eval", source], session=session))
-    return _parse_trailing_json(out)
+    out = _run_capture(_ab_bin(agent_browser, _eval_args(source), session=session))
+    return _unwrap_eval(_parse_trailing_json(out))
 
 
 def _file_md5(path: Path) -> str:
@@ -525,16 +556,13 @@ def _outer_html(agent_browser: str, session: str | None) -> str:
     out = _run_capture(
         _ab_bin(
             agent_browser,
-            [
-                "eval",
-                (
-                    "(function(){"
-                    "  var el = document.documentElement;"
-                    "  if (!el) return JSON.stringify('');"
-                    "  return JSON.stringify(el.outerHTML || '');"
-                    "})()"
-                ),
-            ],
+            _eval_args(
+                "(function(){"
+                "  var el = document.documentElement;"
+                "  if (!el) return JSON.stringify('');"
+                "  return JSON.stringify(el.outerHTML || '');"
+                "})()"
+            ),
             session=session,
         )
     )
@@ -803,7 +831,7 @@ def _run_one_device(
         try:
             hout = _run_capture(
                 _ab_bin(
-                    agent_browser, ["eval", f"JSON.stringify({_SECTION_VIEW_JS})"], session=session
+                    agent_browser, _eval_args(f"JSON.stringify({_SECTION_VIEW_JS})"), session=session
                 )
             )
             v = _parse_trailing_json(hout)
