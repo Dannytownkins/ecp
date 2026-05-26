@@ -21,10 +21,22 @@ The full pre-1.0 history lives in the archived `ecommerce-conversion-psychology`
 - **Install:** live development via `claude --plugin-dir <repo>` (no cache copy / sync
   step). Plugin name `ecp`, command `/ecp:audit`.
 
+### Fixed + validated on the baseline
+- **Windows acquisition** (`scripts/cursor_bootstrap_url.py`): two stacked
+  `agent-browser eval` bugs — npm-shim quote/metacharacter mangling (fixed via
+  base64 `eval -b`) and double-JSON-encoded results (fixed via `_unwrap_eval`).
+  Regression test: `tests/test_eval_encoding.py`.
+- **Stale multi-mode cross-references** scrubbed from the loaded contracts (zero
+  dangling sibling-skill refs repo-wide).
+- **`lead_prep build-canonical-frefs` split-brain**: now calls the renderer's
+  `v2_loader.build_canonical_view` (one source of truth — ethics + dedup +
+  cross-device merge). Regression test: `tests/test_canonical_frefs_parity.py`.
+- **End-to-end live audit validated** on a real Shopify homepage: full relay ran
+  (2 acquirers / 12 specialists / ethics / synthesizer), stopped at the report,
+  **0 `(not found)` refs**, hotspots 30/30 desktop + 27/27 mobile placed.
+
 ### Known follow-ups
-- Fix the Windows acquisition bug in `scripts/cursor_bootstrap_url.py` (large-inline-JS
-  `agent-browser eval` mangling) — top priority; blocks end-to-end audits on Windows.
-- Clear residual provenance comments (`# docs/plans/…`) and stale sibling-skill
-  cross-references left from the multi-mode era.
-- Full end-to-end live-audit validation (report renders, no `(not found)` refs,
-  hotspots place-or-blank) once acquisition is fixed.
+- Inert `# docs/plans/…` provenance comments remain in `scripts/`, `tests/`, and
+  `schema/` (never loaded into agent context; cosmetic).
+- Soft canaries to tighten over time: synthesizer `element_index_match_rate`
+  toward 1.0; auto-down-rank oversized exact-element hotspots to proxy anchors.
