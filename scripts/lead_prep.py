@@ -157,11 +157,12 @@ def _cluster_emissions(engagement: Path) -> Iterable[tuple[Path, dict]]:
 
 
 def build_canonical_frefs(engagement: Path) -> int:
-    """Compute canonical f_refs from cluster emissions using the SAME
-    algorithm the renderer uses (``scripts/assembly/pipeline.py:
-    FinalizedFindings.build``). Display indices are content-hash-derived
-    (sha256(surface|baton_index|verdict)[:6] mod 99 + 1) per Phase L
-    (2026-04-29), NOT cluster-local 1-based.
+    """Compute canonical f_refs by calling the renderer's own canonical-view
+    builder (``scripts/report/v2_loader.build_canonical_view``) — cluster
+    emissions PLUS ethics, deduped, with content-hash display indices — so the
+    manifest is exactly the renderer's allowlist and cannot drift. Display
+    indices are content-hash-derived (sha256(surface|baton_index|verdict)[:6]
+    mod 99 + 1) per Phase L (2026-04-29), NOT cluster-local 1-based.
 
     Why content-hashed instead of 1-based: positional 1-based indexing
     means the same finding gets a different F-NN on every re-run as the
@@ -179,85 +180,60 @@ def build_canonical_frefs(engagement: Path) -> int:
 
     Returns process exit code (0 ok).
     """
-    # Lazy import — same pattern as v2_loader._build_canonical_view, so
-    # the algorithm stays a single source of truth.
+    # Build the canonical view via the EXACT renderer path so the manifest
+    # can never drift from the allowlist the renderer enforces. The renderer
+    # (scripts/report/v2_loader.build_canonical_view) loads cluster emissions
+    # AND ethics-findings.json, runs deduplicate_v2().all_actionable(),
+    # FinalizedFindings.build(), and the Layer-2.5 cross-device title merge —
+    # and loads the anchor-candidate sidecars internally. Re-implementing any
+    # of that here is what caused the 2026-05-26 drift (manifest listed 70
+    # cluster refs / 0 ethics while the renderer's true allowlist was 76 incl.
+    # 8 ethics, so the synthesizer emitted out-of-allowlist refs). Calling the
+    # one function eliminates the split-brain.
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     try:
-        from assembly.json_parser import parse_emission_file
-        from assembly.pipeline import FinalizedFindings
+        from report.v2_loader import (
+            build_canonical_view,
+            _engagement_cluster_emission_paths,
+            _engagement_ethics_findings_path,
+        )
     except ImportError as e:
-        print(f"[error] couldn't import assembly module: {e}", file=sys.stderr)
+        print(f"[error] couldn't import renderer canonical-view builder: {e}", file=sys.stderr)
         return 3
 
-    findings_assembly: list = []
-    clusters_used: list[str] = []
-    devices_by_local: dict[tuple, list[str]] = {}
-
-    # Phase 4a hardening (2026-05-18) — load anchor-candidates sidecars
-    # per device so parse_emission_file can resolve candidate_id references
-    # in visual_evidence.observed_anchor into canonical baton_index. Pre-fix,
-    # build-canonical-frefs called parse_emission_file(path) without the
-    # sidecar and silently rejected candidate_id-only emissions because the
-    # element.baton_index was empty. Closes Codex 2026-05-18 review item 2
-    # on ffeb1a6. Mirrors the same wiring in
-    # scripts/build_canonical_f_refs.py and scripts/report/v2_loader.py.
-    #
-    # Phase 4b hardening 2 (2026-05-18) — use the strict shared loader.
-    # Missing file → None (legacy skip). Present-but-broken → raise and
-    # propagate to a non-zero exit. Codex 2026-05-18 review of 64ce7f2.
-    from assembly.anchor_candidates import (
-        SidecarLoadError, load_anchor_candidates_sidecar_strict,
-    )
-    sidecar_by_device: dict[str, dict | None] = {}
-    try:
-        for dev in ("desktop", "mobile", "laptop"):
-            sidecar_by_device[dev] = load_anchor_candidates_sidecar_strict(
-                engagement / f"anchor-candidates-{dev}.json"
-            )
-    except SidecarLoadError as e:
-        print(f"[error] {e}", file=sys.stderr)
-        return 1
-    if any(sidecar_by_device.values()):
-        loaded = [d for d, s in sidecar_by_device.items() if s is not None]
-        print(f"[info] loaded anchor-candidates sidecars for: {', '.join(loaded)}")
-
-    for path, data in _cluster_emissions(engagement):
-        cluster = data.get("cluster", "unknown")
-        device = data.get("device", "unknown")
-        if cluster not in clusters_used:
-            clusters_used.append(cluster)
-        sidecar = sidecar_by_device.get(device)
-        try:
-            res = parse_emission_file(path, anchor_candidates_sidecar=sidecar)
-        except Exception as e:
-            print(f"[warn] couldn't parse {path.name}: {e}", file=sys.stderr)
-            continue
-        findings_assembly.extend(res.findings)
-        # Track devices_present for cross-device merge reporting (the
-        # renderer's Layer-2.5 cross-device-title-merge handles canonical
-        # ref consolidation; we just surface visibility here).
-        for f in res.findings:
-            key = (cluster, (f.title or "").strip().lower())
-            devices_by_local.setdefault(key, []).append(device)
-
-    if not findings_assembly:
+    cluster_paths = _engagement_cluster_emission_paths(engagement)
+    ethics_path = _engagement_ethics_findings_path(engagement)
+    if not cluster_paths and not (ethics_path and ethics_path.exists()):
         print("[error] no cluster emissions found", file=sys.stderr)
         return 3
 
-    finalized = FinalizedFindings.build(findings_assembly, clusters_used)
+    try:
+        by_ref, _merge_aliases = build_canonical_view(cluster_paths, ethics_path)
+    except Exception as e:
+        print(f"[error] canonical view build failed: {e}", file=sys.stderr)
+        return 1
+
+    if not by_ref:
+        print("[error] no canonical findings produced", file=sys.stderr)
+        return 3
+
     manifest_entries: list[dict] = []
-    for f in finalized.findings:
-        key = (f.cluster, (f.title or "").strip().lower())
-        devs = sorted(set(devices_by_local.get(key, [f.device or "unknown"])))
+    for ref, v in by_ref.items():
+        # `ref` is "{cluster} F-{NN}" — the renderer's exact allowlist key.
+        try:
+            display_index = int(ref.rsplit("F-", 1)[1])
+        except (IndexError, ValueError):
+            display_index = 0
         manifest_entries.append({
-            "f_ref": f"{f.cluster} F-{f.display_index:02d}",
-            "cluster": f.cluster,
-            "display_index": f.display_index,
-            "title": f.title or "",
-            "severity": f.priority or "MEDIUM",
-            "devices_present": devs,
-            "device": f.device or "unknown",
+            "f_ref": ref,
+            "cluster": v.get("cluster", "unknown"),
+            "display_index": display_index,
+            "title": v.get("title") or "",
+            "severity": v.get("severity") or "MEDIUM",
+            "devices_present": sorted(v.get("devices_present") or []),
+            "device": v.get("device") or "unknown",
         })
+    manifest_entries.sort(key=lambda e: (e["cluster"], e["display_index"]))
 
     by_cluster: dict[str, list] = {}
     for entry in manifest_entries:
