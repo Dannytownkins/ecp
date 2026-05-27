@@ -76,6 +76,17 @@ from .geometry import (
 
 _E_INDEX_RE = re.compile(r"^e(\d+)$")
 
+# G6 (product.md §4.2 precision-first) — an exact_element hotspot whose baton
+# rect spans more than this share of the viewport is almost always anchored to a
+# parent container (full header/drawer/body), not the subject element. Such
+# markers are auto-down-ranked to proxy_element so they render as approximate
+# (dashed) markers instead of misleading solid "exact" rects. Kept in sync with
+# assembly/visual_quality.py DEFAULT_GIANT_WIDTH_PCT / DEFAULT_GIANT_HEIGHT_PCT
+# (the giant_exact_rectangles gate) — tests/test_g6_oversized_downrank.py asserts
+# the two stay equal, so down-ranking here makes that gate pass.
+GIANT_EXACT_WIDTH_PCT = 85.0
+GIANT_EXACT_HEIGHT_PCT = 70.0
+
 # Per-kind allowed placements (mirrors schema oneOf — defensive only; the
 # schema rejects mismatches at validation time).
 _ELEMENT_PLACEMENTS = frozenset({
@@ -724,8 +735,59 @@ def auto_map_markers_v2(
             f,
             match_method=m.get("match_method"),
         )
+        # G6: down-rank an oversized exact_element marker to an approximate
+        # proxy_element (renders dashed) so it stops claiming pixel-precise
+        # placement it doesn't have, and the giant_exact_rectangles gate passes.
+        _downrank_oversized_exact(m, elements, viewport, element_coord_scale)
 
     return mappings
+
+
+def _downrank_oversized_exact(
+    mapping: dict,
+    elements: list,
+    viewport: dict,
+    element_coord_scale: float,
+) -> None:
+    """Down-rank an exact_element mapping to proxy_element when its baton rect is
+    giant (product.md §4.2 precision-first). Mutates ``mapping['visual_evidence']``
+    in place; no-op for non-exact types or normally-sized elements.
+
+    The size test uses element-width-as-percent-of-viewport, which equals the
+    slide-relative zone w/h pct the renderer computes (zone.w_pct =
+    element_width_css / viewport_width_css * 100), so the threshold here matches
+    exactly what the giant_exact_rectangles gate measures on the rendered marker.
+    """
+    ve = mapping.get("visual_evidence") or {}
+    if ve.get("type") != "exact_element":
+        return
+    eidx = mapping.get("baton_element_index")
+    if not isinstance(eidx, int) or eidx < 0 or eidx >= len(elements):
+        return
+    rect = element_rect_css(elements[eidx], element_coord_scale)
+    if not rect:
+        return
+    try:
+        vw = float(viewport.get("width") or 0)
+        vh = float(viewport.get("height") or 0)
+    except (TypeError, ValueError):
+        return
+    if vw <= 0 or vh <= 0:
+        return
+    w_pct = rect["width"] / vw * 100.0
+    h_pct = rect["height"] / vh * 100.0
+    if w_pct > GIANT_EXACT_WIDTH_PCT or h_pct > GIANT_EXACT_HEIGHT_PCT:
+        mapping["visual_evidence"] = {
+            "type": "proxy_element",
+            "confidence": "low",
+            "reason": (
+                f"Auto-down-ranked from exact_element: baton rect is "
+                f"{w_pct:.0f}%w/{h_pct:.0f}%h of the viewport (> "
+                f"{GIANT_EXACT_WIDTH_PCT:.0f}%w/{GIANT_EXACT_HEIGHT_PCT:.0f}%h) — "
+                f"likely a parent container, not the subject element "
+                f"(product.md §4.2 precision-first)."
+            ),
+        }
 
 
 def _element_y(elem: dict) -> float:
