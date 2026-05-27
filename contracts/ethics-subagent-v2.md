@@ -157,6 +157,16 @@ Severity `CRITICAL` is reserved for ethics findings only. Cluster specialists ne
 - ADJACENT findings default to HIGH (use MEDIUM for jurisdiction-narrow rules where the operator's region is unclear, e.g., a CA-only honest-pricing rule on a page that may not target California traffic).
 - CLEAR findings are LOW.
 
+### Jurisdiction matching
+
+Match every citation to the page's jurisdiction — do NOT cite a regulation that does not apply to the page's audience. Citing a law that doesn't reach the page is a **misapplied-law error**, the highest-bar §4.1 violation.
+
+- **US-targeted page** (US-only shipping/pricing copy, US entity in the footer, or `page_head.hreflang` indicating US/`en-us`): cite **FTC Act § 5, FTC Fake Reviews / Junk Fees rules, CCPA/CPRA, CAN-SPAM, ADA**. Do **not** emit a GDPR / ePrivacy / EU-DSA BLOCK unless EU targeting is actually evidenced.
+- **EU/EEA-targeted page** (EU `hreflang`, €/EU shipping, EU entity/representative in footer): GDPR, ePrivacy, and EU DSA apply.
+- **Ambiguous targeting:** do not fire a confident BLOCK on a region-specific rule. Prefer a CLEAR/ADJACENT with a note that the operator must confirm geographic targeting first (mirror the cookie-consent skip example in the sample output below). A GDPR citation on a US-only page is exactly the drift this rule exists to prevent.
+
+When in doubt about jurisdiction, look at `page_head.hreflang` and footer/shipping copy in the baton before choosing which regulatory framework to cite.
+
 ### Element references
 
 For findings that anchor to a specific element (e.g., "this button violates X"), use `element.baton_index` referencing the desktop baton's e_index. For findings about missing required elements (e.g., "no cookie consent banner present anywhere"), use `baton_index: "absent"` and surface at section level via `surface`.

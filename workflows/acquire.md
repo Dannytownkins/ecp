@@ -394,6 +394,8 @@ Capture settings:
 - Quality: 80 for desktop/laptop, 60 for mobile
 - Viewport: as specified in input (no default — coordinator must specify)
 
+> **`--screenshot-quality` / `set screenshot-quality` is session-global**, not per-capture: it applies to every screenshot taken after it for the life of the session. Set the device-appropriate quality **before the first (above-the-fold) capture** — changing it mid-pass leaves earlier sections at the old quality and produces inconsistent file sizes across one device's sections.
+
 **Report-optimized sizing:** Screenshots are embedded as base64 in visual reports, where the carousel renders at ~600-700px wide. Mobile screenshots at 3x DPR produce 1170px-wide images — larger than ideal but this is the only reliable high-DPR method (`--force-device-scale-factor=2` does not work on Windows, and `set viewport` after `set device` resets DPR to 1x). Laptop at 1x DPR (1440px) and desktop at 1x DPR (1920px) are already appropriate.
 
 **Mobile compression:** Mobile screenshots are always written at JPEG quality 60. Mobile capture uses 3x DPR (1170px-wide images for a 390px CSS viewport), so quality 80 bloats editor.html and visual reports without improving review accuracy at carousel/editor display sizes.
