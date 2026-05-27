@@ -47,11 +47,18 @@ conformance gaps are closed. Roadmap and status: `docs/conformance-gaps.md`. All
   G5 is covered by the Playwright editor smokes (`tests/editor-smoke.mjs` +
   `editor-server-render-smoke.mjs`, both green); G7 is doc/contract-only.
 
-All P1 conformance gaps are closed, plus P2 G5 + G6. Remaining (per
-`docs/conformance-gaps.md`) is P2/P3 tuning best validated on a live audit run:
-**G1 / G15** (synthesizer `at eN` anchor format + emission-bounce + ethics-
-jurisdiction), **G2** (citation/legal re-audit), and the P3 hardening/cosmetics
-(**G3 / G9 / G10**).
+- **G1 + G15 prompt steers** (`cec2794`, P2): the safe pre-audit prompt/contract
+  edits. G1 — `at e{baton_index}` ELEMENT suffix made mandatory in `synthesizer-v2.md`
+  (names the `element_index_match_rate` canary). G15 P1-4 — Jurisdiction-matching rule
+  in `ethics-subagent-v2.md` (US→FTC/CCPA, EU→GDPR; GDPR-on-US = misapplied-law). G15
+  P2-3 — `acquire.md` notes `--screenshot-quality` is session-global. Effect (canary /
+  bounce rates) validates on the next live run.
+
+All P1 conformance gaps are closed, plus P2 G5 + G6 and the G1/G15 prompt steers.
+Remaining (per `docs/conformance-gaps.md`) **needs a live `/ecp:audit` run**: validate
+G1's `element_index_match_rate` and finish G15 P1-3 (emission-bounce autofix); **G2**
+(citation/legal re-audit, needs source-checking); and P3 cosmetics (**G3 / G9 / G10** —
+G10's plan-doc provenance refs are non-uniform/partly functional, explicitly harmless).
 
 ## Post-1.0.0 conformance — 2026-05-26 (session 2)
 

@@ -24,13 +24,16 @@ Severity: **P1** = spec'd invariant unimplemented or a notable divergence ·
 
 ## §4.1 — Content trust (is the *finding* valid?)
 
-### G1 · P2 · Findings missing the `at e{baton_index}` anchor format
+### G1 · P2 · ◐ PROMPT STEER LANDED (`cec2794`), validate on live run · Findings missing the `at e{baton_index}` anchor format
 - **Spec:** every finding element-anchored; the renderer derives refs from anchors.
-- **Now:** live run soft-canary `element_index_match_rate = 0.68` (<0.80). ~15
-  markdown ELEMENT lines describe the element without the `at eN` suffix; hotspots
-  still resolved structurally, but the format drifts.
-- **Fix:** reinforce `contracts/synthesizer-v2.md` to always render `at e{baton_index}`
-  for present-element findings. Raise the canary threshold once clean.
+- **Was:** live run soft-canary `element_index_match_rate = 0.68` (<0.80). ~15
+  markdown ELEMENT lines described the element without the `at eN` suffix; hotspots
+  still resolved structurally, but the format drifted.
+- **Done (steer):** `contracts/synthesizer-v2.md` ELEMENT guidance now makes the
+  `at e{baton_index}` suffix **mandatory** for present-element findings and names the
+  `element_index_match_rate` canary that fails on drift.
+- **Remaining (needs live run):** confirm the next run's `element_index_match_rate`
+  ≥ 0.80, then raise the canary threshold once clean.
 
 ### G2 · P2 (P1 for any legal claim) · Citation/tier integrity re-audit
 - **Spec:** §4.1 — misquoted/over-applied law is the *highest-bar* violation;
@@ -207,18 +210,20 @@ rest, verified against current `HEAD`:
 - **Fix:** clamp negative `x/y` to 0 at the source (acquirer extraction step) —
   cleaner than relaxing the schema.
 
-### G15 · P1/P2 · Emission-bounce friction, ethics jurisdiction, screenshot note
-- **P1-3 (bounce rate, 5/13 retries):** anchor-candidate registry friction
-  (specialist cites a real `eN` not in the candidate registry); the
-  `proposed_anchor.reason` ≤200-char cap isn't surfaced inline in
-  `contracts/specialist-prompt-v2.md`; ethics-emission shape traps (path-form
-  telemetry, missing `proposed_anchor` on absent findings). Tighten prompts / add
-  a small ethics-emission autofix.
-- **P1-4 (ethics jurisdiction):** ethics cited GDPR for a US-targeted page; add a
-  "match citation to the page's jurisdiction (US→CCPA/FTC, EU→GDPR gated on
-  hreflang)" steer to `contracts/ethics-subagent-v2.md`. (Overlaps G2/G9.)
-- **P2-3:** note in `workflows/acquire.md` that `--screenshot-quality` is
-  session-global — set it before the first capture.
+### G15 · P1/P2 · ◐ PARTIAL (`cec2794`) · Emission-bounce friction, ethics jurisdiction, screenshot note
+- **P1-4 (ethics jurisdiction) — ✓ DONE (`cec2794`):** added a "Jurisdiction matching"
+  rule to `contracts/ethics-subagent-v2.md` (US→FTC/CCPA, EU→GDPR/ePrivacy/DSA gated
+  on hreflang/footer; prefer CLEAR/ADJACENT when targeting is ambiguous; GDPR-on-US
+  page = misapplied-law §4.1 error). Fixes the observed GDPR-on-US-page drift.
+- **P2-3 — ✓ DONE (`cec2794`):** `workflows/acquire.md` now notes `--screenshot-quality`
+  /`set screenshot-quality` is session-global — set before the first capture.
+- **P1-3 (bounce rate, 5/13 retries) — REMAINING, needs live run:** the
+  `proposed_anchor.reason` ≤200-char cap is already surfaced at
+  `specialist-prompt-v2.md` field rules (line ~359). Still open: anchor-candidate
+  registry friction (specialist cites a real `eN` not in the candidate registry) and
+  ethics-emission shape traps (path-form telemetry, missing `proposed_anchor` on
+  absent findings) → add a small ethics-emission autofix and re-measure bounce rate
+  against a live run.
 
 ---
 
@@ -253,11 +258,14 @@ pytest-style tests). Swept systematically + cross-checked vs the archive; all re
    ✓ DONE (`7a11876`, `5f34833`); the two P1 *behavioral* gaps backing §4.2 and §6.
 4. ~~**G7** (URL-only)~~ — ✓ DONE (`5d569a6`); decision was conform-to-URL-only (no
    spec change). All P1 gaps are now closed.
-5. **← START HERE — G1 / G15** (synthesizer `at eN` anchor format + emission-bounce
-   + ethics-jurisdiction tuning) — reduce manual editing and retries per audit. Best
-   validated against a live audit run (canary/retry rates), not the test suite.
-   ~~G6~~ (oversized-hotspot down-rank) ✓ DONE (`cf1b699`).
-6. **G2** (citation/legal re-audit) — elevate any legal-claim fix to P1.
+5. **← START HERE (needs a live audit run) — validate G1 + finish G15 P1-3.** The safe
+   prompt steers are in (`cec2794`): G1 `at eN` reinforcement, G15 P1-4 ethics
+   jurisdiction, G15 P2-3 screenshot note. A live `/ecp:audit <url>` run is now required
+   to (a) confirm `element_index_match_rate` ≥ 0.80 and raise the canary threshold [G1],
+   and (b) re-measure the emission bounce rate and add the ethics-emission autofix
+   [G15 P1-3]. ~~G6~~ ✓ DONE (`cf1b699`).
+6. **G2** (citation/legal re-audit) — needs source-checking (web). Elevate any
+   legal-claim fix to P1. Overlaps the G15 P1-4 jurisdiction work already landed.
 7. ~~**G5** (editor UX)~~ — ✓ DONE (`0194e90`); taken out of order (Dan's call). The
    manual-placement queue now drains as you place.
 8. **G3 / G9 / G10** — low-priority hardening + cosmetics.
