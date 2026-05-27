@@ -55,17 +55,22 @@ Severity: **P1** = spec'd invariant unimplemented or a notable divergence ·
 
 ## §4.2 — Presentation trust (does the *report* point at the right thing?)
 
-### G4 · P1 · Hotspot fallback auto-places a banner instead of leaving blank
+### G4 · P1 · ✓ DONE (`7a11876`) · Hotspot fallback auto-places a banner instead of leaving blank
 - **Spec:** §4.2 — auto-place only at ~99.9% confidence; **below threshold leave it
   blank** for manual placement; never auto-place a guess; a wrong/low-confidence
   placement is worse than a blank.
-- **Now:** `scripts/report/v2_markers.py` runs a placement ladder ending in
-  **"banner (last resort) — render at a top-of-page banner indicator."** That is an
+- **Was:** `scripts/report/v2_markers.py` ran a placement ladder ending in
+  **"banner (last resort) — render at a top-of-page banner indicator."** That was an
   auto-placed guess, not a blank. (The live run happened to place 0 banners, so it
-  didn't bite — but the behavior contradicts the spec.)
-- **Fix:** add a confidence gate — below threshold, emit the finding with **no
-  hotspot**, queued into the editor's manual-placement list, instead of a banner.
-  This is the core §4.2 behavior and the highest-value presentation fix.
+  didn't bite — but the behavior contradicted the spec.)
+- **Done:** Strategy 4 renamed `banner` → `unplaced`; emits **no position**
+  (`fallback_position=None`). `compute_marker_positions_v2` renders nothing, and
+  `review_state` builds a hidden, coord-less marker (mirroring the editor's own
+  `clearActiveMarkerPlacement`) with `hotspot_confidence="needs-manual-marker"` so
+  the finding lands in the editor's "Place manually" queue. Visual-evidence kept at
+  `page_level/low` (the prior banner footprint) so the Phase-3 priority-path gate is
+  unchanged — scoped to the §4.2 blank-vs-guess fix. `banner` mappings retained for
+  back-compat. Browser-free regression: `tests/test_g4_blank_below_confidence.py`.
 
 ### G5 · P2 · Editor manual-placement ergonomics
 - **Spec:** §4.2 — the edit tool must make creating/placing/erasing hotspots *easy*
@@ -99,15 +104,21 @@ Severity: **P1** = spec'd invariant unimplemented or a notable divergence ·
 
 ## §6 — Draft → client-ready verification gate
 
-### G8 · P1 · Gate is documented but not implemented
+### G8 · P1 · ✓ DONE (`5f34833`) · Gate is documented but not implemented
 - **Spec:** §6 — a report is DRAFT until a manual verification pass; the state is
   **tracked** (`meta.json`: `draft | client-verified`); `--auto` can never mark
   client-ready.
-- **Now:** `contracts/meta-schema.md` has **no** such state; nothing tracks or
-  enforces it. The gate lives only in the operator's habit.
-- **Fix:** add a `report_state` (or `client_verified`) field to the meta schema;
-  set it only on the manual verification pass (re-check site + citation links +
-  finalize hotspots); assert `--auto` cannot set it.
+- **Was:** `contracts/meta-schema.md` had **no** such state; nothing tracked or
+  enforced it. The gate lived only in the operator's habit.
+- **Done:** `report_state` (`draft | client-verified`, default `draft`, missing reads
+  as `draft`) added to `contracts/meta-schema.md` + `templates/meta.json.template`.
+  New `scripts/assembly/report_state.py`: `read_report_state()` (defaults draft) and
+  `set_client_verified(meta_path, *, auto)` which raises `AutoPromotionError` when
+  `auto=True` — the §6 invariant enforced in code. `meta_validator` warns on a bad
+  enum. `generate-report.py --mark-client-verified` is the operator's manual-pass
+  verb (+ an `--auto` flag the guard refuses). `skills/audit/SKILL.md` steers the
+  report to ship as `draft`, never promoted from the audit flow / under `--auto`.
+  Browser-free regression: `tests/test_g8_client_verified_gate.py`.
 
 ---
 
@@ -224,9 +235,11 @@ pytest-style tests). Swept systematically + cross-checked vs the archive; all re
 1. ~~**G11 + G12** (v2-pipeline doc + acquirer base64 guard)~~ — ✓ DONE (`763065b`).
 2. ~~**G13 + G14** (Windows unicode crash + negative-coord clamp)~~ — ✓ DONE (`65c1c93`);
    plus post-migration completeness (above) — ✓ DONE.
-3. **← START HERE — G4** (hotspot blank-below-confidence) and **G8** (client-ready gate) —
-   the two P1 *behavioral* gaps that back §4.2 and §6 trust invariants.
-4. **G7** (URL-only) — decide conform vs. spec-change, then act.
+3. ~~**G4** (hotspot blank-below-confidence) and **G8** (client-ready gate)~~ —
+   ✓ DONE (`7a11876`, `5f34833`); the two P1 *behavioral* gaps backing §4.2 and §6.
+4. **← START HERE — G7** (URL-only) — **decision needed** (Dan): conform the audit
+   skill to URL-only, **or** log a §2.2 Spec Change Log entry to keep file/HTML
+   input, then conform. Not just code — pick the direction first.
 5. **G1 / G6 / G15** (hotspot precision + emission-bounce + ethics-jurisdiction
    tuning) — reduce manual editing and retries per audit.
 6. **G2** (citation/legal re-audit) — elevate any legal-claim fix to P1.

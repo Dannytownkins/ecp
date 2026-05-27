@@ -4,6 +4,30 @@ This repo begins at **1.0.0** as a clean prune-and-re-root. Governance and scope
 defined by `product.md`; spec-level changes are logged in its §10 Spec Change Log.
 The full pre-1.0 history lives in the archived `ecommerce-conversion-psychology` repo.
 
+## Post-1.0.0 conformance — 2026-05-26 (session 3)
+
+The two P1 *behavioral* gaps backing the §4.2 and §6 trust invariants. Roadmap and
+status: `docs/conformance-gaps.md`. All on `main`.
+
+- **G4** (`7a11876`): hotspot fallback leaves it **blank below confidence** instead of
+  auto-placing a banner (`product.md` §4.2). The v2 resolver's last-resort Strategy 4
+  is `unplaced` — no position; `compute_marker_positions_v2` renders nothing and
+  `review_state` builds a hidden, coord-less marker tagged
+  `hotspot_confidence="needs-manual-marker"`, queuing the finding in the editor's
+  "Place manually" list. Visual-evidence stays `page_level/low` so the Phase-3
+  priority-path gate is unchanged.
+- **G8** (`5f34833`): `meta.json` now tracks `report_state` (`draft | client-verified`,
+  default `draft`) per `product.md` §6. New `scripts/assembly/report_state.py`
+  enforces the invariant in code — `set_client_verified(auto=True)` raises
+  `AutoPromotionError`; `generate-report.py --mark-client-verified` is the operator's
+  manual-pass verb and refuses under `--auto`. `meta_validator` warns on a bad enum.
+- **Test runners:** `pytest tests/` 703 pass / 13 skip / 0 fail; `unittest discover`
+  438 run / OK. Each gap ships a browser-free regression test
+  (`tests/test_g4_blank_below_confidence.py`, `tests/test_g8_client_verified_gate.py`).
+
+Next conformance target (per `docs/conformance-gaps.md`): **G7** (URL-only input) —
+needs a conform-vs-spec-change decision before code.
+
 ## Post-1.0.0 conformance — 2026-05-26 (session 2)
 
 Conformance toward `product.md` + completion of the migration. Full roadmap and
