@@ -252,16 +252,82 @@ class TestRepairOverlongProposedAnchorReason(unittest.TestCase):
 
 class TestRepairMissingProposedAnchorOnAbsent(unittest.TestCase):
     def test_injects_default_on_absent_without_proposed_anchor(self):
-        finding = _make_finding(local_id=1, baton_index="absent")
+        finding = _make_finding(local_id=1, baton_index="absent", device="desktop")
         # No proposed_anchor field at all.
         fixed, repairs = autofix_emission(_emission([finding]))
         pa = fixed["findings"][0].get("proposed_anchor")
         self.assertIsNotNone(pa, "proposed_anchor must be injected on absent findings.")
-        self.assertEqual(pa["kind"], "viewport")
-        self.assertEqual(pa["placement"], "above-fold-banner")
+        # G15 P1-3 v2 (2026-05-27): the injected default uses the schema's
+        # kind=section variant (matches how live-run leads were hand-
+        # normalizing the prior broken viewport/above-fold-banner default).
+        self.assertEqual(pa["kind"], "section")
+        self.assertEqual(pa["placement"], "section-bottom-overlay")
+        self.assertEqual(pa["section_index"], 0)
+        self.assertEqual(pa["viewport"], "desktop")
         self.assertIn("auto-injected", pa["reason"])
         inject_repairs = [r for r in repairs if r["field"] == "proposed_anchor" and r["before"] == "<missing>"]
         self.assertEqual(len(inject_repairs), 1)
+
+    def test_injected_anchor_viewport_derives_from_finding_device(self):
+        """When the finding is mobile-scoped, the injected viewport must be
+        mobile (not desktop). Ethics page-scope findings default to desktop."""
+        for device, expected_viewport in (
+            ("desktop", "desktop"),
+            ("mobile", "mobile"),
+            ("page", "desktop"),  # ethics default
+            (None, "desktop"),    # missing field default
+        ):
+            with self.subTest(device=device):
+                kwargs = {"local_id": 1, "baton_index": "absent"}
+                if device is not None:
+                    kwargs["device"] = device
+                finding = _make_finding(**kwargs)
+                fixed, _ = autofix_emission(_emission([finding]))
+                self.assertEqual(
+                    fixed["findings"][0]["proposed_anchor"]["viewport"],
+                    expected_viewport,
+                    f"device={device!r} → viewport should be {expected_viewport!r}",
+                )
+
+    def test_injected_anchor_passes_real_schema_validator(self):
+        """The headline G15 P1-3 v2 regression: the injected default MUST
+        pass schema/finding-v1.json validation. Pre-v2 (commit e7f6af5)
+        the autofix injected `viewport / above-fold-banner / viewport=both`,
+        all three of which are out-of-enum per the finding-v1.json schema.
+        Five live runs in a row (docs/ecp/2026-05-27-*) hand-normalized
+        the broken injection because the autofix's "repair" produced an
+        emission that bounced right back into the validator.
+
+        This test exercises the actual repo schema, so it would have
+        caught the bug at CI time."""
+        import sys as _sys
+        from pathlib import Path as _Path
+        _sys.path.insert(0, str(_Path(__file__).resolve().parent.parent / "scripts"))
+        from assembly.json_parser import get_validator
+
+        # Build an emission whose ONLY repair will be the proposed_anchor
+        # injection, so we can isolate that injection in the output and
+        # validate it against the real schema.
+        finding = _make_finding(local_id=1, baton_index="absent", device="desktop")
+        emission = _emission([finding])
+        fixed, _ = autofix_emission(emission)
+
+        validator = get_validator()
+        errors = sorted(validator.iter_errors(fixed), key=lambda e: list(e.absolute_path))
+        # Filter to errors that touch proposed_anchor specifically — any other
+        # validation gap is unrelated to the autofix regression.
+        pa_errors = [
+            f"{list(e.absolute_path)}: {e.message}"
+            for e in errors
+            if any(seg == "proposed_anchor" for seg in e.absolute_path)
+        ]
+        self.assertEqual(
+            pa_errors,
+            [],
+            f"G15 P1-3 v2 invariant violated: the autofix's injected "
+            f"proposed_anchor must pass the real finding-v1.json schema. "
+            f"Errors against proposed_anchor: {pa_errors}",
+        )
 
     def test_no_op_when_proposed_anchor_already_present(self):
         finding = _make_finding(local_id=1, baton_index="absent")

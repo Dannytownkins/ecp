@@ -45,15 +45,38 @@ PROPOSED_ANCHOR_REASON_MAX_LEN = 200
 
 
 # The default proposed_anchor injected when an absent-anchored finding
-# omits one. Intentionally generic ("viewport" / "above-fold-banner")
-# so the operator sees in the editor's "Place manually" queue that the
-# specialist didn't author placement and the operator must finalize it.
+# omits one. Uses the kind="section" variant per schema/finding-v1.json:
+#   - placement enum allowed for kind=section: {section-bottom-overlay,
+#     after-section}; section-bottom-overlay is the "lives inside this
+#     section near its bottom" semantic that operators normalize absent
+#     findings to in practice (per multiple live-run lead-reflections).
+#   - section_index=0 anchors at the first baton section, which exists
+#     on every captured page (acquirer always emits ≥1 section).
+#   - viewport: derived from the finding's device field; ethics page-
+#     scope findings default to desktop.
 # The reason string carries the auto-inject marker so it's findable in
-# both the editor UI and the engagement's audit trail.
+# both the editor's "Place manually" queue and the engagement audit trail.
+#
+# Bug fix history: prior to 2026-05-27 this default was
+# {kind=viewport, placement=above-fold-banner, viewport=both} — three
+# schema-invalid choices that bounced the SAME absent finding right back
+# into the validator on retry. Caught by five live runs in a row
+# (docs/ecp/2026-05-27-{b0051311,625832a6,4a0721e9,0669899d,...} lead-
+# reflections all hand-normalized the broken default). The fix matches
+# the lead's manual normalization recipe.
 _AUTO_INJECTED_PROPOSED_ANCHOR_REASON = (
     "auto-injected by emission_autofix: specialist omitted proposed_anchor "
     "on absent finding; operator must verify or replace in editor"
 )
+
+
+def _viewport_for_finding(finding: dict) -> str:
+    """Pick a schema-valid viewport ('desktop' or 'mobile') for an
+    injected proposed_anchor based on the finding's device field.
+    Ethics (device='page') and unknown defaults to 'desktop' since the
+    editor's manual-place queue is most often opened on desktop."""
+    device = (finding.get("device") or "").lower()
+    return "mobile" if device == "mobile" else "desktop"
 
 
 def autofix_emission(emission: dict) -> tuple[dict, list[dict]]:
@@ -84,12 +107,14 @@ def autofix_emission(emission: dict) -> tuple[dict, list[dict]]:
        ``...`` ellipsis marker.
     4. **Missing proposed_anchor on absent findings.** When a finding
        has ``element.baton_index='absent'`` AND no ``proposed_anchor``
-       field, a default ``{kind: 'viewport', placement:
-       'above-fold-banner', reason: <auto-inject marker>}`` is
-       injected. The marker reason makes the auto-injection visible
-       to the operator in the editor's "Place manually" queue, since
-       a generic viewport-level banner is rarely the correct manual
-       placement.
+       field, a schema-valid section-variant default is injected:
+       ``{kind: 'section', section_index: 0, placement:
+       'section-bottom-overlay', viewport: <derived>, reason: <auto-
+       inject marker>}``. The marker reason makes the auto-injection
+       visible to the operator in the editor's "Place manually" queue
+       so they verify/replace placement before client delivery.
+       ``viewport`` derives from ``finding.device`` (mobile finding →
+       mobile; desktop or ethics-page → desktop).
 
     Idempotency: re-running autofix on an already-fixed emission
     produces an empty repairs list (every repair-guard short-circuits
@@ -280,22 +305,28 @@ def _repair_missing_proposed_anchor_on_absent(
             continue
         if "proposed_anchor" in f and isinstance(f["proposed_anchor"], dict):
             continue  # already has one
+        viewport = _viewport_for_finding(f)
         f["proposed_anchor"] = {
-            "kind": "viewport",
-            "placement": "above-fold-banner",
-            "viewport": "both",
+            "kind": "section",
+            "section_index": 0,
+            "placement": "section-bottom-overlay",
+            "viewport": viewport,
             "reason": _AUTO_INJECTED_PROPOSED_ANCHOR_REASON,
         }
         repairs.append({
             "finding_local_id": f.get("local_id"),
             "field": "proposed_anchor",
             "before": "<missing>",
-            "after": "auto-injected viewport/above-fold-banner default",
+            "after": (
+                "auto-injected schema-valid section variant "
+                f"(section_index=0, section-bottom-overlay, viewport={viewport})"
+            ),
             "why": (
                 "absent-anchored finding lacks the schema-required "
-                "proposed_anchor; injected a viewport-level default with "
-                "an auto-inject marker so the operator must verify "
-                "placement in the editor's 'Place manually' queue."
+                "proposed_anchor; injected a section-bottom-overlay default "
+                "at section_index=0 with an auto-inject marker so the "
+                "operator must verify placement in the editor's "
+                "'Place manually' queue."
             ),
         })
 
