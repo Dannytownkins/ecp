@@ -29,15 +29,22 @@ conformance gaps are closed. Roadmap and status: `docs/conformance-gaps.md`. All
   `lead-discipline.md` mode-detection prompt asks for a URL. Description mode was
   build/from-scratch residue and was removed regardless. `meta.json` `source_mode`
   enum left intact (shared frozen-mode contract) — conformance, not a spec change.
+- **G5** (`0194e90`, P2, taken next at Dan's call): editor manual-placement
+  ergonomics — the natural completion of G4, which routes unplaced/absence findings
+  into the editor with no marker. Hand-drawing a hotspot (`setMarker`) now promotes a
+  finding off `needs-manual-marker` → `exact-selector` (mirrors snap), so the "Place
+  manually" queue actually drains. Added a one-click **Place** queue and a stage
+  placement hint. (`tools/editor/CHANGELOG.md` v1.0.3.)
 - **Test runners:** `pytest tests/` 703 pass / 13 skip / 0 fail; `unittest discover`
   438 run / OK. G4 + G8 each ship a browser-free regression test
   (`tests/test_g4_blank_below_confidence.py`, `tests/test_g8_client_verified_gate.py`);
-  G7 is doc/contract-only.
+  G5 is covered by the Playwright editor smokes (`tests/editor-smoke.mjs` +
+  `editor-server-render-smoke.mjs`, both green); G7 is doc/contract-only.
 
-All P1 conformance gaps are now closed. Remaining work (per `docs/conformance-gaps.md`)
-is P2/P3 quality tuning: **G1 / G6 / G15** (hotspot precision + emission-bounce +
-ethics-jurisdiction), then **G2** (citation/legal re-audit), **G5** (editor UX), and
-the P3 hardening/cosmetics.
+All P1 conformance gaps are closed, plus P2 G5. Remaining (per
+`docs/conformance-gaps.md`) is P2/P3 tuning: **G1 / G6 / G15** (hotspot precision +
+emission-bounce + ethics-jurisdiction), **G2** (citation/legal re-audit), and the P3
+hardening/cosmetics (**G3 / G9 / G10**).
 
 ## Post-1.0.0 conformance — 2026-05-26 (session 2)
 

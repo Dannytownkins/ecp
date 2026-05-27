@@ -72,13 +72,18 @@ Severity: **P1** = spec'd invariant unimplemented or a notable divergence ·
   unchanged — scoped to the §4.2 blank-vs-guess fix. `banner` mappings retained for
   back-compat. Browser-free regression: `tests/test_g4_blank_below_confidence.py`.
 
-### G5 · P2 · Editor manual-placement ergonomics
+### G5 · P2 · ✓ DONE (`0194e90`) · Editor manual-placement ergonomics
 - **Spec:** §4.2 — the edit tool must make creating/placing/erasing hotspots *easy*
   (manual placement is a designed step, esp. for absence findings).
-- **Now:** `tools/editor/` exists and is wired, but the create-from-scratch UX was
-  flagged (during the design grill) as needing to be dialed in.
-- **Fix:** review `tools/editor/editor.js` for one-click create/place/erase; needs
-  an operator UX pass (Dan).
+- **Was:** `tools/editor/` was wired, but hand-drawing a hotspot never cleared a
+  finding's `needs-manual-marker` state — the "Place manually" queue never drained, so
+  the operator couldn't tell what was left to place (esp. the G4 absence findings now
+  routed there).
+- **Done:** `setMarker` promotes a hand-placed finding off `needs-manual-marker` →
+  `exact-selector` (mirrors snap, which already did this); added a one-click **Place**
+  queue listing everything awaiting a hotspot; added a stage hint when the active
+  finding is unplaced. Playwright smoke (`tests/editor-smoke.mjs`) covers the
+  clear→place round-trip; both smokes green. (`tools/editor/CHANGELOG.md` v1.0.3.)
 
 ### G6 · P2 · Oversized exact-element hotspots not auto-down-ranked
 - **Spec:** §4.2 precision-first.
@@ -245,5 +250,6 @@ pytest-style tests). Swept systematically + cross-checked vs the archive; all re
 5. **← START HERE — G1 / G6 / G15** (hotspot precision + emission-bounce +
    ethics-jurisdiction tuning) — reduce manual editing and retries per audit.
 6. **G2** (citation/legal re-audit) — elevate any legal-claim fix to P1.
-7. **G5** (editor UX) — needs an operator pass.
+7. ~~**G5** (editor UX)~~ — ✓ DONE (`0194e90`); taken out of order (Dan's call). The
+   manual-placement queue now drains as you place.
 8. **G3 / G9 / G10** — low-priority hardening + cosmetics.
