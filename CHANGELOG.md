@@ -35,16 +35,23 @@ conformance gaps are closed. Roadmap and status: `docs/conformance-gaps.md`. All
   finding off `needs-manual-marker` → `exact-selector` (mirrors snap), so the "Place
   manually" queue actually drains. Added a one-click **Place** queue and a stage
   placement hint. (`tools/editor/CHANGELOG.md` v1.0.3.)
+- **G6** (`cf1b699`, P2): auto-down-rank oversized exact-element hotspots
+  (`product.md` §4.2 precision-first). `auto_map_markers_v2` re-types an
+  `exact_element` marker to `proxy_element` (dashed) when its baton rect exceeds
+  85%w/70%h of the viewport — a parent-container anchor, not the subject element. The
+  down-rank threshold equals the `giant_exact_rectangles` gate threshold (a test keeps
+  them in sync), so that gate now passes; `proxy_overload` ticks up honestly.
 - **Test runners:** `pytest tests/` 703 pass / 13 skip / 0 fail; `unittest discover`
   438 run / OK. G4 + G8 each ship a browser-free regression test
   (`tests/test_g4_blank_below_confidence.py`, `tests/test_g8_client_verified_gate.py`);
   G5 is covered by the Playwright editor smokes (`tests/editor-smoke.mjs` +
   `editor-server-render-smoke.mjs`, both green); G7 is doc/contract-only.
 
-All P1 conformance gaps are closed, plus P2 G5. Remaining (per
-`docs/conformance-gaps.md`) is P2/P3 tuning: **G1 / G6 / G15** (hotspot precision +
-emission-bounce + ethics-jurisdiction), **G2** (citation/legal re-audit), and the P3
-hardening/cosmetics (**G3 / G9 / G10**).
+All P1 conformance gaps are closed, plus P2 G5 + G6. Remaining (per
+`docs/conformance-gaps.md`) is P2/P3 tuning best validated on a live audit run:
+**G1 / G15** (synthesizer `at eN` anchor format + emission-bounce + ethics-
+jurisdiction), **G2** (citation/legal re-audit), and the P3 hardening/cosmetics
+(**G3 / G9 / G10**).
 
 ## Post-1.0.0 conformance — 2026-05-26 (session 2)
 

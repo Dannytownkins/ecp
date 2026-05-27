@@ -85,12 +85,18 @@ Severity: **P1** = spec'd invariant unimplemented or a notable divergence ·
   finding is unplaced. Playwright smoke (`tests/editor-smoke.mjs`) covers the
   clear→place round-trip; both smokes green. (`tools/editor/CHANGELOG.md` v1.0.3.)
 
-### G6 · P2 · Oversized exact-element hotspots not auto-down-ranked
+### G6 · P2 · ✓ DONE (`cf1b699`) · Oversized exact-element hotspots not auto-down-ranked
 - **Spec:** §4.2 precision-first.
-- **Now:** soft canaries `giant_exact_rectangles` (desktop 4/28, mobile 2/14) and
-  `proxy_overload` (50% / 74%) flag low-precision markers but still render them.
-- **Fix:** auto-down-rank exact-element markers whose baton rect exceeds a size
-  threshold (e.g., >85%w/70%h) to a proxy/section anchor.
+- **Was:** soft canaries `giant_exact_rectangles` (desktop 4/28, mobile 2/14) and
+  `proxy_overload` (50% / 74%) flagged low-precision markers but still rendered them
+  as solid "exact" rects.
+- **Done:** `auto_map_markers_v2` down-ranks an `exact_element` mapping to
+  `proxy_element` (low confidence, renders dashed) when the baton rect exceeds
+  `GIANT_EXACT_WIDTH_PCT`/`HEIGHT_PCT` (85%w/70%h) of the viewport. The threshold
+  equals the `giant_exact_rectangles` gate threshold (a test asserts they stay in
+  sync), so that gate now reports zero violations. Note: this intentionally nudges
+  `proxy_overload` up — those markers *are* approximate; suppressing it would game
+  the metric. Regression: `tests/test_g6_oversized_downrank.py`.
 
 ---
 
@@ -247,8 +253,10 @@ pytest-style tests). Swept systematically + cross-checked vs the archive; all re
    ✓ DONE (`7a11876`, `5f34833`); the two P1 *behavioral* gaps backing §4.2 and §6.
 4. ~~**G7** (URL-only)~~ — ✓ DONE (`5d569a6`); decision was conform-to-URL-only (no
    spec change). All P1 gaps are now closed.
-5. **← START HERE — G1 / G6 / G15** (hotspot precision + emission-bounce +
-   ethics-jurisdiction tuning) — reduce manual editing and retries per audit.
+5. **← START HERE — G1 / G15** (synthesizer `at eN` anchor format + emission-bounce
+   + ethics-jurisdiction tuning) — reduce manual editing and retries per audit. Best
+   validated against a live audit run (canary/retry rates), not the test suite.
+   ~~G6~~ (oversized-hotspot down-rank) ✓ DONE (`cf1b699`).
 6. **G2** (citation/legal re-audit) — elevate any legal-claim fix to P1.
 7. ~~**G5** (editor UX)~~ — ✓ DONE (`0194e90`); taken out of order (Dan's call). The
    manual-placement queue now drains as you place.
