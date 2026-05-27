@@ -51,7 +51,7 @@ This is the inverse of asking too many questions. Instead of asking "do you want
 
 There are exactly four legitimate pre-flight prompts across any ECP skill. Every other question is a discipline violation.
 
-1. **Mode detection ambiguity** — If `$ARGUMENTS` contains neither a URL nor a valid file path (for skills that require one), ask "Are we auditing/comparing/scanning an existing page? Provide a URL or file path." This is unavoidable — there's nothing to work with otherwise.
+1. **URL detection** — If `$ARGUMENTS` does not contain a URL, ask "What page should I audit? Provide a URL (starts with `http://` or `https://`)." URL is the only canonical input (`product.md` §2.2) — there's nothing to audit otherwise.
 2. **Device selection** — One prompt for device choice ONLY if `--device` flag is not set AND not in `--auto` mode. Single prompt, then proceed. See `${CLAUDE_PLUGIN_ROOT}/contracts/device-semantics.md`.
 3. **URL fetch confirmation** — One prompt "About to fetch **{domain}** — proceed?" before spawning the acquisition teammate. This is the standard "we're about to make a network request" confirmation. Skip in `--auto` mode.
 4. **Audit scope selection** — `/ecp:audit` only. One structured prompt for audit breadth (focused / standard / comprehensive / custom) ONLY if `--focus` is not set AND not in `--auto` mode. See `skills/audit/SKILL.md` `<cluster_selection>` for the full prompt spec. `--focus` bypasses it entirely; `--auto` uses defaults per `${CLAUDE_PLUGIN_ROOT}/contracts/flags.md`. This is a structured menu, not an open-ended question — it replaces the need for cluster negotiation by offering curated scope tiers.

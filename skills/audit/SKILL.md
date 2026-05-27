@@ -7,7 +7,7 @@ description: >-
   pages, category pages, and SEO using research-backed findings across pricing,
   trust, mobile, content, and visual design.
 disable-model-invocation: true
-argument-hint: "[url-or-file-path] [--auto] [--deep] [--min-priority critical|high|medium|low] [--platform shopify|nextjs|opencart] [--device mobile|laptop|desktop] [--focus cluster1,cluster2] [--visual] [--no-visual] [--engagement-id id]"
+argument-hint: "[url] [--auto] [--deep] [--min-priority critical|high|medium|low] [--platform shopify|nextjs|opencart] [--device mobile|laptop|desktop] [--focus cluster1,cluster2] [--visual] [--no-visual] [--engagement-id id]"
 ---
 
 # ECP Audit Router
@@ -61,13 +61,13 @@ Then load phase-specific files only when that phase is reached.
 
 ## Mode Selection
 
-`$ARGUMENTS` should contain a URL, file path, or description:
+`$ARGUMENTS` must contain a **URL** — the only canonical input (`product.md` §2.2):
 
 - URL mode: starts with `http://` or `https://`.
-- File mode: points to an existing local file.
-- Description mode: user describes what to audit or build and no URL/file is available.
 
-Allowed pre-flight prompts are limited by `contracts/lead-discipline.md`: mode ambiguity, URL fetch confirmation, device selection, and audit scope selection. `--auto` uses the audit defaults from `contracts/flags.md`.
+URL is the sole supported audit input. Screenshot-only and codebase/file inputs are frozen (`product.md` §5) and are not accepted here; if `$ARGUMENTS` is not a URL, ask for one per `contracts/lead-discipline.md`.
+
+Allowed pre-flight prompts are limited by `contracts/lead-discipline.md`: URL detection, URL fetch confirmation, device selection, and audit scope selection. `--auto` uses the audit defaults from `contracts/flags.md`.
 
 ## Phase Order
 
