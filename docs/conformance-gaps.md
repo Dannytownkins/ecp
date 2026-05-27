@@ -91,14 +91,17 @@ Severity: **P1** = spec'd invariant unimplemented or a notable divergence ·
 
 ## §2.2 — Input scope
 
-### G7 · P1 · Audit skill still supports File + Description modes
+### G7 · P1 · ✓ DONE (`5d569a6`) · Audit skill still supports File + Description modes
 - **Spec:** §2.2 — **URL is the only canonical input** (screenshot-only and codebase
   are frozen).
-- **Now:** `skills/audit/SKILL.md` Mode Selection lists URL / File / Description
-  modes; `argument-hint` says `[url-or-file-path]`.
-- **Fix:** tighten the audit skill to URL-only (remove/deprecate File + Description
-  handling and the hint), **or** — if you want exported-HTML/file input — that's a
-  deliberate §2.2 Spec Change Log entry first, then conform. Decision needed.
+- **Was:** `skills/audit/SKILL.md` Mode Selection listed URL / File / Description
+  modes; `argument-hint` said `[url-or-file-path]`.
+- **Done (decision: conform to URL-only):** Mode Selection is URL-only; `argument-hint`
+  is `[url]`; the `contracts/lead-discipline.md` mode-detection prompt asks for a URL.
+  File + Description modes removed from the audit path (Description was build/from-
+  scratch residue regardless). Frozen inputs stay frozen (§5); the `meta.json`
+  `source_mode` enum is left intact (shared contract still serving the frozen modes) —
+  conformance, not a spec change.
 
 ---
 
@@ -237,11 +240,10 @@ pytest-style tests). Swept systematically + cross-checked vs the archive; all re
    plus post-migration completeness (above) — ✓ DONE.
 3. ~~**G4** (hotspot blank-below-confidence) and **G8** (client-ready gate)~~ —
    ✓ DONE (`7a11876`, `5f34833`); the two P1 *behavioral* gaps backing §4.2 and §6.
-4. **← START HERE — G7** (URL-only) — **decision needed** (Dan): conform the audit
-   skill to URL-only, **or** log a §2.2 Spec Change Log entry to keep file/HTML
-   input, then conform. Not just code — pick the direction first.
-5. **G1 / G6 / G15** (hotspot precision + emission-bounce + ethics-jurisdiction
-   tuning) — reduce manual editing and retries per audit.
+4. ~~**G7** (URL-only)~~ — ✓ DONE (`5d569a6`); decision was conform-to-URL-only (no
+   spec change). All P1 gaps are now closed.
+5. **← START HERE — G1 / G6 / G15** (hotspot precision + emission-bounce +
+   ethics-jurisdiction tuning) — reduce manual editing and retries per audit.
 6. **G2** (citation/legal re-audit) — elevate any legal-claim fix to P1.
 7. **G5** (editor UX) — needs an operator pass.
 8. **G3 / G9 / G10** — low-priority hardening + cosmetics.
