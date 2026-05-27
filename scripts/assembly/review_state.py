@@ -78,7 +78,16 @@ def build_initial_review_state(
         slide_id = _slide_id(device, ai_marker.get("slide", 0) if ai_marker else mapping.get("slide", 0))
         severity = finding.get("severity") or finding.get("priority") or ""
 
-        marker = _marker_from_ai(marker_id, f_ref, slide_id, ai_marker, mapping, severity)
+        # Strategy 4 "unplaced" findings carry no position (product.md §4.2):
+        # build a blank, hidden marker so the renderer leaves it empty and the
+        # editor queues it for manual placement, instead of pinning a default
+        # point at the slide center.
+        if mapping.get("match_method") == "unplaced":
+            marker = _unplaced_marker(
+                marker_id, f_ref, slide_id, severity, mapping.get("visual_evidence")
+            )
+        else:
+            marker = _marker_from_ai(marker_id, f_ref, slide_id, ai_marker, mapping, severity)
         ai_copy = dict(marker)
         ai_copy["marker_id"] = ai_marker_id
         ai_copy["source"] = _marker_source(mapping.get("match_method"))
@@ -562,6 +571,38 @@ def _marker_from_ai(
         "stroke_width": 3,
         "source": _marker_source(mapping.get("match_method")),
         "snapped_baton_index": mapping.get("baton_element_index"),
+        "severity": severity or "",
+        "visual_evidence": visual_evidence,
+    }
+
+
+def _unplaced_marker(
+    marker_id: str,
+    f_ref: str,
+    slide_id: str,
+    severity: str | None,
+    visual_evidence: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Build a blank, hidden marker for an unplaced finding (product.md §4.2).
+
+    Strategy 4 in v2_markers leaves the hotspot blank rather than auto-placing
+    a guess. The marker carries NO coordinates and ``hidden=True`` so the
+    renderer draws nothing (``_render_marker_svg`` short-circuits on hidden)
+    and the editor's ``isMarkerPlaced`` returns false — surfacing the finding
+    in the "Place manually" queue. Mirrors the editor's own
+    ``clearActiveMarkerPlacement`` representation so a freshly-generated blank
+    is indistinguishable from one the operator cleared by hand.
+    """
+    return {
+        "marker_id": marker_id,
+        "f_ref": f_ref,
+        "slide_id": slide_id,
+        "shape": "point",
+        "hidden": True,
+        "stroke": severity_stroke(severity),
+        "stroke_width": 3,
+        "source": "manual",
+        "snapped_baton_index": None,
         "severity": severity or "",
         "visual_evidence": visual_evidence,
     }
@@ -1051,6 +1092,11 @@ def _hotspot_confidence(match_method: str | None) -> str:
     # CTAs etc), not a manual-placement bail-out — re-label as
     # "section-match". operator_override is a real hand-placed marker
     # and should carry exact-selector confidence.
+    # "unplaced" (2026-05-26, G4): Strategy 4 no longer auto-places a banner;
+    # it leaves the hotspot blank (product.md §4.2). Map it to needs-manual-
+    # marker so the editor surfaces it in the "Place manually" queue. "banner"
+    # is retained for back-compat with operator overrides / persisted review
+    # states written before the rename.
     return {
         "e_index_lookup": "exact-selector",
         "e_index_lookup_offslide": "fallback-absence",
@@ -1058,12 +1104,16 @@ def _hotspot_confidence(match_method: str | None) -> str:
         "proposed_anchor_section": "section-match",
         "proposed_anchor_viewport": "section-match",
         "section_centroid": "section-match",
+        "unplaced": "needs-manual-marker",
         "banner": "needs-manual-marker",
         "operator_override": "exact-selector",
     }.get(match_method or "", "needs-manual-marker")
 
 
 def _marker_source(match_method: str | None) -> str:
+    # "unplaced" findings have no placement source — the operator owns it, so
+    # it maps to the schema's "manual" source (the default). "banner" is kept
+    # for back-compat with persisted states.
     return {
         "e_index_lookup": "e_index_lookup",
         "proposed_anchor_element": "proposed_anchor_element",

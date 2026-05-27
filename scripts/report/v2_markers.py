@@ -34,10 +34,17 @@ strategies tied to v2's baton_index + proposed_anchor contract:
         contains the surface keyword and place hotspot at the section
         centroid. Kept so older emissions that pre-date fix B keep rendering.
 
-    Strategy 4 — banner (last resort)
-        Everything else: render at a top-of-page banner indicator with
-        vertical stacking so multiple absent findings don't pile at the same
-        point.
+    Strategy 4 — unplaced (last resort, §4.2)
+        Everything else: emit the finding with NO hotspot position. Below the
+        auto-place confidence threshold, product.md §4.2 requires leaving the
+        hotspot blank for manual placement rather than auto-placing a guess
+        ("a wrong hotspot costs more than a missing one; a blank is neutral").
+        The finding still ships — it is queued into the editor's manual-
+        placement list (review_state marks it hotspot_confidence=
+        "needs-manual-marker" with a hidden, coord-less marker) — but the
+        renderer draws nothing for it. Replaces the pre-2026-05-26 "banner"
+        fallback, which auto-placed a top-of-page indicator (a guess) and so
+        contradicted §4.2.
 
 This closes the §3.4 / §17.4 / §18.2.2 / §22.2 / §23.2 / §24.2 hotspot
 accuracy class. With baton_index supplied directly from v2 specialist
@@ -68,8 +75,6 @@ from .geometry import (
 
 
 _E_INDEX_RE = re.compile(r"^e(\d+)$")
-_BANNER_X_PCT_DEFAULT = 50.0  # top center
-_BANNER_Y_PCT_DEFAULT = 6.0
 
 # Per-kind allowed placements (mirrors schema oneOf — defensive only; the
 # schema rejects mismatches at validation time).
@@ -522,14 +527,16 @@ def auto_map_markers_v2(
 
         e_index_lookup    Strategy 1 succeeded — baton_index resolves to a
                           baton element with rect coords.
-        section_centroid  Strategy 2 — absent baton_index, surface matched
+        section_centroid  Strategy 3 — absent baton_index, surface matched
                           a baton section, hotspot at section midpoint.
-        banner            Strategy 3 — absent baton_index, no usable
-                          surface; placed at top-of-page banner indicator.
+        unplaced          Strategy 4 — no usable placement signal; emitted
+                          with NO position (fallback_position=None) so the
+                          renderer leaves it blank and the editor queues it
+                          for manual placement (product.md §4.2).
 
-    The hotspot match-rate canary in html_builder._write_output prints a
-    warning when match_rate < 90%; for v2 the rate is structurally 100%
-    because every finding gets a slot via one of the three strategies.
+    Every finding still gets a mapping entry, but ``unplaced`` entries carry
+    no position — compute_marker_positions_v2 deliberately renders nothing
+    for them, and review_state surfaces them in the manual-placement queue.
     """
     elements = baton.get("elements", [])
     sections = baton.get("sections", [])
@@ -672,26 +679,25 @@ def auto_map_markers_v2(
                 })
                 continue
 
-        # Strategy 4: banner indicator (last resort).
-        # Stack additional banners vertically so multiple absent findings
-        # don't pile at the same point. Stack by sequence position among
-        # banner mappings on slide 0.
-        existing_banners_on_slide_0 = sum(
-            1 for m in mappings
-            if m.get("match_method") == "banner" and m.get("slide") == 0
-        )
-        y_pct = max(_BANNER_Y_PCT_DEFAULT + existing_banners_on_slide_0 * 4.5, 6.0)
-        y_pct = min(y_pct, 92.0)
+        # Strategy 4: unplaced (last resort) — product.md §4.2.
+        # No placement signal resolved (no e_index geometry, no usable
+        # proposed_anchor, no surface section match). The spec is explicit:
+        # below the auto-place confidence threshold, LEAVE IT BLANK for manual
+        # placement — never auto-place a guess. So we emit the finding with no
+        # fallback_position; compute_marker_positions_v2 renders nothing, and
+        # review_state queues it for manual placement (hotspot_confidence=
+        # "needs-manual-marker"). slide=0 is a nominal anchor only so the
+        # review-state marker has a valid slide_id; no marker is drawn there.
         mappings.append({
             "finding_index": finding_idx,
             "f_ref": f_ref,
             "burn_number": burn_number,
             "baton_element_index": None,
             "slide": 0,
-            "match_method": "banner",
+            "match_method": "unplaced",
             "severity": severity,
-            "fallback_role": "absent_page_wide",
-            "fallback_position": {"x_pct": _BANNER_X_PCT_DEFAULT, "y_pct": y_pct},
+            "fallback_role": "absent_unplaced",
+            "fallback_position": None,
             "scope": scope,
         })
 

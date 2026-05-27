@@ -300,6 +300,9 @@ def generate_v2_report(
     banner_count = sum(
         1 for m in merged_mappings if m.get("match_method") == "banner"
     )
+    unplaced_count = sum(
+        1 for m in merged_mappings if m.get("match_method") == "unplaced"
+    )
     op_count = sum(
         1 for m in merged_mappings if m.get("match_method") == "operator_override"
     )
@@ -321,7 +324,8 @@ def generate_v2_report(
     print(
         f"  Match methods: e_index={e_index_count} "
         f"proposed_anchor(element={pa_element} section={pa_section} viewport={pa_viewport}) "
-        f"section_centroid={section_count} banner={banner_count} operator={op_count}"
+        f"section_centroid={section_count} unplaced={unplaced_count} banner={banner_count} "
+        f"operator={op_count}"
     )
 
     return output_path

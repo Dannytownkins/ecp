@@ -60,7 +60,12 @@ _MATCH_METHOD_TO_TYPE: dict[str, tuple[str, str]] = {
     "e_index": ("exact_element", "high"),
     # Renderer fell back to section centroid because no element was cited
     "section_centroid": ("section_absence", "low"),
-    # Operator must pick the marker location in editor.html
+    # No placement signal at all — the hotspot is left blank (product.md §4.2);
+    # operator places it in editor.html. Typed page_level/low (not needs_review)
+    # to preserve the prior "banner" fallback's Phase-3 gate footprint: it
+    # counts toward proxy_overload but does not auto-trip the priority-path
+    # needs_review gate. "banner" retained for back-compat with old emissions.
+    "unplaced": ("page_level", "low"),
     "banner": ("page_level", "low"),
     "operator": ("page_level", "needs_review"),
 }
