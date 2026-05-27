@@ -35,16 +35,49 @@ Severity: **P1** = spec'd invariant unimplemented or a notable divergence ·
 - **Remaining (needs live run):** confirm the next run's `element_index_match_rate`
   ≥ 0.80, then raise the canary threshold once clean.
 
-### G2 · P2 (P1 for any legal claim) · Citation/tier integrity re-audit
+### G2 · P2 (P1 for any legal claim) · ✓ MOSTLY DONE (this branch) · Citation/tier integrity re-audit
 - **Spec:** §4.1 — misquoted/over-applied law is the *highest-bar* violation;
   citations must support the exact claim.
-- **Now:** the reference library carried over unchanged; the April full-scope
-  review flagged specific issues (a Baymard form-field number not matching source,
-  legal/lawsuit data tiered `Gold`, "28 regulations" vs 21 primary rows, CPPA/EU-AI-Act
-  date drift). Not yet re-verified in the clean repo.
-- **Fix:** targeted re-audit of quantitative + legal citations in `references/`
-  and `citations/sources.md`; downgrade over-tiered legal claims; correct numbers
-  to source. Treat legal-claim accuracy as P1.
+- **Was:** the reference library carried over unchanged from the migration; the April
+  full-scope review flagged four specific issues (a Baymard form-field number not
+  matching source, legal/lawsuit data tiered `Gold`, "28 regulations" vs 21 primary
+  rows, CPPA/EU-AI-Act date drift) that hadn't been re-verified in the clean repo.
+- **Done (2026-05-27 re-audit via `WebFetch` against primary sources):**
+  - **Baymard "11.3 form fields (2024 benchmark)"** — VERIFIED. Fetched
+    https://baymard.com/blog/checkout-flow-average-form-fields; article confirms
+    11.3 fields as the latest figure, "Published Jun 26, 2024," with the
+    documented trend 12.7 (2019) → 11.8 (2021) → 11.3 (2024). The citations in
+    `references/checkout-optimization.md` F11, `cognitive-load-management.md` F1,
+    `mobile-conversion.md`, and `trust-and-credibility.md` F# all match.
+  - **EU AI Act Article 50 effective date** — VERIFIED. Fetched
+    https://artificialintelligenceact.eu/article/50/; page states "Date of entry
+    into force: 2 August 2026" per Article 113. Matches the
+    `references/ai-media-disclosure.md` F2 citation.
+  - **CPPA ADMT effective date** — VERIFIED. Fetched
+    https://cppa.ca.gov/regulations/ccpa_updates.html; page confirms OAL approval
+    2025-09-22 and effective date 2026-01-01. Matches the
+    `references/personalization-psychology.md` F13 citation. (The "Apr 1, 2028
+    first attestation deadline" detail in `ethics-gate.md` §6.3 wasn't visible
+    on the page-level summary; it lives in the regulation text and should be
+    spot-verified before a legal-context audit ships it client-facing.)
+  - **"28 regulations" vs 21 primary rows** — NOT FOUND in the current repo's
+    `references/` or `citations/sources.md`. Either resolved during the
+    prune-and-re-root migration or was an artifact of an older draft. No action.
+- **Open (P3, not blocking):**
+  - **ADA lawsuit count "4,187+ ADA lawsuits in 2024 (69-77% targeting
+    ecommerce)"** in `references/checkout-optimization.md` F21 — UsableNet's
+    annual report URL is not currently locatable via WebFetch (both
+    `https://blog.usablenet.com/2024-ada-digital-accessibility-lawsuits` and
+    `https://www.usablenet.com/2024-ada-digital-accessibility-lawsuit-report`
+    returned 404). The underlying claim isn't disconfirmed; the source URL is.
+    Recommend a manual citation update with the current UsableNet 2024 report
+    URL (or downgrade to Silver if the source is no longer available).
+  - **Tier review of "legal/lawsuit data tiered `Gold`":** Finding 21's
+    UsableNet-sourced lawsuit count is currently Gold. UsableNet aggregates
+    directly from federal/state court records, so Gold is defensible — but it's
+    borderline (primary court records would be Gold; an aggregator's
+    interpretation is arguably Silver). Not worth re-tiering without operator
+    input; flagging for the next references audit.
 
 ### G3 · P3 · "DOM-present-but-not-displayed" not formally gated
 - **Spec:** §4.1 — a visibility claim must reflect the *rendered* page, not raw markup.
@@ -358,8 +391,11 @@ pytest-style tests). Swept systematically + cross-checked vs the archive; all re
    to (a) confirm `element_index_match_rate` ≥ 0.80 and raise the canary threshold [G1],
    and (b) re-measure the emission bounce rate and add the ethics-emission autofix
    [G15 P1-3]. ~~G6~~ ✓ DONE (`cf1b699`).
-6. **G2** (citation/legal re-audit) — needs source-checking (web). Elevate any
-   legal-claim fix to P1. Overlaps the G15 P1-4 jurisdiction work already landed.
+6. ~~**G2** (citation/legal re-audit)~~ — ✓ MOSTLY DONE (this branch); 3 of 4
+   flagged citations verified accurate against primary sources via WebFetch
+   (Baymard 11.3 form fields, EU AI Act Aug 2 2026, CPPA OAL 2025-09-22 / eff
+   2026-01-01). One open item: ADA lawsuit count citation has a stale UsableNet
+   URL (404); claim retained pending a current source URL.
 7. ~~**G5** (editor UX)~~ — ✓ DONE (`0194e90`); taken out of order (Dan's call). The
    manual-placement queue now drains as you place.
 8. **G3 / G9 / G10** — low-priority hardening + cosmetics.

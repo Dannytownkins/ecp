@@ -33,6 +33,20 @@ G16 — see `docs/conformance-gaps.md` for the full diagnosis.
   file, the dropped-run exit-4 + stderr surface, the canary's missing-cluster fail
   mode, the canary's drops-recorded fail mode, and the skip-on-pre-canonical-stage
   fixture cases.
+- **G2** (this commit) — citation/legal re-audit: three of four April-flagged
+  citations VERIFIED accurate via WebFetch against primary sources. (1)
+  Baymard "11.3 form fields (2024 benchmark)" — confirmed at
+  https://baymard.com/blog/checkout-flow-average-form-fields (Published Jun 26,
+  2024). (2) EU AI Act Article 50 "effective August 2, 2026" — confirmed at
+  https://artificialintelligenceact.eu/article/50/ ("Date of entry into force:
+  2 August 2026" per Article 113). (3) CPPA ADMT regulations "OAL approval
+  2025-09-22, effective 2026-01-01" — confirmed at
+  https://cppa.ca.gov/regulations/ccpa_updates.html. (4) Open: ADA lawsuit
+  count citation has a stale UsableNet URL; underlying claim not disconfirmed,
+  but the source URL needs a manual update (or a Silver re-tier if UsableNet
+  no longer publishes the report). The "28 regulations" item flagged by the
+  April review didn't reproduce in the current repo — resolved during the
+  prune-and-re-root.
 - **G16 Layer 3** (this commit) — single shared validator instance: investigation
   showed the "two validators" risk was actually one validator implementation
   duplicated across `scripts/test-specialist.py` and
