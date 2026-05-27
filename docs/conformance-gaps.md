@@ -227,9 +227,35 @@ rest, verified against current `HEAD`:
 
 ---
 
-## Trust integrity (2026-05-27 session 4) — canonical-view silent drops
+## Trust integrity (2026-05-27 session 4)
 
-### G16 · P1 · ✓ DONE (this branch) · `build_canonical_view` silently swallows schema-validation drops
+### G18 · P2 · ✓ DONE (this branch) · Drift-gate why-slice absorbs trailing per-device sections
+- **Spec:** §4.1 — synthesis drift is a real signal; false-positive drift is a trust cost
+  on the operator (cried wolf) and an audit-blocker if it phase-fails when nothing is
+  actually wrong.
+- **Was:** [scripts/assembly/synth_input.py](scripts/assembly/synth_input.py)
+  `extract_finding_prose` sliced from the finding heading to the next *finding* heading
+  (3-4 hashes named `cluster F-NN`), so the LAST finding's body slice ran to EOF. The
+  `_slice_section` within-body terminator only stopped at the next `\n\n**[A-Z]` bold
+  header. If the synthesizer wrote `## Methodology Notes` (or any per-device appendix)
+  *after* the last finding and the methodology differed per device — which it usually
+  does — the last finding's why-slice absorbed both methodology bodies and the drift
+  gate false-fired even when the finding prose was byte-identical.
+- **Evidence:** Both Run `docs/ecp/2026-05-27-af72a2ae` and Run
+  `docs/ecp/2026-05-27-52f53a53` lead-reflections flagged this *independently* in the
+  same session and proposed the same fix. Run B reported `ratio=0.2996 on the last
+  finding`; Run C reported `0.198 on ethics F-59`. Both confirmed manually that the
+  finding prose was byte-identical and the divergence was entirely in the trailing
+  methodology section.
+- **Done:** `extract_finding_prose`'s slice terminator now matches `^#{2,4}\s+\S+` —
+  catches both finding headings and non-finding section headings (`## Methodology Notes`,
+  `### Appendix`, etc.). `_slice_section` adds `\n##/\n###/\n####` as a defensive
+  belt-and-suspenders terminator inside the body. Regression: 3 new tests in
+  `tests/test_v2_synth_input.py::TestG18WhySliceTerminatorHardening` cover the last-
+  finding-trailing-methodology case (the actual run shape), the obs/rec/why isolation
+  invariant, and an intermediate-`##`-between-findings case.
+
+### G16 · P1 · ✓ DONE (`00b1e23`) · `build_canonical_view` silently swallows schema-validation drops
 - **Spec:** §0 ("never untraceable, never silently misleading") · §4.1 (every finding cited
   and anchored — but only if it's *in* the canonical view at all).
 - **Was:** [scripts/report/v2_loader.py](scripts/report/v2_loader.py) `build_canonical_view`
@@ -314,6 +340,11 @@ pytest-style tests). Swept systematically + cross-checked vs the archive; all re
    manual-placement queue now drains as you place.
 8. **G3 / G9 / G10** — low-priority hardening + cosmetics.
 9. ~~**G16** (canonical-view silent drops + clusters_represented canary)~~ — ✓ DONE
-   (this branch); a P1 trust-integrity fix surfaced by Run `2026-05-27-52f53a53`. Layer 3
+   (`00b1e23`); a P1 trust-integrity fix surfaced by Run `2026-05-27-52f53a53`. Layer 3
    (schema reconciliation between specialist + canonical-view validators) remains, but is
    non-urgent now that the failure is loud.
+10. ~~**G18** (drift-gate why-slice terminator harden)~~ — ✓ DONE (this branch); both
+    Run B + Run C lead-reflections flagged it independently with the same root cause and
+    same fix. P2 mechanical, browser-free testable. Eliminates the false-positive
+    drift class where a per-device methodology section bled into the last finding's
+    why-slice.

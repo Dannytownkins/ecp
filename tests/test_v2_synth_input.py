@@ -543,5 +543,132 @@ class TestAssertSynchronizationInvariant(unittest.TestCase):
         self.assertEqual(report.per_finding, ())
 
 
+class TestG18WhySliceTerminatorHardening(unittest.TestCase):
+    """G18 (2026-05-27): the why-slice for the LAST finding in an audit
+    document used to run to EOF and absorb any trailing per-device
+    ``## Methodology Notes`` section, producing false-positive drift
+    when only the trailing section differed.
+
+    Both Run ``2026-05-27-af72a2ae`` and Run ``2026-05-27-52f53a53``
+    lead-reflections independently flagged this. Post-fix: the slice
+    terminates at the next markdown heading of any level (2-4 hashes),
+    so a per-device methodology/appendix can't bleed into the last
+    finding's why-slice.
+    """
+
+    DESKTOP_WITH_TRAILING_SECTION = """### ethics F-33 - Cookie Consent Banner
+
+**OBSERVATION:** Banner renders Accept / Decline with equivalent prominence.
+
+**RECOMMENDATION:** No change required for US targeting.
+
+**Why this matters:** EU ePrivacy Art 5(3) does not apply to this US-only page.
+
+## Methodology Notes
+
+Desktop capture ran in single-shot mode at 1920x1080.
+Acquisition completed in 4.2s.
+"""
+
+    # Identical finding prose; the trailing per-device methodology section
+    # is DIFFERENT (this is the exact shape Run B's drift gate false-fired on).
+    MOBILE_WITH_DIFFERENT_TRAILING_SECTION = """### ethics F-33 - Cookie Consent Banner
+
+**OBSERVATION:** Banner renders Accept / Decline with equivalent prominence.
+
+**RECOMMENDATION:** No change required for US targeting.
+
+**Why this matters:** EU ePrivacy Art 5(3) does not apply to this US-only page.
+
+## Methodology Notes
+
+Mobile capture ran in single-shot mode at 390x844 @3x DPR.
+Acquisition completed in 5.8s, one overlay dismissed (cookie-consent).
+"""
+
+    def test_last_finding_why_slice_stops_at_methodology_section(self):
+        """The headline G18 case. Pre-fix: max_ratio is high because the
+        per-device methodology bleeds into the why-slice. Post-fix: 0.0."""
+        report = assert_synchronization_invariant(
+            self.DESKTOP_WITH_TRAILING_SECTION,
+            self.MOBILE_WITH_DIFFERENT_TRAILING_SECTION,
+            ["ethics F-33"],
+        )
+        self.assertTrue(
+            report.ok,
+            f"G18: per-device methodology section must NOT bleed into the "
+            f"last finding's why-slice. report={report}",
+        )
+        self.assertEqual(
+            report.max_ratio,
+            0.0,
+            "G18: when the finding prose is byte-identical, max_ratio must be "
+            "exactly 0.0 regardless of any trailing per-device section.",
+        )
+
+    def test_last_finding_extracts_only_finding_prose(self):
+        """extract_finding_prose on the LAST finding must NOT include the
+        trailing methodology section in any slice (obs/rec/why)."""
+        prose = extract_finding_prose(
+            self.DESKTOP_WITH_TRAILING_SECTION, "ethics F-33"
+        )
+        self.assertIsNotNone(prose)
+        obs, rec, why = prose
+        for label, slice_text in (("obs", obs), ("rec", rec), ("why", why)):
+            self.assertNotIn(
+                "Methodology",
+                slice_text,
+                f"G18: the {label} slice for the last finding must not "
+                f"absorb the trailing `## Methodology Notes` section. "
+                f"slice was: {slice_text!r}",
+            )
+            self.assertNotIn(
+                "single-shot mode",
+                slice_text,
+                f"G18: methodology body text leaked into {label} slice",
+            )
+
+    def test_intermediate_section_heading_also_terminates_body(self):
+        """Defensive: even if a `##` heading appears mid-document between
+        two findings (uncommon but possible in operator-edited audits), the
+        earlier finding's body slice terminates at that heading rather than
+        running to the next finding.
+        """
+        doc = """### pricing F-01 - Price Anchor Missing
+
+**OBSERVATION:** Bare price.
+
+**RECOMMENDATION:** Add MSRP anchor.
+
+**Why this matters:** Anchoring lifts perceived value.
+
+## Inserted Operator Note
+
+This section is unrelated to F-01.
+
+### pricing F-02 - BNPL Missing
+
+**OBSERVATION:** No BNPL widget.
+
+**RECOMMENDATION:** Add Affirm.
+
+**Why this matters:** BNPL lifts basket size.
+"""
+        prose = extract_finding_prose(doc, "pricing F-01")
+        self.assertIsNotNone(prose)
+        _obs, _rec, why = prose
+        self.assertNotIn(
+            "Inserted Operator Note",
+            why,
+            "G18: an intermediate `##` heading between findings must "
+            "terminate the earlier finding's body slice.",
+        )
+        self.assertNotIn(
+            "unrelated to F-01",
+            why,
+            "G18: body of an intermediate `##` section must not leak.",
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

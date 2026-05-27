@@ -36,6 +36,14 @@ G16 — see `docs/conformance-gaps.md` for the full diagnosis.
 - **Layer 3 deferred**: reconcile the specialist validator schema with the canonical-view
   validator schema so this drift class can't recur. Non-urgent now that the failure is
   loud — the operator sees it instantly and phase-block stops the audit.
+- **G18** (this commit): drift-gate why-slice terminator hardened. Pre-fix,
+  `extract_finding_prose` in `scripts/assembly/synth_input.py` only terminated the body
+  slice at the next *finding* heading; the LAST finding's slice ran to EOF and absorbed
+  any trailing per-device `## Methodology Notes` section, false-firing the drift gate.
+  Run B and Run C lead-reflections independently flagged this with the same fix; now
+  applied. `_slice_section` also gains a defensive `\n##` terminator. 3 new regression
+  tests in `tests/test_v2_synth_input.py::TestG18WhySliceTerminatorHardening` cover the
+  Run-B/C reproducer, obs/rec/why isolation, and the intermediate-section case.
 
 ## Post-1.0.0 conformance — 2026-05-26 (session 3)
 

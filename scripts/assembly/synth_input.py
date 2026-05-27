@@ -461,9 +461,21 @@ def extract_finding_prose(
     if not m:
         return None
 
-    # Slice from the heading to the next finding heading (3-4 hashes) or end-of-doc.
+    # Slice from the heading to the next finding heading (3-4 hashes) OR any
+    # section heading (2-4 hashes), whichever comes first.
+    #
+    # G18 (2026-05-27): pre-fix this matched ONLY finding headings, so the
+    # LAST finding's body slice ran to EOF and absorbed any trailing
+    # per-device `## Methodology Notes` section — producing a false-positive
+    # drift result when only the trailing section differed. Both Run
+    # 2026-05-27-af72a2ae and Run 2026-05-27-52f53a53 lead-reflections
+    # independently flagged the same root cause and proposed the same fix.
+    # Matching `^#{2,4}\s+\S+` catches BOTH finding headings (3-4 hashes,
+    # `### pricing F-01`) AND non-finding section headings (2-3 hashes,
+    # `## Methodology Notes`), so the slice terminates at the first
+    # following heading of any kind.
     start = m.end()
-    next_re = re.compile(r"^#{3,4}\s+\S+\s+F-\d", re.MULTILINE | re.IGNORECASE)
+    next_re = re.compile(r"^#{2,4}\s+\S+", re.MULTILINE)
     next_match = next_re.search(audit_md, pos=start)
     end = next_match.start() if next_match else len(audit_md)
     body = audit_md[start:end]
@@ -482,13 +494,22 @@ def _slice_section(body: str, header: str) -> str | None:
 
     Strips leading/trailing whitespace from the slice. Returns None if the
     header isn't found.
+
+    G18 (2026-05-27): the terminator also stops at any markdown heading
+    (`\n##` / `\n###` / `\n####`) so a stray section heading inside the
+    body can't pollute the slice. The upstream ``extract_finding_prose``
+    fix already excludes section headings from the body it builds, so
+    this is a defensive belt-and-suspenders layer — if a future change
+    relaxes the upstream slice, ``_slice_section`` still won't pull in
+    a trailing section.
     """
     idx = body.find(header)
     if idx < 0:
         return None
     after = idx + len(header)
-    # Find the next bold header (lookahead for '\n\n**' patterns) or eof.
-    next_re = re.compile(r"\n\n\*\*[A-Z]")
+    # Find the next bold header (lookahead for '\n\n**' patterns), the next
+    # markdown heading (lookahead for `\n##` ... `\n####`), or eof.
+    next_re = re.compile(r"\n\n\*\*[A-Z]|\n#{2,4}\s+\S+")
     m = next_re.search(body, pos=after)
     end = m.start() if m else len(body)
     return body[after:end].strip()
