@@ -81,7 +81,7 @@ Run this sequence:
 6. Dispatch acquisition for each requested device.
 7. Verify acquisition artifacts on disk.
 8. Preprocess DOM per device when DOM exists.
-9. Dispatch cluster specialists for each selected cluster and device.
+9. Dispatch cluster specialists for each selected cluster and device — **in waves of ≤5 concurrent spawns** (G-fanout cap, 2026-05-27). The 2026-05-27 concurrent-audits batch hit transient server-side rate limits at 8+ concurrent spawns; a comprehensive 10-cluster × 2-device run takes ~4 waves of 5 to land cleanly. Wait for each wave's file-presence signal before launching the next. See `contracts/dispatch-contract.md` §"Why cluster specialists keep teammate status" point 1 for the rationale.
 10. Dispatch ethics v2 after specialist emissions are present.
 11. Validate every specialist + ethics emission, build the canonical f_refs manifest, and trim each device baton, then dispatch synthesizer v2 (after ethics completes or records partial status).
 12. Validate the synthesizer emission, run the cross-device drift gate, and run structural plus substantive canaries (see "Validation, Synthesis, and Rendering").

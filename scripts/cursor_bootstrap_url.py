@@ -57,8 +57,48 @@ def _load_script_module(name: str, path: Path) -> Any:
     return mod
 
 
-_ELEMENTS_JS = r"""
+def _build_elements_js(expected_hostname: str) -> str:
+    """Build the per-section element-extraction JS with a hard hostname
+    guard baked in.
+
+    The 2026-05-27 four-concurrent-audits batch revealed cross-engagement
+    session contamination: while a slingmods.com audit was extracting
+    elements, the headless browser session drifted to amazon.com (a
+    concurrent audit's destination) and the slingmods mobile baton
+    captured 51 Amazon "Sponsored" elements with 0 SlingMods elements.
+    The contamination only surfaced because the ethics + content-seo
+    specialists independently flagged "baton elements look like Amazon"
+    — there was no acquisition-side guard.
+
+    Post-fix: the eval payload checks ``window.location.hostname`` on
+    every call and short-circuits to a structured contamination report
+    instead of returning element rows. The Python side
+    (``_check_for_contamination``) detects the sentinel and aborts the
+    acquisition with a loud STATUS line. Re-running the acquirer in a
+    fresh session is the documented recovery path.
+
+    ``expected_hostname`` is inlined as a JS string literal — single
+    quotes are escaped defensively even though valid hostnames cannot
+    contain them.
+    """
+    # JSON-encode to inline as a safe string literal (handles any oddly-
+    # named hostname characters that would otherwise break the JS string).
+    expected_literal = json.dumps(expected_hostname)
+    return (
+        r"""
 (function(){
+  // G16-followup (2026-05-27): cross-engagement contamination guard.
+  // Aborts and reports if the session drifted off the validated origin.
+  var __expected = """ + expected_literal + r""";
+  var __actual = (window.location && window.location.hostname) || '';
+  if (__actual !== __expected) {
+    return {
+      __contamination_detected: true,
+      expected_hostname: __expected,
+      actual_hostname: __actual,
+      actual_href: (window.location && window.location.href) || ''
+    };
+  }
   return ['button', '[role="button"]', '.btn', 'a.btn',
    'h1', 'h2', 'h3',
    'img[alt]:not([alt=""])',
@@ -94,6 +134,25 @@ _ELEMENTS_JS = r"""
   });
 })()
 """
+    )
+
+
+def _check_for_contamination(ev: Any) -> dict | None:
+    """Detect the contamination sentinel returned by ``_build_elements_js``
+    when the session drifted off the validated origin.
+
+    Returns the sentinel dict (with keys ``expected_hostname``,
+    ``actual_hostname``, ``actual_href``) when contamination is detected;
+    otherwise None.
+
+    The eval CAN double-encode the response (agent-browser wraps a JSON
+    string around already-JSON content); both ``isinstance(ev, dict)`` and
+    pre-unwrapped variants are handled by the caller's ``_eval_json_object``
+    helper before this check runs.
+    """
+    if isinstance(ev, dict) and ev.get("__contamination_detected") is True:
+        return ev
+    return None
 
 # In-viewport h1–h3 (largest) + human-readable scene (landmark / elementFromPoint walk) for section labels.
 _SECTION_VIEW_JS = r"""(function(){
@@ -686,6 +745,17 @@ def _run_one_device(
     baton_name = "baton-mobile.json" if device == "mobile" else "baton.json"
     dom_name = "dom-mobile.html" if device == "mobile" else "dom.html"
 
+    # G16-followup (2026-05-27): derive the expected hostname from the input
+    # URL so the per-section element extraction can guard against cross-
+    # engagement session contamination (a concurrent acquirer navigating
+    # to a different domain in the shared headless browser session). The
+    # validated hostname is what the elements JS checks `window.location.
+    # hostname` against on every call; mismatch aborts the run. Refined
+    # from the actual landed hostname below (after goto + redirect resolve)
+    # so www-vs-no-www and trailing-slash redirects don't false-trigger.
+    from urllib.parse import urlparse as _urlparse
+    expected_hostname = (_urlparse(url).hostname or "").lower()
+
     _run(_ab_bin(agent_browser, ["close"], session=session), check=False)
     if prof.use_device:
         _run(_ab_bin(agent_browser, ["set", "device", prof.use_device], session=session), check=True)
@@ -718,6 +788,17 @@ def _run_one_device(
         loc0 = {}
     page_href_early = str(loc0.get("href") or "")
     page_title_early = str(loc0.get("title") or "")
+
+    # G16-followup (2026-05-27): refine the contamination-guard hostname
+    # baseline using the actual LANDED hostname (after any www-vs-no-www
+    # or trailing-slash redirects), so the per-section guard doesn't
+    # false-trigger on a benign redirect target. The guardrails check
+    # below already accepts cross-subdomain landings on the SAME
+    # registrable domain — this guard mirrors that intent and only
+    # fires on a true cross-engagement drift (e.g. slingmods → amazon).
+    _landed_hostname = (_urlparse(page_href_early).hostname or "").lower()
+    if _landed_hostname:
+        expected_hostname = _landed_hostname
 
     g_reason = ecp_ov.guardrails_fail_reason(request_url=url, final_href=page_href_early or url)
     if g_reason:
@@ -938,7 +1019,27 @@ def _run_one_device(
             }
         )
 
-        ev = _eval_json_object(agent_browser, session, f"JSON.stringify({_ELEMENTS_JS})")
+        ev = _eval_json_object(agent_browser, session, f"JSON.stringify({_build_elements_js(expected_hostname)})")
+        contamination = _check_for_contamination(ev)
+        if contamination is not None:
+            # G16-followup (2026-05-27): the session drifted off the
+            # validated origin mid-capture (almost certainly because a
+            # concurrent acquirer in another engagement called `goto`
+            # on a different URL — the headless browser global state
+            # is shared). Abort loudly rather than silently capture
+            # elements from the wrong page; the operator's recovery
+            # is to re-run acquisition in a fresh session.
+            print(
+                f"ERROR: cross-engagement session contamination detected "
+                f"during element extraction at scroll_y={y_used}. "
+                f"Expected hostname={contamination.get('expected_hostname')!r}, "
+                f"actual hostname={contamination.get('actual_hostname')!r} "
+                f"(href={contamination.get('actual_href')!r}). "
+                f"Re-acquire this engagement in a fresh agent-browser "
+                f"session before proceeding.",
+                file=sys.stderr,
+            )
+            return 1, None
         if not isinstance(ev, list):
             ev = []
         for item in ev:

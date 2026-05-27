@@ -470,6 +470,25 @@ Extract `document.documentElement.outerHTML` from the fully rendered page.
 
 **Run this during the screenshot pass, not after.** After scrolling to each section boundary and capturing the screenshot, extract element bounding boxes for that section's visible viewport. This ensures lazy-loaded elements (images, reviews, carousels) that only render when scrolled into view are captured.
 
+**Cross-engagement contamination guard (added 2026-05-27, MANDATORY).** Before the element-extraction JS runs, the same eval payload MUST first check `window.location.hostname` against the expected hostname (the one Step 1's post-navigation URL validation resolved to). On mismatch, abort the extraction and return a contamination sentinel — do NOT capture elements from the wrong page. The 2026-05-27 four-concurrent-audits batch (`docs/ecp/2026-05-27-4a0721e9` lead-reflection §Anomalies) showed that the headless browser session is **global state shared across concurrent acquirers**: a slingmods audit's mobile extraction captured 51 Amazon "Sponsored / Nordic Naturals" elements because a parallel Amazon audit had called `goto` mid-scroll. The contamination only surfaced because two specialists independently flagged "baton elements look like Amazon" — there was no acquirer-side guard. Inject this pattern at the top of the extraction JS (the value `<EXPECTED_HOSTNAME>` is the lowercased hostname from `window.location.hostname` captured immediately after Step 1's goto + redirect resolution; pin it as a JS string literal):
+
+```js
+// At the very top of the JSON.stringify((function(){ ... })()) payload:
+var __expected = "<EXPECTED_HOSTNAME>";
+var __actual = (window.location && window.location.hostname) || "";
+if (__actual !== __expected) {
+  return JSON.stringify({
+    __contamination_detected: true,
+    expected_hostname: __expected,
+    actual_hostname: __actual,
+    actual_href: (window.location && window.location.href) || ""
+  });
+}
+// ... normal element extraction follows
+```
+
+When the acquirer reads back a response with `__contamination_detected: true`, it MUST abort with `STATUS: BLOCKED — cross-engagement session contamination detected at scroll_y=<n>; expected <hostname>, got <hostname>` and exit. The operator's recovery is to re-run the acquisition in a fresh `agent-browser` session. `scripts/cursor_bootstrap_url.py`'s `_build_elements_js` is the canonical reference implementation.
+
 **v2 changes (vs v1):**
 - Each element receives a stable `e_index` (e0, e1, ...) assigned in capture order across all sections combined. This is the primary identifier specialists reference in their finding ELEMENT field. Renderer hotspots resolve via dictionary lookup against `baton.elements[<index>]` — no fuzzy CSS-selector matching.
 - Each element carries `role` (ARIA role or implicit role) and `accessible_name` (computed accessible name from accname composition).

@@ -4,6 +4,38 @@ This repo begins at **1.0.0** as a clean prune-and-re-root. Governance and scope
 defined by `product.md`; spec-level changes are logged in its §10 Spec Change Log.
 The full pre-1.0 history lives in the archived `ecommerce-conversion-psychology` repo.
 
+## Post-1.0.0 conformance — 2026-05-27 (session 5)
+
+Four concurrent live audits revealed (a) a real cross-engagement session-isolation
+bug at the `agent-browser` layer (the headless browser session leaks across
+concurrent acquirers, so one engagement's `goto` can drift another engagement's
+in-flight element extraction to a different URL) and (b) a reproducible
+thundering-herd rate-limit at 8+ concurrent specialist spawns. G17 closes both.
+
+- **G17 Layer A — contamination guard** (this commit): `scripts/cursor_bootstrap_url.py`
+  replaces the module-level `_ELEMENTS_JS` constant with a `_build_elements_js(
+  expected_hostname)` function that bakes a `window.location.hostname` check into
+  the per-section extraction JS. On mismatch, the eval returns a structured
+  contamination sentinel instead of element rows; `_check_for_contamination`
+  detects it and `_run_one_device` aborts with a loud STATUS line. Expected hostname
+  derives from the actual landed URL (post-redirect-resolution) so www-vs-no-www
+  doesn't false-trigger. `workflows/acquire.md` Step 3b documents the same guard
+  pattern as MANDATORY for any acquirer (SKILL-driven or script-driven). 8 new
+  unittest-style regression tests in `tests/test_acquirer_contamination_guard.py`
+  including a JSON-escape-safety test against hostname-injection.
+- **G17 Layer B — fan-out throttle** (this commit):
+  `contracts/dispatch-contract.md` §"Why cluster specialists keep teammate
+  status" point 1 rewritten to specify "waves of ≤5 concurrent spawns" with the
+  empirical rationale (the 2026-05-27 batch's reproducible rate-limit at 8+
+  concurrent — Amazon audit lost 7 of 8 spawns at 0 tokens; slingmods 10-cluster
+  run lost its entire 20-way first wave). `skills/audit/SKILL.md` step 9 now
+  references the wave cap so the audit lead waits on per-wave file-presence
+  before launching the next.
+- **Deferred** (out of scope here): the durable answer to the contamination
+  vector is one Playwright process per engagement (no shared global state) —
+  needs coordination with the upstream `agent-browser` tool, not solvable in
+  this repo alone. The guard + abort is the runtime-safe stopgap.
+
 ## Post-1.0.0 conformance — 2026-05-27 (session 4)
 
 Three live runs on the same URL (`docs/ecp/2026-05-27-b0051311`,

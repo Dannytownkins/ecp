@@ -278,7 +278,55 @@ rest, verified against current `HEAD`:
 
 ---
 
-## Trust integrity (2026-05-27 session 4)
+## Concurrent-audit robustness (2026-05-27 session 5)
+
+### G17 · P1 · ✓ DONE (this branch) · Cross-engagement session contamination + thundering-herd rate-limit
+- **Spec:** §0 ("never untraceable, never silently misleading") · §2.2 (acquirer captures
+  the *rendered* page state — but only if that state is the one we asked for).
+- **Was:** the headless browser session (`agent-browser`'s Playwright instance) is
+  **global state shared across concurrent acquirers in the same OS process**. Two
+  audits running in parallel can corrupt each other: the 2026-05-27 batch had
+  `docs/ecp/2026-05-27-4a0721e9` (slingmods) and `docs/ecp/2026-05-27-0669899d`
+  (Amazon) running concurrently, and the slingmods mobile acquirer's `elements[]`
+  captured 51 Amazon "Sponsored / Nordic Naturals" listings because the session
+  drifted to amazon.com mid-scroll. The contamination surfaced only because the
+  ethics + content-seo specialists independently flagged "baton elements look
+  like Amazon"; nothing in the acquisition path detected the cross-engagement drift.
+  **Plus a related operational issue:** every comprehensive run in the same batch
+  tripped a server-side rate limit ("not your usage limit") at 8+ concurrent
+  specialist spawns — Amazon audit lost 7 of 8 first-wave spawns at 0 tokens;
+  slingmods 10-cluster run lost its entire 20-way first wave.
+- **Done (Layer A — contamination guard):**
+  - `scripts/cursor_bootstrap_url.py`: `_ELEMENTS_JS` module constant replaced by
+    `_build_elements_js(expected_hostname)` which bakes a hostname check into
+    the per-section extraction JS — on mismatch, returns a structured contamination
+    sentinel instead of element rows. New `_check_for_contamination` helper +
+    a hard `return 1` with a loud STATUS line in `_run_one_device` when the
+    sentinel fires. Expected hostname is derived from the actual landed URL
+    (after redirect resolution) so www-vs-no-www doesn't false-trigger.
+  - `workflows/acquire.md` Step 3b: documents the same guard pattern as MANDATORY
+    for any acquirer (SKILL-driven or script-driven). Cites
+    `cursor_bootstrap_url.py` as the canonical reference implementation.
+  - Regression: 8 unittest-style tests in
+    `tests/test_acquirer_contamination_guard.py` covering hostname inlining,
+    JSON-escape safety against injection, sentinel detection true/false/falsy/
+    unrelated-dict cases, and the constant-removal lock so a future refactor
+    can't silently re-introduce the unguarded extraction path.
+- **Done (Layer B — fan-out throttle):**
+  - `contracts/dispatch-contract.md` §"Why cluster specialists keep teammate
+    status" point 1: rewritten to specify "waves of ≤5 concurrent spawns" with
+    the empirical rationale (the 2026-05-27 batch's reproducible rate-limit at
+    8+). A 10×2 comprehensive run takes ~4 waves of 5.
+  - `skills/audit/SKILL.md` step 9: dispatch instructions now reference the
+    wave cap explicitly so the audit lead waits on per-wave file-presence
+    signals before launching the next wave.
+- **Deferred (out of scope here, separate work):**
+  - Process-isolation fix for `agent-browser` (the durable answer is one
+    Playwright process per engagement, not shared global state) — needs
+    coordination with the upstream `agent-browser` tool, not solvable in
+    this repo alone.
+
+### G18 · P2 · ✓ DONE (`34e67b1`) · Drift-gate why-slice absorbs trailing per-device sections
 
 ### G18 · P2 · ✓ DONE (this branch) · Drift-gate why-slice absorbs trailing per-device sections
 - **Spec:** §4.1 — synthesis drift is a real signal; false-positive drift is a trust cost
