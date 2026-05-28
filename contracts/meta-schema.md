@@ -72,6 +72,7 @@ Valid if present, ignored if absent:
 | `screenshot_input` | object \| null | Set when `source_mode = "screenshot"` |
 | `scope` | string \| null | Audit scope selected by user. See enum below. Missing on legacy engagements → treat as `"comprehensive"` on resume. |
 | `report_state` | string \| null | `draft` or `client-verified` (product.md §6). Missing/null → treat as `draft`. See below. |
+| `reflection_state` | string \| null | `draft` or `complete` (G23, 2026-05-28). Missing/null → treat as `draft`. The lead's attestation that `lead-reflection.md` matches the pipeline's actual end-state. See below. |
 
 ### Valid `scope` values
 
@@ -95,6 +96,17 @@ On resume: if `scope` is missing (legacy v5.0 engagement created before the scop
 **The load-bearing invariant: automated / `--auto` execution can NEVER mark a report `client-verified`.** Promotion is a deliberate, explicit operator action — run `python ${CLAUDE_PLUGIN_ROOT}/scripts/generate-report.py --engagement <dir> --mark-client-verified`. That verb refuses (`AutoPromotionError`, non-zero exit) when invoked with `--auto`; the same guard lives in `scripts/assembly/report_state.py:set_client_verified(auto=...)`.
 
 On resume / when missing: treat absent, null, or blank `report_state` as `draft` (back-compat with engagements created before §6 tracking existed). `read_report_state()` in `report_state.py` is the canonical reader.
+
+### Valid `reflection_state` values (G23, 2026-05-28)
+
+| Value | Meaning |
+|---|---|
+| `draft` | Default. `lead-reflection.md` may have been written but has NOT been explicitly attested as matching the pipeline's actual end-state. Premature writes (e.g. an agent writing reflection mid-pipeline before all specialists finish) leave the state at `draft`. **All `--auto` / automated runs MUST leave `reflection_state` at `draft`.** |
+| `complete` | Set **only** by the lead's explicit completion attestation at audit end — after canaries pass and the reflection narrative has been written/refreshed against the actually-completed on-disk state. |
+
+**The load-bearing invariant: automated / `--auto` execution can NEVER mark a reflection `complete`.** Engagement `docs/ecp/2026-05-28-e4050c0e` proved why — a rogue early write produced a narrative that said "synth did not run" against a deliverable where synth actually had run and produced a clean priority path. The G8-style draft-by-default state machine prevents the next premature write from being trusted: the operator (or any downstream tooling) reading `meta.json` sees `reflection_state: draft` and knows the narrative isn't finalized. Completion is a deliberate, explicit verb — run `python ${CLAUDE_PLUGIN_ROOT}/scripts/generate-report.py --engagement <dir> --mark-reflection-complete`. That verb refuses (`AutoCompletionError`, non-zero exit) when invoked with `--auto`; the same guard lives in `scripts/assembly/reflection_state.py:set_reflection_complete(auto=...)`.
+
+On resume / when missing: treat absent, null, or blank `reflection_state` as `draft`. `read_reflection_state()` in `reflection_state.py` is the canonical reader.
 
 ### Valid `source_mode` values
 

@@ -81,6 +81,19 @@ def main() -> int:
         ),
     )
     parser.add_argument(
+        "--mark-reflection-complete",
+        action="store_true",
+        help=(
+            "Attest that lead-reflection.md matches the pipeline's actual "
+            "end-state — flips reflection_state from DRAFT to COMPLETE in "
+            "meta.json (G23). The lead invokes this at audit completion "
+            "after canaries pass and the reflection narrative has been "
+            "written/verified against on-disk artifacts. Refuses to run "
+            "under --auto: premature finalization is the failure mode "
+            "this guard exists to prevent."
+        ),
+    )
+    parser.add_argument(
         "--skip-editor",
         action="store_true",
         help="With --v2, skip editor.html and review-state generation.",
@@ -129,6 +142,23 @@ def main() -> int:
             print(f"ERROR: {exc}", file=sys.stderr)
             return 2
         print(f"report_state set to client-verified: {meta_path}")
+        return 0
+
+    if args.mark_reflection_complete:
+        from assembly.reflection_state import (
+            AutoCompletionError, set_reflection_complete,
+        )
+
+        meta_path = engagement_path / "meta.json"
+        if not meta_path.exists():
+            print(f"meta.json not found: {meta_path}", file=sys.stderr)
+            return 1
+        try:
+            set_reflection_complete(meta_path, auto=args.auto)
+        except AutoCompletionError as exc:
+            print(f"ERROR: {exc}", file=sys.stderr)
+            return 2
+        print(f"reflection_state set to complete: {meta_path}")
         return 0
 
     if args.validate_review_state:

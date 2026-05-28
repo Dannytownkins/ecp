@@ -25,7 +25,8 @@
   "plans_queue": [],
   "reconciled": false,
   "screenshot_input": null,
-  "report_state": "draft"
+  "report_state": "draft",
+  "reflection_state": "draft"
 }
 
 <!--

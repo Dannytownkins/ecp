@@ -87,7 +87,7 @@ Run this sequence:
 12. Validate the synthesizer emission, run the cross-device drift gate, and run structural plus substantive canaries (see "Validation, Synthesis, and Rendering").
 13. Present the audit checkpoint with export options.
 14. Export the audit markdown and the annotated visual report when requested.
-15. Update `meta.json`, write `lead-reflection.md`, and clean up the team at completion.
+15. Update `meta.json`, write `lead-reflection.md`, run `generate-report.py --mark-reflection-complete` to flip `meta.json` `reflection_state` from `draft` to `complete` (G23, 2026-05-28), and clean up the team at completion.
 
 ## Dispatch Shape
 
@@ -189,3 +189,5 @@ An audit phase can move forward only when:
 The audit is complete when findings, the Priority Path, any requested exports (audit markdown + visual report), `meta.json`, `audit-trace.log`, and `lead-reflection.md` all reflect the final state.
 
 The generated report always ships as a **DRAFT** (`meta.json` `report_state: "draft"`, per `contracts/meta-schema.md` / product.md §6). Never write `report_state: "client-verified"` from the audit flow — and never under `--auto`. Client-ready promotion is the operator's manual verification pass (re-check the live site, follow every legal/ethics citation link, finalize hotspot placement), run separately via `generate-report.py --engagement <dir> --mark-client-verified`.
+
+The `lead-reflection.md` narrative ALSO ships as a **DRAFT** (`meta.json` `reflection_state: "draft"`, per `contracts/meta-schema.md` / G23, 2026-05-28). After the canaries pass and the reflection narrative has been written/refreshed against the actually-completed on-disk state, the lead invokes `generate-report.py --engagement <dir> --mark-reflection-complete` to attest that the narrative matches the pipeline's actual end-state. This is the explicit verb the G23 state machine gates on; **never write `reflection_state: "complete"` directly or under `--auto`.** Premature reflection writes (e.g. an agent acting on a stale-partial pipeline view) leave the state at `draft`, so the operator knows at a glance whether the narrative is finalized.

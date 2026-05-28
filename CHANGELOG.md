@@ -16,7 +16,25 @@ no canary reconciled trace counters with observable artifact presence.
 the lead's self-report claimed the audit had failed. Exact §0
 "never untraceable, never silently misleading" failure mode.
 
-- **G22+G24** (this commit): `check_trace_counters_reconcile_with_artifacts`
+- **G23** (this commit): `lead-reflection.md` premature-finalization gate.
+  Mirror of G8's `report_state` draft → client-verified machine, applied to
+  the narrative artifact instead of the deliverable. New
+  `scripts/assembly/reflection_state.py` adds `reflection_state:
+  "draft" | "complete"` to `meta.json` (default `draft`; missing/null/unknown
+  read as `draft` for back-compat). New CLI verb
+  `generate-report.py --mark-reflection-complete` is the lead's explicit
+  attestation at audit end that the on-disk reflection matches the
+  pipeline's actual completion state. Verb refuses under `--auto` with
+  `AutoCompletionError` (subclasses `PermissionError`, parallel to G8's
+  `AutoPromotionError`). `contracts/meta-schema.md`, `templates/meta.json.template`,
+  and `scripts/assembly/meta_validator.py` updated alongside.
+  `skills/audit/SKILL.md` step 15 + Exit Criteria instruct the lead to invoke
+  the verb at completion. 11 unittest regression tests in
+  `tests/test_g23_reflection_state_gate.py` including a load-bearing
+  entanglement check that flipping `reflection_state` doesn't touch
+  `report_state` (the two state machines stay independent).
+
+- **G22+G24** (previous commit on this branch): `check_trace_counters_reconcile_with_artifacts`
   in `scripts/assembly/canary_checks.py` walks the filesystem and asserts
   `trace_counter >= observed_artifact_count` per role (acquirers, specialists,
   ethics, synthesizer, cluster_files_written). v1/v2 counter aliases

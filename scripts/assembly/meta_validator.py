@@ -136,6 +136,14 @@ def validate_meta_json(meta_path: Path) -> List[str]:
             f'"client-verified", got {data["report_state"]!r} (product.md §6)'
         )
 
+    # reflection_state enum check (G23, 2026-05-28). Mirror of report_state:
+    # only warn if present; missing/blank is treated as "draft" by readers.
+    if "reflection_state" in data and data["reflection_state"] not in ("draft", "complete"):
+        warnings.append(
+            f'meta.json field "reflection_state" must be "draft" or '
+            f'"complete", got {data["reflection_state"]!r} (G23)'
+        )
+
     # Invariant: completed phases must have at least one device scanned.
     phase = data.get("phase")
     devices_scanned = data.get("devices_scanned") if isinstance(data.get("devices_scanned"), list) else None

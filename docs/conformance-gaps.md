@@ -280,6 +280,44 @@ rest, verified against current `HEAD`:
 
 ## Observability (2026-05-28 session 6)
 
+### G23 · P1 · ✓ DONE (this branch) · `lead-reflection.md` was written prematurely and never updated — state machine now mirrors G8
+- **Spec:** §0 — *"never untraceable, never silently misleading."* The lead-reflection
+  is the operator-facing canonical postmortem per `contracts/lead-discipline.md`.
+  If it can be written prematurely and read as authoritative without any state
+  marker distinguishing "draft narrative the lead might still update" from
+  "final attestation that the narrative matches reality," the operator can't
+  trust it as a single source.
+- **Was:** engagement `docs/ecp/2026-05-28-e4050c0e` had `lead-reflection.md`
+  written at ~16:18Z by an agent (Dan's read of the artifacts identifies the
+  writer as a `specialist-content-seo-desktop` subagent — a scope violation in
+  its own right) on a stale-partial pipeline view: 5 of 6 desktop specialists
+  had landed, no mobile yet, no ethics yet, no synth yet. Each claim was true
+  at write time but became misleading 42 minutes later when the pipeline
+  actually completed cleanly (all 12 cluster files + ethics + synth + render
+  all landed; every canary PASS). The reflection was never refreshed; the
+  operator read it as authoritative and reasonably concluded the audit had
+  failed when the deliverable was actually fine.
+- **Done:** new `scripts/assembly/reflection_state.py` mirrors G8's
+  `report_state.py` exactly. `meta.json` gains a `reflection_state:
+  "draft" | "complete"` field documented in `contracts/meta-schema.md` and
+  enforced by an enum check in `scripts/assembly/meta_validator.py`.
+  Missing/null/unknown reads as `draft` (back-compat). New CLI verb
+  `generate-report.py --mark-reflection-complete` is the explicit attestation
+  the lead invokes at audit end after canaries pass and the reflection has
+  been verified against on-disk state. The verb refuses under `--auto` with
+  a distinct `AutoCompletionError` (subclasses `PermissionError`, parallel to
+  G8's `AutoPromotionError`). `skills/audit/SKILL.md` step 15 and Exit Criteria
+  updated to instruct the lead to invoke the verb at audit end.
+- **Regression:** `tests/test_g23_reflection_state_gate.py` — 11 unittest-style
+  tests covering: `draft`-by-default for missing/null/unknown values,
+  round-trip on valid values, `set_reflection_complete` flips the field
+  atomically and refreshes `updated` timestamp, `AutoCompletionError` raises
+  under `auto=True` AND leaves state unchanged AND subclasses `PermissionError`,
+  CLI verb `--mark-reflection-complete` exits 0 on clean attestation + exits 2
+  on `--auto` refusal + names "premature finalization" in stderr, and a
+  load-bearing entanglement check that flipping `reflection_state` doesn't
+  touch `report_state` (G8 and G23 stay independent).
+
 ### G22+G24 · P1 · ✓ DONE (this branch) · Trace-counter discipline was unenforced; reconciliation canary now closes the loop
 - **Spec:** §0 — *"never untraceable, never silently misleading."* The
   `contracts/dispatch-contract.md` rule already said the lead MUST increment
