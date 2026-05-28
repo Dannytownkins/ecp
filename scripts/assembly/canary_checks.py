@@ -716,6 +716,225 @@ def check_clusters_represented(
 
 
 # ---------------------------------------------------------------------------
+# Canary 6 — trace_counters_reconcile_with_artifacts (G22+G24, 2026-05-28)
+# ---------------------------------------------------------------------------
+
+
+# Trace-counter line patterns. The lead writes these as
+# ``key: <int>`` (one per line) per ``contracts/trace-assertion-canary.md``.
+# We tolerate optional whitespace and a leading ``#`` (some legacy headers
+# wrote counters under a ``# Counters`` section with ``#`` prefixes on
+# subsequent lines — accept both shapes).
+_TRACE_COUNTER_RE = re.compile(
+    r"^\s*#?\s*([a-z_][a-z0-9_]*)\s*:\s*(\d+)\s*$",
+    re.IGNORECASE | re.MULTILINE,
+)
+
+
+# Counter aliases per ``contracts/dispatch-contract.md`` §"Backwards
+# compatibility": v1 audits emit `team_spawned_acquirers` /
+# `team_spawned_auditors`; v2 audits emit `subagent_spawned_acquirers` /
+# `team_spawned_specialists`. The reconciliation canary accepts either
+# naming as evidence the role ran — checking the role's actual spawn
+# count against observed artifact count, not the specific counter name.
+_ACQUIRER_COUNTERS = ("subagent_spawned_acquirers", "team_spawned_acquirers")
+_SPECIALIST_COUNTERS = ("team_spawned_specialists", "team_spawned_auditors")
+_ETHICS_COUNTERS = ("subagent_spawned_ethics",)
+_SYNTHESIZER_COUNTERS = ("subagent_spawned_synthesizer",)
+_CLUSTER_FILES_COUNTERS = ("cluster_files_written",)
+
+
+def _parse_trace_counters(trace_text: str) -> dict[str, int]:
+    """Extract ``counter_name -> int`` pairs from ``audit-trace.log`` text.
+
+    The trace mixes counters, event-log lines, and free prose. Only lines
+    that match the canonical ``key: <int>`` shape are extracted; everything
+    else is ignored. Keys are lowercased for comparison (the contract uses
+    lowercase but operator-edited files sometimes drift).
+    """
+    counters: dict[str, int] = {}
+    for match in _TRACE_COUNTER_RE.finditer(trace_text):
+        key = match.group(1).lower()
+        try:
+            value = int(match.group(2))
+        except ValueError:
+            continue
+        # First match wins — the trace-assertion-canary contract says the
+        # header counters appear first and the event log overwrites
+        # specific lines in-place, but if a duplicate slips in we keep
+        # the earlier (header) value to preserve the assertion intent.
+        counters.setdefault(key, value)
+    return counters
+
+
+def _max_alias_value(counters: dict[str, int], aliases: tuple[str, ...]) -> int:
+    """Return the max value across counter-name aliases. A role can be
+    counted by either an old or new counter name; the larger of the two
+    is the strongest claim the lead made about how many of that role ran.
+    Missing counters contribute 0 (the conservative interpretation)."""
+    return max((counters.get(name, 0) for name in aliases), default=0)
+
+
+def check_trace_counters_reconcile_with_artifacts(
+    engagement_dir: Path,
+) -> CanaryResult:
+    """G22+G24: reconcile ``audit-trace.log`` counters against observable
+    artifact presence on disk.
+
+    The ``contracts/dispatch-contract.md`` rule says the lead MUST
+    increment the relevant counter after every successful dispatch
+    (Agent for teammates, Task for subagents). The structural-assertion
+    self-check in ``contracts/trace-assertion-canary.md`` is supposed
+    to surface violations at audit completion. Engagement
+    ``docs/ecp/2026-05-28-e4050c0e`` proved that gate is non-functional:
+    all four spawn counters read 0 while 12 specialist emissions + 1
+    ethics + 1 synth + 2 acquirers were observably on disk.
+
+    This canary closes the loop by walking the filesystem and asserting
+    ``counter >= observed_artifact_count`` for each role. A FAIL means
+    the trace and reality have diverged — either the lead silently ran
+    work without recording it (the actual 2026-05-28 case) or files
+    landed without a recorded dispatch (a different drift class). Both
+    are §0 untraceable-misleading failure modes; both demand operator
+    attention before the audit is trustable.
+
+    Pass criteria — for each role:
+    - **Acquirers:** ``max(_ACQUIRER_COUNTERS) >= observed_baton_count``
+      where ``observed_baton_count = #{baton.json, baton-mobile.json}``
+      present on disk.
+    - **Specialists:** ``max(_SPECIALIST_COUNTERS) >= observed_specialist_emission_count``
+      where the observed count counts ``cluster-{cluster}-{device}.json``
+      files (excluding ``cluster-context-*``) for clusters in
+      ``meta.json["clusters_used"]`` × devices in
+      ``meta.json["devices_scanned"]``.
+    - **Ethics:** ``max(_ETHICS_COUNTERS) >= 1`` IFF
+      ``ethics-findings.json`` exists and is non-empty.
+    - **Synthesizer:** ``max(_SYNTHESIZER_COUNTERS) >= 1`` IFF
+      ``synthesizer-emission-v1.json`` exists and is non-empty.
+    - **cluster_files_written:** ``>= observed_specialist_emission_count``
+      (separate counter the contract names; tracks files written, not
+      dispatches that may have failed to write).
+
+    Returns ``CanaryResult`` with detail keys per role: ``counter`` (the
+    max alias value the lead recorded), ``observed`` (the artifact count
+    on disk), ``reconciled`` (bool), and a ``violations`` list naming
+    every role where ``counter < observed``.
+    """
+    trace_path = engagement_dir / "audit-trace.log"
+    meta_path = engagement_dir / "meta.json"
+
+    if not trace_path.exists() or not meta_path.exists():
+        # Pre-trace-stage engagement (test fixture or aborted early). Skip
+        # cleanly so this canary doesn't false-positive on partial setups.
+        return CanaryResult(
+            name="trace_counters_reconcile_with_artifacts",
+            passed=True,
+            summary=(
+                "trace_counters_reconcile_with_artifacts: skipped "
+                "(audit-trace.log or meta.json absent)"
+            ),
+            detail={"reason": "pre-trace-stage engagement"},
+        )
+
+    try:
+        trace_text = trace_path.read_text(encoding="utf-8")
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as e:
+        return CanaryResult(
+            name="trace_counters_reconcile_with_artifacts",
+            passed=False,
+            summary=(
+                f"trace_counters_reconcile_with_artifacts: FAIL -- "
+                f"unreadable artifacts: {e}"
+            ),
+            detail={"error": str(e)},
+        )
+
+    counters = _parse_trace_counters(trace_text)
+
+    # --- Observe artifact presence ---
+    # Acquirers: count present batons (per-device).
+    baton_files = [
+        engagement_dir / "baton.json",
+        engagement_dir / "baton-mobile.json",
+    ]
+    observed_acquirers = sum(
+        1 for p in baton_files if p.exists() and p.stat().st_size > 0
+    )
+
+    # Specialists: count cluster-{cluster}-{device}.json files, excluding
+    # cluster-context-* (those are DOM-slice inputs, not specialist
+    # emissions). Restrict to (cluster, device) pairs that were actually
+    # requested per meta.json so an unrelated stray emission doesn't
+    # inflate the observation.
+    requested_clusters = [c for c in (meta.get("clusters_used") or []) if c != "ethics"]
+    requested_devices = list(meta.get("devices_scanned") or [])
+    observed_specialists = 0
+    for cluster in requested_clusters:
+        for device in requested_devices:
+            emission = engagement_dir / f"cluster-{cluster}-{device}.json"
+            if emission.exists() and emission.stat().st_size > 0:
+                observed_specialists += 1
+
+    # Ethics + synth: presence-or-absence (counted as 0 or 1).
+    ethics_path = engagement_dir / "ethics-findings.json"
+    observed_ethics = 1 if ethics_path.exists() and ethics_path.stat().st_size > 0 else 0
+    synth_path = engagement_dir / "synthesizer-emission-v1.json"
+    observed_synth = 1 if synth_path.exists() and synth_path.stat().st_size > 0 else 0
+
+    # --- Compare against trace counters ---
+    role_checks = [
+        ("acquirers", _max_alias_value(counters, _ACQUIRER_COUNTERS), observed_acquirers),
+        ("specialists", _max_alias_value(counters, _SPECIALIST_COUNTERS), observed_specialists),
+        ("ethics", _max_alias_value(counters, _ETHICS_COUNTERS), observed_ethics),
+        ("synthesizer", _max_alias_value(counters, _SYNTHESIZER_COUNTERS), observed_synth),
+        ("cluster_files_written", _max_alias_value(counters, _CLUSTER_FILES_COUNTERS), observed_specialists),
+    ]
+
+    role_detail: list[dict] = []
+    violations: list[str] = []
+    for role, counter_value, observed in role_checks:
+        reconciled = counter_value >= observed
+        role_detail.append({
+            "role": role,
+            "counter": counter_value,
+            "observed": observed,
+            "reconciled": reconciled,
+        })
+        if not reconciled:
+            violations.append(
+                f"{role} counter={counter_value} < observed={observed}"
+            )
+
+    passed = not violations
+    if passed:
+        summary = (
+            f"trace_counters_reconcile_with_artifacts: PASS "
+            f"(acquirers={role_detail[0]['counter']}/{role_detail[0]['observed']}, "
+            f"specialists={role_detail[1]['counter']}/{role_detail[1]['observed']}, "
+            f"ethics={role_detail[2]['counter']}/{role_detail[2]['observed']}, "
+            f"synthesizer={role_detail[3]['counter']}/{role_detail[3]['observed']})"
+        )
+    else:
+        summary = (
+            f"trace_counters_reconcile_with_artifacts: FAIL -- "
+            f"{len(violations)} role(s) under-counted in audit-trace.log: "
+            f"{'; '.join(violations)}"
+        )
+
+    return CanaryResult(
+        name="trace_counters_reconcile_with_artifacts",
+        passed=passed,
+        summary=summary,
+        detail={
+            "roles": role_detail,
+            "violations": violations,
+            "counters_parsed": counters,
+        },
+    )
+
+
+# ---------------------------------------------------------------------------
 # Top-level — run all canaries against an engagement directory
 # ---------------------------------------------------------------------------
 
@@ -804,8 +1023,14 @@ def run_all_canaries(
     # emissions (the failure that left Run 2026-05-27-52f53a53 with 2 of
     # 6 CRO clusters rendered on desktop while every other canary passed).
     r5 = check_clusters_represented(engagement_dir)
+    # G22+G24 (2026-05-28) — reconcile audit-trace.log counters with
+    # observable artifact presence on disk. Closes the structural-
+    # assertion enforcement gap that left docs/ecp/2026-05-28-e4050c0e
+    # reading all spawn counters at 0 despite 12 specialists + 1 ethics
+    # + 1 synth + 2 acquirers landing as artifacts.
+    r6 = check_trace_counters_reconcile_with_artifacts(engagement_dir)
 
-    results = [r1, r2, r3, r4, r5]
+    results = [r1, r2, r3, r4, r5, r6]
 
     visual_quality_block: dict | None = None
     if include_visual_quality:

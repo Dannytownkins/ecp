@@ -531,10 +531,12 @@ class TestRunAllCanaries(unittest.TestCase):
         # Phase 6 (2026-05-18) added priority_path_count_parity as the
         # fourth canary; older runs expected 3. G16 (2026-05-27) added
         # clusters_represented as the fifth — it skips with PASS on
-        # fixtures that don't have canonical-f-refs.json. visual_quality
-        # block adds zero results when no review-state files are present
-        # (Phase 3 default-on path).
-        self.assertEqual(len(out["results"]), 5)
+        # fixtures that don't have canonical-f-refs.json.
+        # G22+G24 (2026-05-28) added trace_counters_reconcile_with_artifacts
+        # as the sixth — it skips with PASS on fixtures without
+        # audit-trace.log. visual_quality block adds zero results when no
+        # review-state files are present (Phase 3 default-on path).
+        self.assertEqual(len(out["results"]), 6)
 
     def test_aggregates_failure(self):
         # Ethics — block without source_url fails

@@ -278,6 +278,44 @@ rest, verified against current `HEAD`:
 
 ---
 
+## Observability (2026-05-28 session 6)
+
+### G22+G24 · P1 · ✓ DONE (this branch) · Trace-counter discipline was unenforced; reconciliation canary now closes the loop
+- **Spec:** §0 — *"never untraceable, never silently misleading."* The
+  `contracts/dispatch-contract.md` rule already said the lead MUST increment
+  `audit-trace.log` counters after every dispatch (line 259, the
+  "Assertion counter update on spawn" clause). `contracts/trace-assertion-canary.md`
+  defined a structural-assertion self-check that's supposed to surface counter
+  violations at completion. Both rules existed; **nothing structurally enforced them.**
+- **Was:** engagement `docs/ecp/2026-05-28-e4050c0e` proved the gate was non-functional.
+  All four spawn counters in `audit-trace.log` read 0 — `subagent_spawned_acquirers: 0`,
+  `team_spawned_specialists: 0`, `subagent_spawned_ethics: 0`,
+  `subagent_spawned_synthesizer: 0` — while the engagement dir contained 12
+  specialist emissions + ethics-findings.json + synthesizer-emission-v1.json +
+  both batons. Every substantive canary returned PASS; the structural-assertion
+  self-check never fired. The lead's premature `lead-reflection.md` (claiming
+  *"synth did not run"*) compounded the misleading narrative — the operator
+  read it and reasonably concluded the audit had failed when, in fact, every
+  visible deliverable was clean per the canary verdict.
+- **Done:** new `check_trace_counters_reconcile_with_artifacts` in
+  `scripts/assembly/canary_checks.py`. Walks the filesystem and asserts
+  `trace_counter >= observed_artifact_count` per role (acquirers, specialists,
+  ethics, synthesizer, cluster_files_written). v1/v2 counter aliases
+  (`team_spawned_auditors` vs `team_spawned_specialists`,
+  `team_spawned_acquirers` vs `subagent_spawned_acquirers`) accepted per
+  `contracts/dispatch-contract.md` §"Backwards compatibility" — the canary
+  takes `max(alias_values)` so either naming counts. Wired as canary #6 in
+  `run_all_canaries`; updates to count-asserting tests
+  (`test_v2_canary_checks.py`, `test_v2_determinism_gate.py`, `test_visual_quality.py`)
+  consistent with the G16 pattern. 8 new regression tests in
+  `tests/test_g24_trace_counters_reconcile.py`, including a literal
+  reproducer of the 2026-05-28-e4050c0e zero-counters-against-full-artifacts
+  shape that now FAILs the canary loudly with each violating role named.
+- **What this doesn't fix (deferred to G23):** the lead's `lead-reflection.md`
+  going stale and never being refreshed. Trace counters and reflection narrative
+  are two distinct observability surfaces; G24 closes the counter surface, G23
+  (next commit) closes the reflection surface.
+
 ## Concurrent-audit robustness (2026-05-27 session 5)
 
 ### G20 · P3 · ✓ DONE (this branch) · `element_index_match_rate` canary produced impossible rate > 1.0

@@ -4,6 +4,34 @@ This repo begins at **1.0.0** as a clean prune-and-re-root. Governance and scope
 defined by `product.md`; spec-level changes are logged in its §10 Spec Change Log.
 The full pre-1.0 history lives in the archived `ecommerce-conversion-psychology` repo.
 
+## Post-1.0.0 conformance — 2026-05-28 (session 6)
+
+Engagement `docs/ecp/2026-05-28-e4050c0e` (a clean six-cluster slingmods run)
+surfaced three orthogonal observability failures: all `audit-trace.log` spawn
+counters read 0 despite 12 specialist emissions + ethics + synth + 2
+acquirers being on disk; `lead-reflection.md` was written prematurely at
+specialist-phase time and never updated to reflect actual completion; and
+no canary reconciled trace counters with observable artifact presence.
+**Every substantive canary returned PASS** — the deliverables were clean — but
+the lead's self-report claimed the audit had failed. Exact §0
+"never untraceable, never silently misleading" failure mode.
+
+- **G22+G24** (this commit): `check_trace_counters_reconcile_with_artifacts`
+  in `scripts/assembly/canary_checks.py` walks the filesystem and asserts
+  `trace_counter >= observed_artifact_count` per role (acquirers, specialists,
+  ethics, synthesizer, cluster_files_written). v1/v2 counter aliases
+  (`team_spawned_auditors`/`team_spawned_specialists`,
+  `team_spawned_acquirers`/`subagent_spawned_acquirers`) accepted; canary takes
+  the `max(alias_values)` so either naming counts. Wired as canary #6 in
+  `run_all_canaries`. 8 new regression tests in
+  `tests/test_g24_trace_counters_reconcile.py` including a literal
+  reproducer of the 2026-05-28-e4050c0e all-zero-counters shape that now
+  FAILs the canary loudly with each under-counted role named. G22 (the
+  contract-discipline rule already existed at `contracts/dispatch-contract.md:259`)
+  is closed *de facto* by G24's structural enforcement — no separate commit.
+- **Test count assertions bumped**: 6 canaries in `run_all_canaries` (was 5);
+  7 in determinism-gate report (was 6). Same pattern as the G16 commit.
+
 ## Post-1.0.0 conformance — 2026-05-27 (session 5)
 
 Four concurrent live audits revealed (a) a real cross-engagement session-isolation

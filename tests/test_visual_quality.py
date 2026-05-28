@@ -621,11 +621,12 @@ class TestCanaryIntegration:
 
         Phase 6 (2026-05-18) added priority_path_count_parity → 4 baseline
         canaries instead of 3. G16 (2026-05-27) added clusters_represented
-        as the fifth (skips with PASS on fixtures that don't have
-        canonical-f-refs.json)."""
+        as the fifth. G22+G24 (2026-05-28) added
+        trace_counters_reconcile_with_artifacts as the sixth (skips with
+        PASS on fixtures without audit-trace.log)."""
         eng = REPO_ROOT / "tests" / "fixtures" / "v2_engagement_with_adjacent_ethics"
         result = run_all_canaries(eng, audited_domain="example.test")
-        assert len(result["results"]) == 5
+        assert len(result["results"]) == 6
         assert "visual_quality" in result  # Block present even when empty
         assert result["visual_quality"]["per_device"] == {}
 
@@ -635,10 +636,11 @@ class TestCanaryIntegration:
 
         Phase 6 (2026-05-18) — baseline grew to 4 canaries with
         priority_path_count_parity. G16 (2026-05-27) added
-        clusters_represented as the fifth."""
+        clusters_represented as the fifth. G22+G24 (2026-05-28) added
+        trace_counters_reconcile_with_artifacts as the sixth."""
         eng = REPO_ROOT / "tests" / "fixtures" / "v2_engagement_with_adjacent_ethics"
         result = run_all_canaries(eng, audited_domain="example.test", include_visual_quality=False)
-        assert len(result["results"]) == 5
+        assert len(result["results"]) == 6
         assert "visual_quality" not in result
 
     def test_run_all_canaries_with_visual_quality_runs_when_review_state_present(self, tmp_path):

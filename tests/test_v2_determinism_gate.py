@@ -589,13 +589,16 @@ class TestValidateRun(unittest.TestCase):
         # Phase 6 (2026-05-18) added priority_path_count_parity →
         # 5 canaries: 4 substantive + 1 structural. G16 (2026-05-27)
         # added clusters_represented → 6: 5 substantive + 1 structural.
-        self.assertEqual(len(report["canaries"]), 6)
+        # G22+G24 (2026-05-28) added trace_counters_reconcile_with_artifacts
+        # → 7: 6 substantive + 1 structural.
+        self.assertEqual(len(report["canaries"]), 7)
         canary_names = [c["name"] for c in report["canaries"]]
         self.assertIn("ethics_findings_have_source_urls", canary_names)
         self.assertIn("element_index_match_rate", canary_names)
         self.assertIn("cross_device_ethics_diff", canary_names)
         self.assertIn("priority_path_count_parity", canary_names)
         self.assertIn("clusters_represented", canary_names)
+        self.assertIn("trace_counters_reconcile_with_artifacts", canary_names)
         self.assertIn("structural_assertions", canary_names)
 
 
