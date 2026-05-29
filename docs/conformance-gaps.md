@@ -225,14 +225,15 @@ rest, verified against current `HEAD`:
 
 ### G12 · P1 · ✓ DONE (`763065b`) · Claude acquirer (`workflows/acquire.md`) has no base64 eval guard
 - **Now:** the earlier Windows eval fix (base64 + `_unwrap_eval`) was applied to
-  `scripts/cursor_bootstrap_url.py` — the **Cursor/standalone** path. The Claude
+  `scripts/acquire_url.py` (then named `cursor_bootstrap_url.py`) — the standalone
+  deterministic-acquirer path. The Claude
   `/ecp:audit` acquirer follows `workflows/acquire.md`, which runs `agent-browser
   eval` **directly via Bash** (no base64). It worked in the live run only because
   the Bash tool uses the *bash* shim (no PowerShell `\"` mangling) — dodged by
   environment luck, not design.
 - **Fix:** steer `workflows/acquire.md` to use `agent-browser eval -b <base64>`
   (or `--stdin`) for any non-trivial JS, mirroring `_eval_args` in
-  `cursor_bootstrap_url.py`. Bundle with G11.
+  `acquire_url.py`. Bundle with G11.
 
 ### G13 · P1 · ✓ DONE (`65c1c93`) · Non-ASCII in `print()` literals crashes the Windows console
 - **Now:** `scripts/assembly/canary_checks.py` has ~30 non-ASCII chars (`→` etc.);
@@ -372,11 +373,12 @@ rest, verified against current `HEAD`:
 - **Done:** `git mv agents/*.md archive/cursor-agents/` (history preserved) removes the
   files from Claude Code's `agents/` auto-discovery while keeping them re-portable per §8.
   `archive/cursor-agents/README.md` records the freeze rationale + the un-freeze recipe
-  (§10 entry → re-prove §7 conformance → relocate back). `scripts/cursor_bootstrap_url.py`
-  gains a top-of-docstring note clarifying it is the **canonical acquirer for the Claude
-  runtime too** (the Cursor-flavored filename generalized post-migration). `skills/audit/
-  SKILL.md` § "Dispatch Shape" now states explicitly that all dispatch targets the inline
-  subagent contracts and the lead NEVER delegates to an `ecp-*` agent file.
+  (§10 entry → re-prove §7 conformance → relocate back). The canonical acquirer was
+  also renamed `scripts/cursor_bootstrap_url.py` → `scripts/acquire_url.py` (all live
+  refs in `skills/`, `workflows/`, and tests updated; history preserved via `git mv`)
+  to drop the misleading Cursor-flavored name. `skills/audit/SKILL.md` § "Dispatch Shape"
+  now states explicitly that all dispatch targets the inline subagent contracts and the
+  lead NEVER delegates to an `ecp-*` agent file.
 - **Regression:** `tests/test_g21_cursor_agents_not_discoverable.py` — a non-existence
   guard (mirrors G17's `test_old_constant_is_gone`): fails if any discoverable
   `agents/ecp-*.md` is re-introduced AND fails if the archived copies are deleted
@@ -453,7 +455,7 @@ rest, verified against current `HEAD`:
   specialist spawns — Amazon audit lost 7 of 8 first-wave spawns at 0 tokens;
   slingmods 10-cluster run lost its entire 20-way first wave.
 - **Done (Layer A — contamination guard):**
-  - `scripts/cursor_bootstrap_url.py`: `_ELEMENTS_JS` module constant replaced by
+  - `scripts/acquire_url.py` (then `cursor_bootstrap_url.py`): `_ELEMENTS_JS` module constant replaced by
     `_build_elements_js(expected_hostname)` which bakes a hostname check into
     the per-section extraction JS — on mismatch, returns a structured contamination
     sentinel instead of element rows. New `_check_for_contamination` helper +
@@ -462,7 +464,7 @@ rest, verified against current `HEAD`:
     (after redirect resolution) so www-vs-no-www doesn't false-trigger.
   - `workflows/acquire.md` Step 3b: documents the same guard pattern as MANDATORY
     for any acquirer (SKILL-driven or script-driven). Cites
-    `cursor_bootstrap_url.py` as the canonical reference implementation.
+    `acquire_url.py` as the canonical reference implementation.
   - Regression: 8 unittest-style tests in
     `tests/test_acquirer_contamination_guard.py` covering hostname inlining,
     JSON-escape safety against injection, sentinel detection true/false/falsy/

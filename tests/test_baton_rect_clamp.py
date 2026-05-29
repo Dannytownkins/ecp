@@ -7,8 +7,8 @@ schema validation and the lead has to clamp by hand. The fix clamps at every
 extraction/build site rather than relaxing the schema.
 
 Sites covered (browser-free):
-  - cursor path: `_dpr_scale_element_css_to_phys` (behavioral)
-  - cursor path JS + Claude acquirer JS: `Math.max(0, ...)` in the extraction
+  - acquirer path: `_dpr_scale_element_css_to_phys` (behavioral)
+  - acquirer path JS + Claude acquirer JS: `Math.max(0, ...)` in the extraction
   - v1->v2 adapter: `max(0.0, ...)` in the rect builder
 """
 import sys
@@ -17,7 +17,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "scripts"))
-import cursor_bootstrap_url as cb  # noqa: E402
+import acquire_url as cb  # noqa: E402
 
 
 class TestDprScaleClamp(unittest.TestCase):
@@ -45,7 +45,7 @@ class TestExtractionJsClamps(unittest.TestCase):
         self.assertIn("Math.max(0, Math.round(r.top + scrollY))", doc)
 
     def test_cursor_elements_js_clamps_xy(self):
-        src = (REPO / "scripts" / "cursor_bootstrap_url.py").read_text(encoding="utf-8")
+        src = (REPO / "scripts" / "acquire_url.py").read_text(encoding="utf-8")
         self.assertIn("Math.max(0, Math.round(r.left))", src)
         self.assertIn("Math.max(0, Math.round(r.top + scrollY))", src)
 

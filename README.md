@@ -64,7 +64,7 @@ see `product.md` §6.
 
 ## Known limitations
 
-- **Acquisition (Windows):** `scripts/cursor_bootstrap_url.py` can fail to acquire
+- **Acquisition (Windows):** `scripts/acquire_url.py` can fail to acquire
   large pages because `agent-browser eval` mangles long inline JS args on Windows.
   This is the current top fix target — see the engagement notes / `product.md` change log.
 - Hotspot placement is precision-first: low-confidence hotspots are left **blank** for

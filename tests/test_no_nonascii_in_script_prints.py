@@ -4,7 +4,7 @@ The operator runs on Windows, whose console defaults to cp1252. A `print()`
 whose literal text contains a non-ASCII char (em-dash, arrow, section sign)
 raises `UnicodeEncodeError` and crashes the script — observed in
 `scripts/assembly/canary_checks.py` and across several runtime scripts
-(`test-specialist.py`, `dom_preprocess.py`, `cursor_bootstrap_url.py`,
+(`test-specialist.py`, `dom_preprocess.py`, `acquire_url.py`,
 `ecp_configurator.py`). `json.dumps` output is safe (ensure_ascii defaults
 True), but raw `print(f"... — ...")` status lines are not.
 

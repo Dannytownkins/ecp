@@ -28,8 +28,7 @@ Code's `agents/` auto-discovery while keeping them re-portable, exactly as §8 s
 Under `/ecp:audit`, the audit lead dispatches work via the **Agent/Task tools to the
 inline subagent contracts** — `contracts/specialist-prompt-v2.md`,
 `contracts/ethics-subagent-v2.md`, `contracts/synthesizer-v2.md`, and the canonical
-acquirer `scripts/cursor_bootstrap_url.py` (canonical despite its Cursor-flavored
-name; see its module docstring). The lead NEVER delegates to an `archive/cursor-agents/*.md`
+acquirer `scripts/acquire_url.py`. The lead NEVER delegates to an `archive/cursor-agents/*.md`
 file. See `skills/audit/SKILL.md` § "Dispatch Shape".
 
 ## Un-freezing (if Cursor is ever revived as a canonical runtime)

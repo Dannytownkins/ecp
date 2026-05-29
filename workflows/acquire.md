@@ -39,9 +39,9 @@ agent-browser {session_flag} eval -b <base64-of-the-js>
 
 Encode the JS *string* (not a file) with the cross-platform fallbacks in **Base64 encoding (cross-platform)** below — e.g. `printf '%s' '<js>' | base64 -w 0`, the `python -c` fallback, or `certutil`. (`agent-browser eval --stdin` is the equivalent when you can pipe the JS in instead of passing `-b`.)
 
-**Why — do not skip this (it bit the Windows operator).** `agent-browser` resolves to a `.ps1`/`.cmd` npm shim, so a raw quoted JS arg is re-parsed by the shell before agent-browser sees it. PowerShell does **not** treat CMD-style `\"` as an escape, so the inner double-quotes terminate the string early, the JS is truncated, and the browser throws `SyntaxError: Unexpected end of input`. base64 contains no shell metacharacters, so it round-trips intact and agent-browser decodes it via `-b`/`--base64`. This is the same fix `_eval_args` applies on the Cursor path (`scripts/cursor_bootstrap_url.py`); the Bash tool's bash shim happens to dodge the mangling today, but encoding keeps this acquirer correct under any shell.
+**Why — do not skip this (it bit the Windows operator).** `agent-browser` resolves to a `.ps1`/`.cmd` npm shim, so a raw quoted JS arg is re-parsed by the shell before agent-browser sees it. PowerShell does **not** treat CMD-style `\"` as an escape, so the inner double-quotes terminate the string early, the JS is truncated, and the browser throws `SyntaxError: Unexpected end of input`. base64 contains no shell metacharacters, so it round-trips intact and agent-browser decodes it via `-b`/`--base64`. This is the same fix `_eval_args` applies in the deterministic acquirer (`scripts/acquire_url.py`); the Bash tool's bash shim happens to dodge the mangling today, but encoding keeps this acquirer correct under any shell.
 
-**Decoding the result.** agent-browser JSON-encodes whatever `eval` returns, and the blocks here wrap their payload in `JSON.stringify(...)`, so values arrive **double-encoded** — a JSON string whose contents are themselves JSON. Parse the outer layer, then parse again (mirror `_unwrap_eval` in `cursor_bootstrap_url.py`).
+**Decoding the result.** agent-browser JSON-encodes whatever `eval` returns, and the blocks here wrap their payload in `JSON.stringify(...)`, so values arrive **double-encoded** — a JSON string whose contents are themselves JSON. Parse the outer layer, then parse again (mirror `_unwrap_eval` in `acquire_url.py`).
 
 You capture page data for e-commerce psychology analysis. Your job is purely mechanical: navigate, screenshot, extract DOM. You do not analyze or judge — downstream auditors handle that.
 
@@ -487,7 +487,7 @@ if (__actual !== __expected) {
 // ... normal element extraction follows
 ```
 
-When the acquirer reads back a response with `__contamination_detected: true`, it MUST abort with `STATUS: BLOCKED — cross-engagement session contamination detected at scroll_y=<n>; expected <hostname>, got <hostname>` and exit. The operator's recovery is to re-run the acquisition in a fresh `agent-browser` session. `scripts/cursor_bootstrap_url.py`'s `_build_elements_js` is the canonical reference implementation.
+When the acquirer reads back a response with `__contamination_detected: true`, it MUST abort with `STATUS: BLOCKED — cross-engagement session contamination detected at scroll_y=<n>; expected <hostname>, got <hostname>` and exit. The operator's recovery is to re-run the acquisition in a fresh `agent-browser` session. `scripts/acquire_url.py`'s `_build_elements_js` is the canonical reference implementation.
 
 **v2 changes (vs v1):**
 - Each element receives a stable `e_index` (e0, e1, ...) assigned in capture order across all sections combined. This is the primary identifier specialists reference in their finding ELEMENT field. Renderer hotspots resolve via dictionary lookup against `baton.elements[<index>]` — no fuzzy CSS-selector matching.

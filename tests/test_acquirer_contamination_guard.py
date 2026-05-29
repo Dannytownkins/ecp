@@ -1,4 +1,4 @@
-"""Regression: cursor_bootstrap_url.py cross-engagement contamination guard.
+"""Regression: acquire_url.py cross-engagement contamination guard.
 
 The 2026-05-27 four-concurrent-audits batch surfaced a real failure
 mode: ``docs/ecp/2026-05-27-4a0721e9`` (a slingmods.com audit) captured
@@ -30,23 +30,23 @@ from pathlib import Path
 _REPO = Path(__file__).resolve().parent.parent
 
 
-def _load_cursor_bootstrap():
-    """Load cursor_bootstrap_url.py despite the dash in its filename."""
+def _load_acquire_url():
+    """Load the canonical acquirer module (scripts/acquire_url.py) by path."""
     spec = importlib.util.spec_from_file_location(
-        "cursor_bootstrap_url",
-        _REPO / "scripts" / "cursor_bootstrap_url.py",
+        "acquire_url",
+        _REPO / "scripts" / "acquire_url.py",
     )
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     # dataclass decorator at module load needs sys.modules registration.
-    sys.modules["cursor_bootstrap_url"] = module
+    sys.modules["acquire_url"] = module
     spec.loader.exec_module(module)
     return module
 
 
 class TestBuildElementsJsHostnameGuard(unittest.TestCase):
     def setUp(self):
-        self.cb = _load_cursor_bootstrap()
+        self.cb = _load_acquire_url()
 
     def test_hostname_inlined_as_json_string_literal(self):
         js = self.cb._build_elements_js("slingmods.com")
@@ -71,7 +71,7 @@ class TestBuildElementsJsHostnameGuard(unittest.TestCase):
 
 class TestCheckForContamination(unittest.TestCase):
     def setUp(self):
-        self.cb = _load_cursor_bootstrap()
+        self.cb = _load_acquire_url()
 
     def test_returns_none_on_normal_element_list(self):
         self.assertIsNone(self.cb._check_for_contamination([{"tag": "h1"}]))
@@ -115,7 +115,7 @@ class TestElementsJsConstantRemoved(unittest.TestCase):
     whether the new caller also gets the contamination guard."""
 
     def test_old_constant_is_gone(self):
-        cb = _load_cursor_bootstrap()
+        cb = _load_acquire_url()
         self.assertFalse(
             hasattr(cb, "_ELEMENTS_JS"),
             "Old _ELEMENTS_JS module constant has been replaced by "

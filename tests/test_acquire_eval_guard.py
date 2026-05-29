@@ -4,7 +4,7 @@
 eval` via the Bash tool. On Windows, `agent-browser` resolves to a `.ps1`/`.cmd`
 npm shim that re-parses argv; PowerShell does not treat CMD-style `\"` as an
 escape, so a raw quoted JS payload truncates -> `SyntaxError: Unexpected end of
-input`. The Cursor path already fixed this in `scripts/cursor_bootstrap_url.py`
+input`. The deterministic acquirer already fixed this in `scripts/acquire_url.py`
 (`_eval_args` -> `agent-browser eval -b <base64>`); the Claude acquirer dodged it
 only by environment luck (the bash shim). This pins the documented guard so it
 can't silently regress, browser-free.
@@ -36,9 +36,9 @@ class TestAcquireEvalGuard(unittest.TestCase):
         self.assertIn("syntaxerror", self.lower)
         self.assertIn("unexpected end of input", self.lower)
 
-    def test_cross_references_the_cursor_fix(self):
-        # Single-source-of-truth: point at the verified Cursor-path fix.
-        self.assertIn("cursor_bootstrap_url.py", self.doc)
+    def test_cross_references_the_acquirer_fix(self):
+        # Single-source-of-truth: point at the verified acquirer-path fix.
+        self.assertIn("acquire_url.py", self.doc)
         self.assertTrue(
             ("_eval_args" in self.doc) or ("_unwrap_eval" in self.doc),
             "must reference the canonical eval helper(s)",

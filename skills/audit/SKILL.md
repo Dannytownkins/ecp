@@ -98,7 +98,7 @@ Default to v2 dispatch:
 - Ethics: `Task` subagent.
 - Synthesizer: `Task` subagent.
 
-All dispatch targets the **inline subagent contracts** via the Agent/Task tools — the acquirer runs `scripts/cursor_bootstrap_url.py` (canonical despite its Cursor-flavored name), specialists use `contracts/specialist-prompt-v2.md`, ethics uses `contracts/ethics-subagent-v2.md`, synthesizer uses `contracts/synthesizer-v2.md`. The lead NEVER delegates to an `ecp-*` agent file. Any `ecp-orchestrator` / `ecp-acquisition` / `ecp-cluster-auditor` / `ecp-reviewer` / `ecp-synthesizer` agent that the Agent tool's type list may surface is a **frozen Cursor archive** (product.md §5/§8, now relocated to `archive/cursor-agents/`) and must not be selected as a delegation target — the "orchestrator" role is just this audit lead under a Cursor-era name.
+All dispatch targets the **inline subagent contracts** via the Agent/Task tools — the acquirer runs `scripts/acquire_url.py` (the canonical deterministic acquirer), specialists use `contracts/specialist-prompt-v2.md`, ethics uses `contracts/ethics-subagent-v2.md`, synthesizer uses `contracts/synthesizer-v2.md`. The lead NEVER delegates to an `ecp-*` agent file. Any `ecp-orchestrator` / `ecp-acquisition` / `ecp-cluster-auditor` / `ecp-reviewer` / `ecp-synthesizer` agent that the Agent tool's type list may surface is a **frozen Cursor archive** (product.md §5/§8, now relocated to `archive/cursor-agents/`) and must not be selected as a delegation target — the "orchestrator" role is just this audit lead under a Cursor-era name.
 
 Record dispatch counters in `audit-trace.log` using `contracts/trace-assertion-canary.md`. Legacy v1 counter aliases may be accepted only where that contract explicitly says they are accepted.
 

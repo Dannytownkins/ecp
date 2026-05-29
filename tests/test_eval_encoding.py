@@ -1,6 +1,6 @@
 """Regression tests for the Windows agent-browser eval encoding fix.
 
-Two stacked bugs in scripts/cursor_bootstrap_url.py acquisition:
+Two stacked bugs in scripts/acquire_url.py acquisition:
   1. JS passed as a raw CLI arg was mangled by the npm .ps1/.cmd shim (quotes /
      metacharacters) -> `SyntaxError: Unexpected end of input`. Fixed by base64
      encoding the eval source (`agent-browser eval -b`).
@@ -17,7 +17,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
-import cursor_bootstrap_url as cb  # noqa: E402
+import acquire_url as cb  # noqa: E402
 
 
 class TestEvalArgsBase64(unittest.TestCase):

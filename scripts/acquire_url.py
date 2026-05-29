@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
-"""Bootstrap an ECP engagement folder for URL analysis (canonical acquirer).
+"""Acquire an ECP engagement folder for URL analysis (canonical acquirer).
 
-NOTE on the name: "cursor" is historical. This is the **canonical deterministic
-acquirer for the Claude Code runtime too** -- the `/ecp:audit` acquirer subagent
-runs this script (see `skills/audit/SKILL.md` § "Dispatch Shape" and
-`workflows/acquire.md`). The Cursor-flavored filename generalized post-migration;
-do not read it as Cursor-only. The frozen Cursor *agent prompts* live in
-`archive/cursor-agents/` (product.md §5/§8) and are unrelated to this module.
+This is the canonical deterministic acquirer for the Claude `/ecp:audit` path:
+the acquirer subagent runs this script (see `skills/audit/SKILL.md`
+§ "Dispatch Shape" and `workflows/acquire.md`).
 
 Implements a report-compatible subset of `workflows/acquire.md`:
 - resolves `agent-browser` in a Windows-friendly way (`shutil.which`)
@@ -25,11 +22,11 @@ slugs use `ecp_section_hints.py` (headings + keyword map). Some acquire steps (t
 named sessions, human section naming) remain Claude-side; URL evidence is still report-compatible.
 
 Examples:
-  python scripts/cursor_bootstrap_url.py --url "https://example.com"
-  python scripts/cursor_bootstrap_url.py --url "https://example.com" --hybrid
-  python scripts/cursor_bootstrap_url.py --url "https://example.com" --device laptop
-  python scripts/cursor_bootstrap_url.py --url "https://example.com" --both
-  python scripts/cursor_bootstrap_url.py --url "https://example.com" --devices desktop,mobile --goto-timeout 45
+  python scripts/acquire_url.py --url "https://example.com"
+  python scripts/acquire_url.py --url "https://example.com" --hybrid
+  python scripts/acquire_url.py --url "https://example.com" --device laptop
+  python scripts/acquire_url.py --url "https://example.com" --both
+  python scripts/acquire_url.py --url "https://example.com" --devices desktop,mobile --goto-timeout 45
 """
 
 from __future__ import annotations
@@ -1363,7 +1360,7 @@ def main() -> int:
                 ]
             )
         lines.append(
-            "This folder was created by `scripts/cursor_bootstrap_url.py` for Cursor URL workflows. "
+            "This folder was created by `scripts/acquire_url.py` for the ECP URL acquire pipeline. "
             "Run the visual report per device using the matching baton file."
         )
         lines.append("")
@@ -1383,7 +1380,7 @@ def main() -> int:
                     f"- Capture mode: {'hybrid-recovery' if r0.recovery_pass else 'fast-first'}",
                     f"- Page title: `{page_title or ''}`",
                     "",
-                    "This folder was created by `scripts/cursor_bootstrap_url.py` for Cursor URL workflows.",
+                    "This folder was created by `scripts/acquire_url.py` for the ECP URL acquire pipeline.",
                     "Next: write `quick-scan.md` or `audit.md` findings, then run the visual report wrapper if needed.",
                     "",
                 ]
