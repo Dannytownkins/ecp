@@ -279,6 +279,69 @@ rest, verified against current `HEAD`:
 
 ---
 
+## Tooling + reflection canary (2026-05-29 session 8)
+
+### G25 · P1 · ✓ DONE (`26db34c`) · `reflection_state` machine (G23) had no consumer-side staleness gate
+- **Spec:** §0 — *"never untraceable, never silently misleading."* G23 added the
+  `reflection_state: draft|complete` machine and the `--mark-reflection-complete`
+  attestation verb, but nothing *reads* the field at audit completion. A lead who
+  skips the attestation leaves a stale `lead-reflection.md` with no automated flag —
+  the exact `docs/ecp/2026-05-28-e4050c0e` failure mode G23 was built to prevent.
+- **Was:** `run_all_canaries` reconciled trace counters (G22+G24) but never checked
+  reflection completeness. An engagement marked `phase: complete` (or
+  `engagement_status: complete`) with `reflection_state: draft` passed every canary.
+- **Done:** `check_lead_reflection_not_stale` in `scripts/assembly/canary_checks.py`,
+  wired as the 7th `run_all_canaries` check. FAILs when the engagement is complete
+  (via `phase` OR `engagement_status`) AND `reflection_state` is *explicitly* `draft`.
+  Back-compat: an ABSENT field is pre-G23 (mirrors `test_g23`'s absent-reads-as-draft)
+  and is NOT flagged — keeps Phase-J fixtures (`phase: complete`, no `reflection_state`)
+  and the determinism gate green.
+- **Regression:** `tests/test_lead_reflection_stale_canary.py` — 9 tests
+  (skip-when-no-meta, pass on complete+complete, fail on complete+explicit-draft via
+  both completion signals, pass mid-run, pass on absent-field back-compat,
+  unreadable-meta, + `run_all_canaries` wiring). Canary-count assertions updated:
+  `test_v2_canary_checks` 6→7, `test_v2_determinism_gate` 7→8, `test_visual_quality`
+  6→7 (×2).
+
+### G26 · P2 · ✓ DONE (`d32cec2`,`0c69dea`,`9bbe977`) · v1→v2 baton conversion was hand-copied per engagement
+- **Spec:** §0 traceability + `schema/baton-v1.json`. The v2 pipeline consumes the v2
+  baton shape; the `acquire_url.py` capture path emits a v1 shape. Recovery (running
+  the v2 pipeline on a v1 baton without re-acquiring) needs conversion — but it was
+  done by adapted-per-engagement `scripts/one_off/convert_<eng>_batons.py` copies, and
+  the only shared converter `adapt_v1_baton_to_v2.py` was self-described throwaway
+  scaffolding (nulled `page_head`, pulled sections from `cluster-context-*`).
+- **Was:** the per-engagement copies drifted and carried latent schema bugs:
+  `page_head.title: null` (schema `title` is non-nullable), `overlays_detected[].e_index:
+  None` (schema requires `^e[0-9]+$`), and all-6-clusters stamping (inert —
+  `dom_preprocess._route_clusters_for` re-routes from labels at `dom_preprocess.py:418`;
+  the baton's per-section `clusters` are advisory, never consulted downstream).
+- **Done:** one tested `scripts/baton_v1_to_v2.py` — pure `convert_baton` +
+  `convert_engagement` (idempotent `.v1raw.json` backup, in-place or `--out-dir`) +
+  CLI — superseding `adapt_v1_baton_to_v2.py` (deleted; its G14 clamp guard in
+  `test_baton_rect_clamp.py` repointed to the new module). Reuses `ecp_section_hints`
+  exactly as `acquire_url.py` does, fixes the three bugs (omit `title` when empty,
+  `overlays_detected: []`, injectable `captured_at`), emits canonical `screenshot_ref`.
+  Validated read-only against the real `2026-05-29-3e7bd452` v1raw→v2 pair (0 schema
+  errors; elements/sections/page_head/page_height match the engagement output).
+- **Regression:** `tests/test_baton_v1_to_v2.py` — 31 tests (schema validity, e_index,
+  G14 clamp, disjoint sections, `screenshot_ref` regex, title-omit, cluster
+  preserve-vs-enrich, `page_head` parse, `engagement_id` validation, `.v1raw` backup
+  idempotency, missing-device skip, missing-screenshot warn, CLI).
+
+### G27 · P1 · ✓ DONE (`90030d0`) · `acquire_url.py` element-extraction eval threw SyntaxError on Windows
+- **Spec:** §0 traceability — the acquirer must extract elements or the audit can't
+  proceed; a silent per-eval crash is the untraceable-failure class.
+- **Was:** `_build_elements_js()` JS is normalized to a single line via
+  `" ".join(source.split())`. That collapse turned the two `//` line comments in the
+  contamination-guard preamble into a comment that swallowed the rest of the eval
+  payload → `SyntaxError: Unexpected end of input` on every element-extraction eval
+  (observed on Windows during the `2026-05-29-3e7bd452` audit).
+- **Done:** converted the `//` line comments to a `/* */` block comment so the guard
+  survives single-line minification. (Authored in a concurrent session; merged to main
+  this batch.)
+- **Regression:** the acquirer eval path exercises it behaviorally; `test_baton_rect_clamp.py`
+  asserts the guard's `Math.max(0, …)` clamps remain present in `acquire_url.py`.
+
 ## Observability (2026-05-28 session 6)
 
 ### G23 · P1 · ✓ DONE (this branch) · `lead-reflection.md` was written prematurely and never updated — state machine now mirrors G8

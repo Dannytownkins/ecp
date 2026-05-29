@@ -4,6 +4,54 @@ This repo begins at **1.0.0** as a clean prune-and-re-root. Governance and scope
 defined by `product.md`; spec-level changes are logged in its §10 Spec Change Log.
 The full pre-1.0 history lives in the archived `ecommerce-conversion-psychology` repo.
 
+## Post-1.0.0 conformance — 2026-05-29 (session 8)
+
+Roadmap continuation off the 2026-05-28 Cursor-migration handoff: repo hygiene, a
+durable v1→v2 baton converter retiring the per-engagement scratch class, a
+consumer-side reflection-staleness canary completing G23, and a concurrent-session
+acquirer SyntaxError fix — all on `main`, both runners green (852 passed / 554 ran).
+
+- **G27** (`90030d0`): `acquire_url.py` element-extraction eval threw
+  `SyntaxError: Unexpected end of input` on Windows. `_build_elements_js()` is
+  normalized to a single line via `" ".join(source.split())`, so the two `//`
+  line comments in the contamination-guard preamble swallowed the rest of the
+  eval payload. Converted to a `/* */` block comment so the guard survives
+  single-line minification. Authored in a concurrent window during the
+  2026-05-29 slingmods audit (engagement `2026-05-29-3e7bd452`), merged to main
+  this batch.
+
+- **G26** (`d32cec2`, `0c69dea`, `9bbe977`): durable v1→v2 baton converter
+  `scripts/baton_v1_to_v2.py` (pure `convert_baton` + `convert_engagement` +
+  CLI), superseding the throwaway `adapt_v1_baton_to_v2.py` (deleted; its G14
+  rect-clamp source guard in `test_baton_rect_clamp.py` repointed) and the
+  adapted-per-engagement `scripts/one_off/convert_<eng>_batons.py` copies. Reuses
+  `ecp_section_hints` exactly as `acquire_url.py` does (labels + cluster routing);
+  fixes three latent prototype bugs — null `page_head.title` (schema title is
+  non-nullable, now omitted), `overlays_detected[].e_index=None` (schema requires
+  `^e[0-9]+$`, now `[]`), and non-deterministic `captured_at` (now an injectable
+  param) — and drops the inert all-6-clusters stamp (`dom_preprocess._route_clusters_for`
+  re-routes from labels; baton clusters are advisory). Non-destructive: idempotent
+  `baton{,-mobile}.v1raw.json` backup, converts from the immutable raw. 31 tests;
+  validated read-only against the real `2026-05-29-3e7bd452` v1raw→v2 pair (0 schema
+  errors; elements/sections/page_head/page_height match). Design spec: `f77cea4`.
+
+- **G25** (`26db34c`): `check_lead_reflection_not_stale` — the consumer-side gate
+  G23 lacked. Wired as the 7th `run_all_canaries` check; FAILs when an engagement
+  is complete (`phase: complete` OR `engagement_status: complete`) but
+  `reflection_state` is *explicitly* `draft` (lead skipped
+  `--mark-reflection-complete`). An ABSENT field is pre-G23 back-compat (mirrors
+  `test_g23`'s absent-reads-as-draft) and is NOT flagged — keeping Phase-J fixtures
+  (`phase: complete`, no `reflection_state`) and the determinism gate green. 9 tests
+  in `tests/test_lead_reflection_stale_canary.py`; updated the canary-count
+  assertions the 7th canary touched (`test_v2_canary_checks` 6→7,
+  `test_v2_determinism_gate` 7→8, `test_visual_quality` 6→7 ×2).
+
+- **Hygiene** (`e08ea70`): removed the misnamed 2MB `--quality` PNG (an
+  agent-browser `screenshot --quality` flag mis-parse that wrote a screenshot to
+  the repo root), hardened the root stray-output gitignore guard with `/--*`, and
+  gitignored the per-engagement baton converter/trimmer scratch
+  (`scripts/{convert,trim}_*.py`, `scripts/one_off/convert_*_batons.py`).
+
 ## Post-1.0.0 conformance — 2026-05-28 (session 7)
 
 - **G21** (this commit): frozen Cursor agents no longer leak into Claude Code's
