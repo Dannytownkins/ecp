@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Bootstrap a Cursor ECP engagement folder for URL analysis.
+"""Bootstrap an ECP engagement folder for URL analysis (canonical acquirer).
+
+NOTE on the name: "cursor" is historical. This is the **canonical deterministic
+acquirer for the Claude Code runtime too** -- the `/ecp:audit` acquirer subagent
+runs this script (see `skills/audit/SKILL.md` § "Dispatch Shape" and
+`workflows/acquire.md`). The Cursor-flavored filename generalized post-migration;
+do not read it as Cursor-only. The frozen Cursor *agent prompts* live in
+`archive/cursor-agents/` (product.md §5/§8) and are unrelated to this module.
 
 Implements a report-compatible subset of `workflows/acquire.md`:
 - resolves `agent-browser` in a Windows-friendly way (`shutil.which`)

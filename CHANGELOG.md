@@ -4,6 +4,30 @@ This repo begins at **1.0.0** as a clean prune-and-re-root. Governance and scope
 defined by `product.md`; spec-level changes are logged in its §10 Spec Change Log.
 The full pre-1.0 history lives in the archived `ecommerce-conversion-psychology` repo.
 
+## Post-1.0.0 conformance — 2026-05-28 (session 7)
+
+- **G21** (this commit): frozen Cursor agents no longer leak into Claude Code's
+  Agent auto-discovery. The five `ecp-*.md` Cursor subagent prompts
+  (`ecp-acquisition`, `ecp-cluster-auditor`, `ecp-orchestrator`, `ecp-reviewer`,
+  `ecp-synthesizer`) lived in the repo-root `agents/` directory, which Claude Code
+  lists as selectable subagent types. No canonical `skills/`/`contracts/`/`workflows/`
+  file wires them in, but in engagement `docs/ecp/2026-05-28-e4050c0e` the audit lead
+  surfaced *"Delegate to ecp-orchestrator (Recommended)"* — a phantom delegation path
+  inferred from the file's presence, not the spec. `product.md` §5/§8 freeze the Cursor
+  runtime as "archived, not shipped … re-portable from the archive." `git mv agents/*.md
+  archive/cursor-agents/` makes reality match the spec: out of discovery scope, history
+  preserved, still re-portable. Added `archive/cursor-agents/README.md` (freeze rationale
+  + un-freeze recipe), a top-of-docstring note on `scripts/cursor_bootstrap_url.py`
+  clarifying it is the canonical acquirer for the Claude runtime (Cursor-flavored name is
+  historical), and an explicit note in `skills/audit/SKILL.md` § "Dispatch Shape" that the
+  lead dispatches to inline subagent contracts and NEVER to an `ecp-*` agent file.
+  Fourth instance of the "freeze-as-invariant fails in practice" pattern (G16, G17,
+  G22+G24). Non-existence regression guard in
+  `tests/test_g21_cursor_agents_not_discoverable.py` (mirrors G17's `test_old_constant_is_gone`):
+  fails if a discoverable `agents/ecp-*.md` is re-introduced, and fails if the archived
+  copies are deleted. Both runners green: `pytest tests/` 779 passed / 13 skipped /
+  47 subtests; `python -m unittest discover -s tests` 514 ran / 1 skipped.
+
 ## Post-1.0.0 conformance — 2026-05-28 (session 6)
 
 Engagement `docs/ecp/2026-05-28-e4050c0e` (a clean six-cluster slingmods run)

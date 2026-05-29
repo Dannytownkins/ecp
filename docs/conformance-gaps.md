@@ -354,6 +354,34 @@ rest, verified against current `HEAD`:
   are two distinct observability surfaces; G24 closes the counter surface, G23
   (next commit) closes the reflection surface.
 
+### G21 · P1 · ✓ DONE (this branch, session 7) · Frozen Cursor agents leaked into Claude Code Agent discovery
+- **Spec:** §5 (Frozen Scope) + §8 — *"Codex (and Cursor) are archived, not shipped …
+  re-portable from the archive if ever wanted, but not part of the canonical product."*
+  Frozen scope unfreezes ONLY via a §10 Spec Change Log entry, never implicitly.
+- **Was:** the five Cursor subagent prompts (`ecp-acquisition`, `ecp-cluster-auditor`,
+  `ecp-orchestrator`, `ecp-reviewer`, `ecp-synthesizer`) lived in the repo-root
+  `agents/` directory. Claude Code auto-discovers `agents/*.md` as selectable
+  subagent types. No `skills/`, `contracts/`, or `workflows/` file wires them in —
+  yet in engagement `docs/ecp/2026-05-28-e4050c0e` the audit lead surfaced
+  *"Delegate to ecp-orchestrator (Recommended)"* as a dispatch option, inferring a
+  delegation path from the file's **presence**, not from the spec. The "orchestrator"
+  role was always just the audit lead under a Cursor-flavored name; reading the name
+  literally created a phantom delegation target. This is the **fourth instance of the
+  "freeze-as-invariant fails in practice" pattern** (alongside G16, G17, G22+G24):
+  a concept frozen in docs but left on a discoverable surface stays operationally live.
+- **Done:** `git mv agents/*.md archive/cursor-agents/` (history preserved) removes the
+  files from Claude Code's `agents/` auto-discovery while keeping them re-portable per §8.
+  `archive/cursor-agents/README.md` records the freeze rationale + the un-freeze recipe
+  (§10 entry → re-prove §7 conformance → relocate back). `scripts/cursor_bootstrap_url.py`
+  gains a top-of-docstring note clarifying it is the **canonical acquirer for the Claude
+  runtime too** (the Cursor-flavored filename generalized post-migration). `skills/audit/
+  SKILL.md` § "Dispatch Shape" now states explicitly that all dispatch targets the inline
+  subagent contracts and the lead NEVER delegates to an `ecp-*` agent file.
+- **Regression:** `tests/test_g21_cursor_agents_not_discoverable.py` — a non-existence
+  guard (mirrors G17's `test_old_constant_is_gone`): fails if any discoverable
+  `agents/ecp-*.md` is re-introduced AND fails if the archived copies are deleted
+  (which would break the §8 re-portability the relocation preserves).
+
 ## Concurrent-audit robustness (2026-05-27 session 5)
 
 ### G20 · P3 · ✓ DONE (this branch) · `element_index_match_rate` canary produced impossible rate > 1.0
