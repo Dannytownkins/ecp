@@ -9,7 +9,7 @@ extraction/build site rather than relaxing the schema.
 Sites covered (browser-free):
   - acquirer path: `_dpr_scale_element_css_to_phys` (behavioral)
   - acquirer path JS + Claude acquirer JS: `Math.max(0, ...)` in the extraction
-  - v1->v2 adapter: `max(0.0, ...)` in the rect builder
+  - v1->v2 converter: `max(0.0, ...)` in the rect builder (baton_v1_to_v2.py)
 """
 import sys
 import unittest
@@ -50,9 +50,12 @@ class TestExtractionJsClamps(unittest.TestCase):
         self.assertIn("Math.max(0, Math.round(r.top + scrollY))", src)
 
 
-class TestAdapterClamps(unittest.TestCase):
-    def test_v1_to_v2_adapter_clamps_rect(self):
-        src = (REPO / "scripts" / "adapt_v1_baton_to_v2.py").read_text(encoding="utf-8")
+class TestConverterClamps(unittest.TestCase):
+    def test_v1_to_v2_converter_clamps_rect(self):
+        # Source-level guard on the durable converter that superseded
+        # adapt_v1_baton_to_v2.py. Behavioral coverage of the same invariant
+        # lives in tests/test_baton_v1_to_v2.py::TestElements.
+        src = (REPO / "scripts" / "baton_v1_to_v2.py").read_text(encoding="utf-8")
         self.assertIn('max(0.0, float(el.get("x", 0)))', src)
         self.assertIn('max(0.0, float(el.get("y", 0)))', src)
 
