@@ -104,6 +104,18 @@ Use the atomic-write pattern: write to `<filename>.tmp`, then `os.replace()` to 
 
 **No prose. No markdown code fences. No explanation. No "Here is the JSON:" preamble. No trailing commentary.** The Agent tool's response should be the JSON object only. The lead validates against `cluster-emission-v1.json` immediately on receipt; non-JSON or schema-invalid output triggers one retry with the validation error embedded.
 
+### Write scope — your emission file ONLY
+
+You create or modify **EXACTLY ONE file**: `docs/ecp/{{engagement_id}}/cluster-{{cluster}}-{{device}}.json`. You **MUST NOT** create, modify, append to, or overwrite any other file in the engagement directory. The files below are owned by other roles and are never yours to touch:
+
+- `lead-reflection.md`, `lead-state.json`, `meta.json`, `audit-trace.log`, `dispatch-manifest.json` — the **lead's** files.
+- `audit-desktop.md`, `audit-mobile.md`, `synthesizer-emission-v1.json` — the **synthesizer's** output.
+- `baton.json`, `baton-mobile.json`, `anchor-candidates-*.json` — the **acquirer's** output.
+- `ethics-findings.json` — the **ethics subagent's** emission.
+- any other `cluster-*.json` — a **peer specialist's** emission.
+
+If your analysis surfaces something about the *run itself* (an anomaly, a routing concern, a degraded input), record it in your emission's `notes[]` array — never in a lead-owned file. Writing `lead-reflection.md` (or any file above) is a file-ownership violation per [`contracts/lead-discipline.md`](lead-discipline.md): engagement `docs/ecp/2026-05-28-e4050c0e` saw a content-seo specialist write the lead's reflection prematurely, which the operator then read as an authoritative "we failed" narrative against an actually-clean deliverable. The lead's `lead_reflection_well_formed` canary flags a non-lead-shaped reflection at audit completion.
+
 ### JSON shape (cluster-emission-v1.json summary)
 
 The top-level object has these fields:
